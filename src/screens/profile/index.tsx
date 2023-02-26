@@ -1,16 +1,27 @@
-import {View, SafeAreaView, StyleSheet, Text} from 'react-native';
-import {useSelector} from 'react-redux';
+import {
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  Alert,
+  ToastAndroid,
+  ActivityIndicator,
+} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import React, {useState} from 'react';
 import config from '../../config';
 import {user} from '../../assets';
 import UserAvatar from '../../components/user/UserAvatar';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import Button from '../../components/button';
-
-let canEdit = false;
+import {updateUserDetails} from '../../request/index';
+import {updateUser} from '../../redux/actions/metaDetaActions';
 
 const Profile = () => {
+  const [showLoader, setShowLoader] = useState(false);
   const farmer = useSelector((state: any) => state.metaDataReducer);
+  const {token} = useSelector((state: any) => state.tokenReducer);
+  const dispatch = useDispatch();
   const [editable, setEditable] = useState(false);
   const [name, setName] = useState(farmer.user.name);
   const [email, setEmail] = useState(farmer.user.email);
@@ -18,9 +29,33 @@ const Profile = () => {
   const [state, setState] = useState(farmer.user.state);
   const [city, setCity] = useState(farmer.user.city);
   const [pincode, setPincode] = useState(farmer.user.pincode);
-  canEdit = editable;
+
+  const editDetailsHandler = async () => {
+    setEditable(false);
+    setShowLoader(true);
+    setEditable(false);
+    const updateData = {
+      name,
+      email,
+      address,
+      city,
+      state,
+      pincode,
+    };
+    const response = await updateUserDetails(updateData, token);
+    if (response.error) {
+      Alert.alert(config.defaultErrorMessage);
+    } else {
+      dispatch(updateUser(response?.data));
+      setShowLoader(false);
+      ToastAndroid.show('User details updated', 1);
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
+      {showLoader && (
+        <ActivityIndicator size="large" color={config.constants.primaryColor} />
+      )}
       <ScrollView style={{height: '32%'}}>
         <View style={styles.user}>
           <UserAvatar image={farmer.user.image || null} default={user.image} />
@@ -31,51 +66,57 @@ const Profile = () => {
         </View>
       </ScrollView>
       <ScrollView style={styles.details}>
-        <View style={styles.input}>
+        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
           <Text style={{color: 'black', fontWeight: 'bold'}}>Name : </Text>
           <TextInput
+            onChangeText={e => setName(e)}
             placeholder="Name"
             editable={editable}
             value={name}
             style={{color: 'black'}}
           />
         </View>
-        <View style={styles.input}>
+        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
           <Text style={{color: 'black', fontWeight: 'bold'}}>Email : </Text>
           <TextInput
+            onChangeText={e => setEmail(e)}
             editable={editable}
             value={email}
             style={{color: 'black'}}
           />
         </View>
-        <View style={styles.input}>
+        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
           <Text style={{color: 'black', fontWeight: 'bold'}}>Adddress : </Text>
           <TextInput
+            onChangeText={e => setAddress(e)}
             multiline={true}
             editable={editable}
             value={address}
             style={{color: 'black', width: '80%'}}
           />
         </View>
-        <View style={styles.input}>
+        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
           <Text style={{color: 'black', fontWeight: 'bold'}}>State : </Text>
           <TextInput
+            onChangeText={e => setState(e)}
             editable={editable}
             value={state}
             style={{color: 'black'}}
           />
         </View>
-        <View style={styles.input}>
+        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
           <Text style={{color: 'black', fontWeight: 'bold'}}>City : </Text>
           <TextInput
+            onChangeText={e => setCity(e)}
             editable={editable}
             value={city}
             style={{color: 'black'}}
           />
         </View>
-        <View style={styles.input}>
+        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
           <Text style={{color: 'black', fontWeight: 'bold'}}>Pincode : </Text>
           <TextInput
+            onChangeText={e => setPincode(e)}
             editable={editable}
             value={pincode}
             style={{color: 'black'}}
@@ -85,7 +126,7 @@ const Profile = () => {
       {!editable ? (
         <Button label="Edit" onPress={() => setEditable(true)} />
       ) : (
-        <Button label="Submit" />
+        <Button label="Submit" onPress={editDetailsHandler} />
       )}
     </SafeAreaView>
   );
@@ -125,7 +166,6 @@ const styles = StyleSheet.create({
     borderColor: config.constants.borderColor,
     marginTop: 10,
     marginLeft: 10,
-    opacity: canEdit ? 1 : .5,
   },
 });
 
