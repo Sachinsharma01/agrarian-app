@@ -15,3 +15,10 @@ export const menu: data = {
 export const user: data = {
   image: require('../assets/images/user-profile.jpg')
 }
+
+export const camera: data = {
+  image: require('../assets/modals/camera.png')
+}
+export const gallery: data = {
+  image: require('../assets/modals/image.jpg')
+}

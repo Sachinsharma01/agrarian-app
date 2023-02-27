@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "757417513256",
+    "project_id": "agrarian-app",
+    "storage_bucket": "agrarian-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757417513256:android:b4ceb3a8ee29511af4401d",
+        "android_client_info": {
+          "package_name": "com.agrarian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757417513256-4edp81vee2hhd8pn2r3vuqad96t5b59c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFwKdTLArTtGww85wNcYtNCOgjRTnUERg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757417513256-4edp81vee2hhd8pn2r3vuqad96t5b59c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757417513256:android:e464a9d99e259d0af4401d",
+        "android_client_info": {
+          "package_name": "com.agrarian.agrarian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757417513256-4edp81vee2hhd8pn2r3vuqad96t5b59c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFwKdTLArTtGww85wNcYtNCOgjRTnUERg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757417513256-4edp81vee2hhd8pn2r3vuqad96t5b59c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
