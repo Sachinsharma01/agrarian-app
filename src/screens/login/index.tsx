@@ -16,8 +16,10 @@ import config from '../../config';
 import LoginSvg from '../../assets/screens/login.svg';
 import {getOTP} from '../../request';
 import {updateNumber} from '../../redux/actions/phoneNumberActions';
+import { useTranslation } from 'react-i18next';
 
 const Login = ({navigation}: any) => {
+  const {t, i18n} = useTranslation();
   const [phone, setPhone]: any = useState('');
   const [showLoader, setShowLoader] = useState(false)
   const dispatch = useDispatch();
@@ -77,7 +79,7 @@ const Login = ({navigation}: any) => {
               fontSize: 16,
               color: '#fff',
             }}>
-            Login
+            {t('Login')}
           </Text>
         </TouchableOpacity>
       </View>

@@ -10,8 +10,10 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
 import {logo} from '../../assets'
+import { useTranslation } from 'react-i18next';
 
 const Welcome = ({navigation}: any) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageView}>
@@ -20,7 +22,7 @@ const Welcome = ({navigation}: any) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.buttonText}>Let's Begin</Text>
+        <Text style={styles.buttonText}>{t("Let's Begin")}</Text>
         <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
       </TouchableOpacity>
     </SafeAreaView>
