@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -32,7 +26,13 @@ const CustomDrawer = (props: any) => {
           backgroundColor: config.constants.primaryColor,
         }}>
         <ImageBackground source={menu.image} style={{padding: 20}}>
-          <UserAvatar height={80} width={80} border={40} default={user.image} image={farmer.user.image || null} />
+          <UserAvatar
+            height={80}
+            width={80}
+            border={40}
+            default={user.image}
+            image={farmer?.user?.image || null}
+          />
           <Text
             style={{
               color: '#fff',
@@ -40,7 +40,7 @@ const CustomDrawer = (props: any) => {
               fontFamily: 'Roboto-Medium',
               marginBottom: 5,
             }}>
-            {farmer.user.name || 'Farmer'}
+            {farmer?.user?.name || 'Farmer'}
           </Text>
         </ImageBackground>
         <View style={{flex: 1, backgroundColor: '#fff', paddingTop: 10}}>

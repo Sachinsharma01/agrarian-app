@@ -58,7 +58,7 @@ const OTP = ({navigation}: any) => {
           onChangeText={e => setOtp(e)}
         />
       </View>
-      <Text style={{marginTop: 10}}>An OTP is sent to your mobile number.</Text>
+      <Text style={{marginTop: 10}}>An OTP is sent to {phone}</Text>
       <View style={{width: '50%', marginTop: 30}}>
         <TouchableOpacity
           onPress={clickHandler}
@@ -100,14 +100,12 @@ const styles = StyleSheet.create({
     borderColor: config.constants.borderColor,
   },
   imageView: {
-    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   otpInput: {
     color: 'black',
     textAlign: 'center',
-    // alignSelf: 'center',
     letterSpacing: 20,
     width: '100%',
   },

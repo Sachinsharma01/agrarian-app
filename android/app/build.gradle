@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -154,6 +155,8 @@ dependencies {
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-safe-area-context')
     implementation project(':react-native-screens')
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation "com.google.firebase:firebase-auth:{{ android.firebase.auth }}"
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 

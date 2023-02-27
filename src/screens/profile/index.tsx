@@ -6,9 +6,12 @@ import {
   Alert,
   ToastAndroid,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import config from '../../config';
 import {user} from '../../assets';
 import UserAvatar from '../../components/user/UserAvatar';
@@ -16,25 +19,29 @@ import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import Button from '../../components/button';
 import {updateUserDetails} from '../../request/index';
 import {updateUser} from '../../redux/actions/metaDetaActions';
+import {ImagePickerModal} from '../../modals/ImagePickerModal';
+import upload from '../../utils/upload';
 
 const Profile = () => {
   const [showLoader, setShowLoader] = useState(false);
   const farmer = useSelector((state: any) => state.metaDataReducer);
   const {token} = useSelector((state: any) => state.tokenReducer);
   const dispatch = useDispatch();
+  const [pickerResponse, setPickerResponse]: any = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [editable, setEditable] = useState(false);
-  const [name, setName] = useState(farmer.user.name);
-  const [email, setEmail] = useState(farmer.user.email);
-  const [address, setAddress] = useState(farmer.user.address);
-  const [state, setState] = useState(farmer.user.state);
-  const [city, setCity] = useState(farmer.user.city);
-  const [pincode, setPincode] = useState(farmer.user.pincode);
+  const [name, setName] = useState(farmer?.user?.name);
+  const [email, setEmail] = useState(farmer?.user?.email);
+  const [address, setAddress] = useState(farmer?.user?.address);
+  const [state, setState] = useState(farmer?.user?.state);
+  const [city, setCity] = useState(farmer?.user?.city);
+  const [pincode, setPincode] = useState(farmer?.user?.pincode);
 
   const editDetailsHandler = async () => {
     setEditable(false);
     setShowLoader(true);
     setEditable(false);
-    const updateData = {
+    const updateData: any = {
       name,
       email,
       address,
@@ -42,6 +49,11 @@ const Profile = () => {
       state,
       pincode,
     };
+    if (pickerResponse !== null) {
+      const fileUrl = await upload(pickerResponse);
+      console.log('fileUrlll', fileUrl);
+      updateData.image = fileUrl;
+    }
     const response = await updateUserDetails(updateData, token);
     if (response.error) {
       Alert.alert(config.defaultErrorMessage);
@@ -49,28 +61,63 @@ const Profile = () => {
       dispatch(updateUser(response?.data));
       setShowLoader(false);
       ToastAndroid.show('User details updated', 1);
+      setPickerResponse(null);
     }
   };
+  const onImageLibraryPress = useCallback(async () => {
+    const options: any = {
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: false,
+    };
+    await launchImageLibrary(options, (response: any) =>
+      setPickerResponse(response?.assets && response?.assets[0]?.uri),
+    );
+    setShowModal(false);
+  }, []);
+  const onCameraPress = useCallback(async () => {
+    const options: any = {
+      saveToPhotos: true,
+      mediaType: 'photo',
+      includeBase64: false,
+    };
+    await launchCamera(options, (response: any) =>
+      setPickerResponse(response?.assets && response?.assets[0]?.uri),
+    );
+    setShowModal(false);
+  }, []);
+  console.log('picker@@@@@@@@@@@', pickerResponse);
   return (
     <SafeAreaView style={styles.main}>
       {showLoader && (
         <ActivityIndicator size="large" color={config.constants.primaryColor} />
       )}
+      <ImagePickerModal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+        onImageLibraryPress={onImageLibraryPress}
+        onCameraPress={onCameraPress}
+      />
       <ScrollView style={{height: '32%'}}>
         <View style={styles.user}>
           <UserAvatar image={farmer.user.image || null} default={user.image} />
+          {editable && (
+            <TouchableOpacity onPress={() => setShowModal(true)}>
+              <MaterialIcon name="edit" color="#000" size={28} />
+            </TouchableOpacity>
+          )}
           <Text style={styles.userName}>{farmer.user.name || 'Farmer'}</Text>
           <Text style={styles.userName}>
             Member since {farmer.user.createdAt.split('T')[0]}
           </Text>
         </View>
+        <View style={{height: 10}}></View>
       </ScrollView>
       <ScrollView style={styles.details}>
         <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
           <Text style={{color: 'black', fontWeight: 'bold'}}>Name : </Text>
           <TextInput
             onChangeText={e => setName(e)}
-            placeholder="Name"
             editable={editable}
             value={name}
             style={{color: 'black'}}
