@@ -4,7 +4,7 @@ export default {
   constants: {
     primaryColor: '#01423A',
     borderColor: '#01423A',
-    secondaryColor: '#EDC126'
+    secondaryColor: '#EDC126',
   },
   defaultErrorMessage: 'Someting Went Wrong!. Please try again later',
   actionTypes: {
@@ -13,6 +13,7 @@ export default {
     GET_USER: 'GET_USER',
     REMOVE_USER: 'REMOVE_USER',
     UPDATE_PHONE_NUMBER: 'UPDATE_PHONE_NUMBER',
-    REMOVE_PHONE_NUMER: 'REMOVE_PHONE_NUMER'
+    REMOVE_PHONE_NUMER: 'REMOVE_PHONE_NUMER',
   },
+  websiteURL: 'https://agrarianthetrustforgrowth.com/about',
 };

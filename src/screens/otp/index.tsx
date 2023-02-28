@@ -58,7 +58,7 @@ const OTP = ({navigation}: any) => {
           onChangeText={e => setOtp(e)}
         />
       </View>
-      <Text style={{marginTop: 10}}>An OTP is sent to {phone}</Text>
+      <Text style={{marginTop: 10, color: '#000'}}>An OTP is sent to {phone}</Text>
       <View style={{width: '50%', marginTop: 30}}>
         <TouchableOpacity
           onPress={clickHandler}

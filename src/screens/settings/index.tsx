@@ -46,7 +46,7 @@ const Settings = ({navigation}: any) => {
       <View style={styles.wrapper}>
         <TouchableOpacity
           onPress={() =>
-            Linking.openURL('https://agrarianthetrustforgrowth.com/about')
+            Linking.openURL(config.websiteURL)
           }
           style={styles.signout}>
           <Text style={{fontWeight: 'bold'}}>About</Text>
