@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,11 +9,18 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
-import {logo} from '../../assets'
-import { useTranslation } from 'react-i18next';
+import {logo} from '../../assets';
+import {useTranslation} from 'react-i18next';
 
 const Welcome = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
+
+  const [currentLanguage, setLanguage] = useState('en');
+  const changeLanguageHandler = async (value:string) => {
+    setLanguage(value);
+    await i18n.changeLanguage(value)
+    navigation.navigate('Login');
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageView}>
@@ -21,8 +28,12 @@ const Welcome = ({navigation}: any) => {
       </View>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.buttonText}>{t("Let's Begin")}</Text>
+        onPress={() => changeLanguageHandler('en')}>
+        <Text style={styles.buttonText}>English</Text>
+        <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => changeLanguageHandler('hi')}>
+        <Text style={styles.buttonText}>{t('Hindi')}</Text>
         <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
       </TouchableOpacity>
     </SafeAreaView>

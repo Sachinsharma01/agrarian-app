@@ -1,6 +1,7 @@
 {
     "translation": {
-        "Login": "नमस्ते",
-        "Let's Begin": "हिंदी का चयन करें"
+        "Login" : "लॉग इन करें",
+        "Hindi": "हिंदी",
+        "Enter Phone Number" : "फोन नंबर दर्ज"
     }
 }

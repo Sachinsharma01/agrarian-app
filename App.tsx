@@ -17,9 +17,6 @@ import i18next from 'i18next';
 // clickHandler();
 
 function App(): JSX.Element {
-  const {t, i18n} = useTranslation();
-
-  const [currentLanguage, setLanguage] = useState('hi');
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
