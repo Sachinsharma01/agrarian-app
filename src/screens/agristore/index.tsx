@@ -4,9 +4,9 @@ import React from 'react'
 const AgriStore = () => {
   return (
     <View>
-      <Text>AgriStore</Text>
+      <Text style={{color: '#000'}}>AgriStore</Text>
     </View>
-  )
+  );
 }
 
 export default AgriStore

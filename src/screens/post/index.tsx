@@ -9,7 +9,7 @@ import config from '../../config';
 import { posts } from '../../data';
 
 const PostScreen = ({navigation}:any) => {
-  navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+  // navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
   const [props, setProps] = useState({
     title: 'Test post please ignore',
     image:

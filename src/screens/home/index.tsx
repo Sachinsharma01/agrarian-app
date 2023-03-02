@@ -20,7 +20,7 @@ const Home = () => {
   }
   return (
     <SafeAreaView style={styles.main}>
-      <Text>Home</Text>
+      <Text style={{color: '#000'}}>Home</Text>
     </SafeAreaView>
   );
 };
