@@ -6,6 +6,7 @@ import UserAvatar from '../user/UserAvatar';
 import config from '../../config';
 
 const Post = (props: any) => {
+  console.log()
   return (
     <View style={styles.post}>
       <View style={styles.innerPost}>
@@ -26,7 +27,7 @@ const Post = (props: any) => {
       {props.image && (
         <View style={styles.imageContainer}>
           <Image
-            source={{uri: props.image}}
+            source={props.image ? {uri: props.image} : props.default}
             style={styles.image}
             resizeMode="contain"
           />

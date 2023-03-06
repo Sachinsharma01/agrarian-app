@@ -7,7 +7,7 @@ const Stack = createNativeStackNavigator();
 
 const PostStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{}}>
       <Stack.Screen
         name="Kisan Vedika"
         component={KisanVedika}
@@ -16,7 +16,7 @@ const PostStack = () => {
       <Stack.Screen
         name="PostScreen"
         component={PostScreen}
-        options={{headerShown: false}}
+        options={{headerTitle: 'Post'}}
       />
     </Stack.Navigator>
   );

@@ -71,3 +71,18 @@ export const updateUserDetails = async (input: any, token: string) => {
     Alert.alert(config.defaultErrorMessage);
   }
 };
+
+export const getAllPosts = async (token: string) => {
+  try {
+    const res = await axiosInstance.get('/post/', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.data;
+    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data)
+    return data.data;
+  } catch (err) {
+    Alert.alert(config.defaultErrorMessage);
+  }
+};

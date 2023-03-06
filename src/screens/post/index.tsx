@@ -8,7 +8,7 @@ import Post from '../../components/post';
 import config from '../../config';
 import { posts } from '../../data';
 
-const PostScreen = ({navigation}:any) => {
+const PostScreen = ({route, navigation}:any) => {
   // navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
   const [props, setProps] = useState({
     title: 'Test post please ignore',
@@ -23,7 +23,8 @@ const PostScreen = ({navigation}:any) => {
     name: 'Sachin Sharma',
     state: 'Uttar Pradesh',
   });
-  console.log('rsetdfyghuigyftrdeswetfygu');
+  const {postId} = route.params;
+  console.log('rsetdfyghuigyftrdeswetfygu', postId);
   return (
     <View>
       <View style={styles.post}>

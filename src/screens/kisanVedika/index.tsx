@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -6,13 +6,25 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ScrollView} from 'react-native-gesture-handler';
 import config from '../../config';
 import {posts} from '../../data';
 import Post from '../../components/post';
+import {getAllPosts} from '../../request/index';
+import { user } from '../../assets';
 
 const KisanVedika = ({navigation}: any) => {
+  const {token} = useSelector((state: any) => state.tokenReducer);
+  const [allPosts, setAllPosts] = useState([])
+  useEffect(() => {
+    getAllPosts(token as string).then((data: any) => {
+      setAllPosts(data)
+    });
+    ;
+  }, []);
+  console.log("pdkhfvbhfdbvfhbfv", allPosts);
   return (
     <SafeAreaView>
       <View style={styles.top}>
@@ -31,19 +43,22 @@ const KisanVedika = ({navigation}: any) => {
         </View>
       </View>
       <ScrollView style={{backgroundColor: '#e8e4e3'}}>
-        {posts.map((post, idx) => {
+        {allPosts?.map((post:any, idx) => {
           return (
             <Post
-              userImage={post.image}
-              onPostPress={() => navigation.navigate('PostScreen')}
-              image={post.image || null}
-              state='Uttar Pradesh'
-              name='Sachin Sharma'
+              userImage={post?.postedBy?.userImage || null}
+              onPostPress={() => navigation.navigate('PostScreen', {
+                postId: post?._id
+              })}
+              image={post?.image || null}
+              state={post?.state}
+              name={post?.postedBy?.name}
               title={post.title}
               likes={post.likes}
               views={post.views}
               totalAnswers={post.totalAnswers}
-              postedOn={post.postedOn}
+              postedOn={post.createdAt}
+              default={user.image}
               key={idx}
             />
           );
@@ -58,7 +73,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: '10%',
+    height: 70,
     backgroundColor: config.constants.primaryColor,
     color: '#fff',
   },
