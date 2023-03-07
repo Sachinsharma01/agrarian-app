@@ -16,7 +16,7 @@ const PostStack = () => {
       <Stack.Screen
         name="PostScreen"
         component={PostScreen}
-        options={{headerTitle: 'Post'}}
+        options={{headerTitle: 'Kisan Vedika'}}
       />
     </Stack.Navigator>
   );

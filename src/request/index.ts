@@ -86,3 +86,17 @@ export const getAllPosts = async (token: string) => {
     Alert.alert(config.defaultErrorMessage);
   }
 };
+export const getPostDetails = async (token: string, postId: string) => {
+  try {
+    const res = await axiosInstance.get(`/post/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.data;
+    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data)
+    return data.data;
+  } catch (err) {
+    Alert.alert(config.defaultErrorMessage);
+  }
+};

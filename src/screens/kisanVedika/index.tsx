@@ -10,7 +10,6 @@ import {useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ScrollView} from 'react-native-gesture-handler';
 import config from '../../config';
-import {posts} from '../../data';
 import Post from '../../components/post';
 import {getAllPosts} from '../../request/index';
 import { user } from '../../assets';
