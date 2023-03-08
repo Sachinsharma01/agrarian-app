@@ -80,7 +80,7 @@ export const getAllPosts = async (token: string) => {
       },
     });
     const data = await res.data;
-    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data)
+    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data);
     return data.data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);
@@ -94,7 +94,45 @@ export const getPostDetails = async (token: string, postId: string) => {
       },
     });
     const data = await res.data;
-    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data)
+    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data);
+    return data.data;
+  } catch (err) {
+    Alert.alert(config.defaultErrorMessage);
+  }
+};
+
+export const addComment = async (token: string, input: any) => {
+  try {
+    console.log('55555555555555555555555555555555555555', input, token);
+    const res = await axiosInstance.post(
+      '/post/addComment',
+      {
+        postId: input.postId,
+        comment: input.comment,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const data = await res.data;
+    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data);
+    return data.data;
+  } catch (err) {
+    Alert.alert(config.defaultErrorMessage);
+  }
+};
+
+export const getAllCrops = async (token: string) => {
+  try {
+    const res = await axiosInstance.get('/crops/', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.data;
+    console.log('$$$$$$$$$$$$ all crops', data);
     return data.data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);

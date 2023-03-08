@@ -14,7 +14,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import UserAvatar from '../../components/user/UserAvatar';
 import config from '../../config';
-import {getPostDetails} from '../../request/index';
+import {getPostDetails, addComment} from '../../request/index';
 import {user} from '../../assets';
 import Comment from '../../components/comment';
 import CommentSection from '../../components/comment/commentSection';
@@ -24,13 +24,27 @@ const PostScreen = ({route, navigation}: any) => {
   const {postId} = route.params;
   const {token} = useSelector((state: any) => state.tokenReducer);
   const [postDetails, setPostDetails]: any = useState({});
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     getPostDetails(token as string, postId as string).then((data: any) => {
       setPostDetails(data);
+      setComments(data?.comments?.comments);
       setLoading(false);
     });
   }, []);
+  const addCommentHandler = () => {
+    setComment('');
+    setLoading(true);
+    addComment(token, {
+      postId: postId,
+      comment: comment,
+    }).then(data => {
+      setComments(data?.comments);
+      setLoading(false);
+    });
+  };
   console.log('pdkhfvbhfdbvfhbfv', postDetails);
   console.log('rsetdfyghuigyftrdeswetfygu', postId);
   return (
@@ -91,24 +105,26 @@ const PostScreen = ({route, navigation}: any) => {
               </TouchableOpacity>
             </View>
           </View>
-          <ScrollView style={{height: '65%'}}>
-            <CommentSection onPress={() => {}} />
+          <ScrollView style={{height: '70%'}}>
+            <CommentSection
+              value={comment}
+              onPress={addCommentHandler}
+              onChange={(e: any) => setComment(e)}
+            />
             {postDetails?.comments?.comments ? (
-              postDetails?.comments?.comments?.map(
-                (comment: any, idx: number) => {
-                  return (
-                    <Comment
-                      userImage={comment?.commentedBy?.image}
-                      onPostPress={() => {}}
-                      image={comment?.image || null}
-                      name={comment.name}
-                      title={comment?.comment}
-                      postedOn={comment.commentedOn}
-                      key={idx}
-                    />
-                  );
-                },
-              )
+              comments?.map((comment: any, idx: number) => {
+                return (
+                  <Comment
+                    userImage={comment?.commentedBy?.image}
+                    onPostPress={() => {}}
+                    image={comment?.image || null}
+                    name={comment.commentedBy?.name}
+                    title={comment?.comment}
+                    postedOn={comment.commentedOn}
+                    key={idx}
+                  />
+                );
+              })
             ) : (
               <Text style={{textAlign: 'center', color: 'black'}}>
                 No comments on this post

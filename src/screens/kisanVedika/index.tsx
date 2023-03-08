@@ -6,24 +6,28 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ScrollView} from 'react-native-gesture-handler';
-import config from '../../config';
+import {getAllPosts, getAllCrops} from '../../request/index';
+import {updateCrops} from '../../redux/actions/cropActions';
 import Post from '../../components/post';
-import {getAllPosts} from '../../request/index';
-import { user } from '../../assets';
+import config from '../../config';
+import {user} from '../../assets';
 
 const KisanVedika = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
-  const [allPosts, setAllPosts] = useState([])
+  const dispatch = useDispatch();
+  const [allPosts, setAllPosts] = useState([]);
   useEffect(() => {
     getAllPosts(token as string).then((data: any) => {
-      setAllPosts(data)
+      setAllPosts(data);
     });
-    ;
+    getAllCrops(token as string).then((data: any) => {
+      dispatch(updateCrops(data));
+    });
   }, []);
-  console.log("pdkhfvbhfdbvfhbfv", allPosts);
+  console.log('pdkhfvbhfdbvfhbfv', allPosts);
   return (
     <SafeAreaView>
       <View style={styles.top}>
@@ -40,19 +44,36 @@ const KisanVedika = ({navigation}: any) => {
             Kisan Vedika
           </Text>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('createPost');
+          }}
+          style={{
+            height: 50,
+            width: 50,
+            borderRadius: 50,
+            position: 'absolute',
+            right: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Ionicons name="pencil-sharp" size={25} color="yellow" />
+        </TouchableOpacity>
       </View>
-      <ScrollView style={{backgroundColor: '#e8e4e3'}}>
-        {allPosts?.map((post:any, idx) => {
+      <ScrollView style={{backgroundColor: '#e8e4e3', height: '90%'}}>
+        {allPosts?.map((post: any, idx) => {
           return (
             <Post
               userImage={post?.postedBy?.userImage || null}
-              onPostPress={() => navigation.navigate('PostScreen', {
-                postId: post?._id
-              })}
+              onPostPress={() =>
+                navigation.navigate('PostScreen', {
+                  postId: post?._id,
+                })
+              }
               image={post?.image || null}
               state={post?.state}
               name={post?.postedBy?.name}
-              title={post.title}
+              title={post.description || post.title}
               likes={post.likes}
               views={post.views}
               totalAnswers={post.totalAnswers}

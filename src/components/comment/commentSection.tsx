@@ -15,6 +15,9 @@ import config from '../../config';
 
 const CommentSection = (props: any) => {
   const farmer = useSelector((state: any) => state.metaDataReducer);
+  const changeHandler = (e: any) => {
+    props.onChange(e);
+  };
   return (
     <View style={styles.commentSection}>
       <UserAvatar
@@ -26,10 +29,11 @@ const CommentSection = (props: any) => {
       />
       <View style={{...styles.input}}>
         <TextInput
-          onChangeText={() => {}}
+          onChangeText={changeHandler}
           style={{color: 'black'}}
           placeholder="Add Comment"
           multiline={true}
+          value={props.value}
         />
       </View>
       <TouchableOpacity onPress={props.onPress} style={{marginRight: 10}}>

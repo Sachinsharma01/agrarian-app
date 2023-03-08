@@ -14,6 +14,8 @@ export default {
     REMOVE_USER: 'REMOVE_USER',
     UPDATE_PHONE_NUMBER: 'UPDATE_PHONE_NUMBER',
     REMOVE_PHONE_NUMER: 'REMOVE_PHONE_NUMER',
+    UPDATE_CROPS: 'UPDATE_CROPS',
+    REMOVE_CROPS: 'REMOVE_CROPS',
   },
   websiteURL: 'https://agrarianthetrustforgrowth.com/about',
 };
