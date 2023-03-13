@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {ScrollView} from 'react-native-gesture-handler';
+import {RefreshControl, ScrollView} from 'react-native-gesture-handler';
 import {getAllPosts, getAllCrops} from '../../request/index';
 import {updateCrops} from '../../redux/actions/cropActions';
 import Post from '../../components/post';
@@ -18,13 +18,24 @@ import {user} from '../../assets';
 const KisanVedika = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState([]);
   useEffect(() => {
+    setLoading(true);
     getAllPosts(token as string).then((data: any) => {
       setAllPosts(data);
+      setLoading(false);
     });
     getAllCrops(token as string).then((data: any) => {
       dispatch(updateCrops(data));
+    });
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setLoading(true);
+    getAllPosts(token as string).then((data: any) => {
+      setAllPosts(data);
+      setLoading(false);
     });
   }, []);
   console.log('pdkhfvbhfdbvfhbfv', allPosts);
@@ -60,7 +71,11 @@ const KisanVedika = ({navigation}: any) => {
           <Ionicons name="pencil-sharp" size={25} color="yellow" />
         </TouchableOpacity>
       </View>
-      <ScrollView style={{backgroundColor: '#e8e4e3', height: '90%'}}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+        }
+        style={{backgroundColor: '#e8e4e3', height: '90%'}}>
         {allPosts?.map((post: any, idx) => {
           return (
             <Post

@@ -4,16 +4,43 @@ import {
   SafeAreaView,
   TextInput,
   StyleSheet,
+  ActivityIndicator,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import config from '../../config';
+import {TouchableOpacity} from 'react-native';
+import Button from '../../components/button';
+import {addPost} from '../../request';
 
 const CreatePost = ({navigation}: any) => {
+  const {token} = useSelector((state: any) => state.tokenReducer);
+  const [selectedCrop, setSelectedCrop] = useState(
+    {} as any,
+  );
+  const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+  const onCreatePostSubmitHandler = async () => {
+    setLoading(true);
+    const payload = {
+      description: description,
+      crop: {
+        cropName: selectedCrop?.name,
+        cropImage: selectedCrop?.image,
+        cropId: selectedCrop?.id,
+      },
+    };
+    console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', payload)
+    const response = await addPost(token, payload);
+    setLoading(false), navigation.goBack();
+  };
   const {crops} = useSelector((state: any) => state.cropReducer);
   return (
     <SafeAreaView>
+      {loading && (
+        <ActivityIndicator size="large" color={config.constants.primaryColor} />
+      )}
       <Text
         style={{
           color: 'black',
@@ -25,7 +52,9 @@ const CreatePost = ({navigation}: any) => {
       </Text>
       <View style={{...styles.input}}>
         <TextInput
-          onChangeText={() => {}}
+          onChangeText={e => {
+            setDescription(e);
+          }}
           style={{color: 'black', width: '100%', height: 100}}
           multiline={true}
           placeholder="Post Description."
@@ -42,11 +71,25 @@ const CreatePost = ({navigation}: any) => {
       </Text>
       {crops?.map((crop: any, idx: number) => {
         return (
-          <View>
-            <Image source={{uri: crop?.image}} />
-          </View>
+          <TouchableOpacity
+            onPress={() =>
+              setSelectedCrop({
+                name: crop.name,
+                image: crop.image,
+                id: crop._id,
+              })
+            }
+            key={idx}
+            style={{height: 100, width: 100, marginRight: 10}}>
+            <Image
+              key={idx}
+              style={{height: 100, width: 100, aspectRatio: 1}}
+              source={{uri: crop?.image}}
+            />
+          </TouchableOpacity>
         );
       })}
+      <Button label="Submit" onPress={onCreatePostSubmitHandler} />
     </SafeAreaView>
   );
 };

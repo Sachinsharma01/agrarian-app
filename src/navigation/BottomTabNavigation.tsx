@@ -35,6 +35,7 @@ const BottomTabNavigation = () => {
         tabBarActiveTintColor: 'yellow',
         tabBarInactiveTintColor: '#fff',
         tabBarShowLabel: true,
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name="Home2"

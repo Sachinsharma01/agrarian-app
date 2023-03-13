@@ -20,7 +20,7 @@ import Comment from '../../components/comment';
 import CommentSection from '../../components/comment/commentSection';
 
 const PostScreen = ({route, navigation}: any) => {
-  // navigation.getParent()?.setOptions({tabBarStyle: {display: 'none'}});
+  navigation?.setOptions({tabBarStyle: {display: 'none'}});
   const {postId} = route.params;
   const {token} = useSelector((state: any) => state.tokenReducer);
   const [postDetails, setPostDetails]: any = useState({});
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 2,
     backgroundColor: '#fff',
+    width: '100%',
   },
   innerPost: {
     margin: 10,

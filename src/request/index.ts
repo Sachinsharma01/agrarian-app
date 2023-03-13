@@ -138,3 +138,32 @@ export const getAllCrops = async (token: string) => {
     Alert.alert(config.defaultErrorMessage);
   }
 };
+
+export const addPost = async (token: string, payload: any) => {
+  try {
+    console.log('55555555555555555555555555555555555555', payload, token);
+
+    const res = await axiosInstance.post(
+      '/post/addPost',
+      {
+        description: payload.description,
+        crop: {
+          cropName: payload.crop.cropName,
+          cropImage: payload.crop.cropImage,
+          cropId: payload.crop.cropId,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    const data = await res.data;
+    console.log('$$$$$$$$$$$$ all crops', data);
+    return data.data;
+  } catch (err) {
+    // console.log('errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',err)
+    Alert.alert(config.defaultErrorMessage);
+  }
+};
