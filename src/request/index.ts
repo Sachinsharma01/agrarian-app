@@ -10,7 +10,6 @@ export const getOTP = async (phone: string) => {
       phone: String('+91'.concat(phone)),
     });
     const data = await res?.data;
-    console.log('data $$$$$$$$$', data);
     return data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);
@@ -24,7 +23,6 @@ export const verifyOTP = async (input: IVerifyotp) => {
       otp: input.otp,
     });
     const data = await res?.data;
-    console.log('data $$$$$$$$$', data);
     return data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);
@@ -44,7 +42,7 @@ export const getMetaData = async (token: string) => {
       },
     );
     const data = await res?.data;
-    console.log('data $$$$$$$$$', data);
+
     return data;
   } catch (err) {
     // Alert.alert(config.defaultErrorMessage);
@@ -65,7 +63,6 @@ export const updateUserDetails = async (input: any, token: string) => {
       },
     );
     const data = await res?.data;
-    console.log('data $$$$$$$$$', data);
     return data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);
@@ -80,7 +77,6 @@ export const getAllPosts = async (token: string) => {
       },
     });
     const data = await res.data;
-    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data);
     return data.data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);
@@ -94,7 +90,6 @@ export const getPostDetails = async (token: string, postId: string) => {
       },
     });
     const data = await res.data;
-    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data);
     return data.data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);
@@ -103,7 +98,6 @@ export const getPostDetails = async (token: string, postId: string) => {
 
 export const addComment = async (token: string, input: any) => {
   try {
-    console.log('55555555555555555555555555555555555555', input, token);
     const res = await axiosInstance.post(
       '/post/addComment',
       {
@@ -117,7 +111,6 @@ export const addComment = async (token: string, input: any) => {
       },
     );
     const data = await res.data;
-    console.log('hgvfbdjvgchbjfg hbvercwjfghbjrv', data);
     return data.data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);
@@ -132,7 +125,6 @@ export const getAllCrops = async (token: string) => {
       },
     });
     const data = await res.data;
-    console.log('$$$$$$$$$$$$ all crops', data);
     return data.data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);
@@ -141,8 +133,6 @@ export const getAllCrops = async (token: string) => {
 
 export const addPost = async (token: string, payload: any) => {
   try {
-    console.log('55555555555555555555555555555555555555', payload, token);
-
     const res = await axiosInstance.post(
       '/post/addPost',
       {
@@ -155,15 +145,36 @@ export const addPost = async (token: string, payload: any) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
+          Authorization: `Bearer ${token}`,
+        },
+      },
     );
     const data = await res.data;
-    console.log('$$$$$$$$$$$$ all crops', data);
     return data.data;
   } catch (err) {
-    // console.log('errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr',err)
     Alert.alert(config.defaultErrorMessage);
+  }
+};
+
+export const getWeather = async (location: any, token: string) => {
+  try {
+    console.log('locccccccccccccccccccccccccccccccccccccc', location);
+    const res = await axiosInstance.get(
+      '/home/weather',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          lat: location?.coords?.latitude,
+          long: location?.coords?.longitude 
+        },
+      },
+    );
+    const data = await res.data;
+    console.log('$$$$$$$$$$$$ all weather', data);
+    return data.data;
+  } catch (err) {
+    Alert.alert(config.defaultErrorMessage + ' Weather');
   }
 };

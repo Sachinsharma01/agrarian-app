@@ -1,6 +1,6 @@
 export default {
   baseURL: 'https://quiz-backend-rewamp.onrender.com/api',
-  // baseURL: 'http://localhost:9000/api',
+  // baseURL: 'http://ec2-43-204-102-117.ap-south-1.compute.amazonaws.com:9000/api',
   constants: {
     primaryColor: '#01423A',
     borderColor: '#01423A',

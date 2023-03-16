@@ -1,26 +1,107 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React, {useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import { getMetaData } from '../../request/index';
-import { updateUser } from '../../redux/actions/metaDetaActions';
+import {ScrollView} from 'react-native-gesture-handler';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {getMetaData} from '../../request/index';
+import {updateUser} from '../../redux/actions/metaDetaActions';
+import config from '../../config';
+import Weather from '../../components/weather';
 
-const Home = () => {
-  const {token} = useSelector((state:any) => state.tokenReducer)
-  const {user} = useSelector((state:any) => state.metaDataReducer)
-  const dispatch = useDispatch()
+const Home = ({navigation}: any) => {
+  const {token} = useSelector((state: any) => state.tokenReducer);
+  const {user} = useSelector((state: any) => state.metaDataReducer);
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getUser();
-  }, [])
+  }, []);
   const getUser = async () => {
-    const userData = await getMetaData(token)
-    dispatch(updateUser(userData.data))
-    
-    console.log("User details from get meta data$$$", userData);
-  }
+    setLoading(true);
+    const userData = await getMetaData(token);
+    dispatch(updateUser(userData.data));
+    setLoading(false);
+    console.log('User details from get meta data$$$', userData);
+  };
   return (
-    <SafeAreaView style={styles.main}>
-      <Text style={{color: '#000'}}>Home</Text>
+    <SafeAreaView>
+      {loading ? (
+        <ActivityIndicator size="large" color={config.constants.primaryColor} />
+      ) : (
+        <>
+          <View style={{...styles.top}}>
+            <Text
+              style={{
+                textAlign: 'center',
+                color: '#fff',
+                fontSize: 22,
+                marginLeft: 10,
+              }}>
+              Agrarian
+            </Text>
+            <Ionicons
+              onPress={() => {
+                navigation.openDrawer();
+              }}
+              name="ios-menu-outline"
+              color="#fff"
+              size={32}
+              style={{marginRight: 10}}
+            />
+          </View>
+          <ScrollView>
+            <View>
+              <View style={styles.cropSection}>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 20,
+                    color: '#000',
+                    marginLeft: 5,
+                  }}>
+                  My Crops
+                </Text>
+                <Ionicons
+                  name="add"
+                  color="red"
+                  size={30}
+                  style={{marginLeft: 10}}
+                />
+              </View>
+              <View style={styles.crops}>
+                {user?.crops?.length !== 0 ? (
+                  <></>
+                ) : (
+                  <Text
+                    style={{
+                      color: '#000',
+                      marginLeft: 5,
+                    }}>
+                    No Crops Please Add One.
+                  </Text>
+                )}
+              </View>
+            </View>
+            <Weather token={token} />
+          </ScrollView>
+          <Button
+            onPress={() => {
+              navigation.openDrawer();
+            }}
+            title="Press Me"
+          />
+        </>
+      )}
     </SafeAreaView>
   );
 };
@@ -32,5 +113,35 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  top: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 70,
+    backgroundColor: config.constants.primaryColor,
+    color: '#fff',
+  },
+  weather: {
+    height: 110,
+    // flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginHorizontal: 10,
+  },
+  cropSection: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    marginVertical: 10,
+  },
+  crops: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    height: 150,
   },
 });

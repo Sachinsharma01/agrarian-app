@@ -81,7 +81,7 @@ const PostScreen = ({route, navigation}: any) => {
               </View>
             )}
             <View style={{marginLeft: 10}}>
-              <Text style={styles.description}>{postDetails?.post?.title}</Text>
+              <Text style={styles.description}>{postDetails?.post?.title}{postDetails?.post?.description}</Text>
               <Text style={{color: '#d1cdcd'}}>
                 {`${postDetails?.post?.likes} likes`}
                 {'  |  '}
