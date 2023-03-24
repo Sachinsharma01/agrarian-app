@@ -19,6 +19,11 @@ export const user: data = {
 export const camera: data = {
   image: require('../assets/modals/camera.png')
 }
+
 export const gallery: data = {
   image: require('../assets/modals/image.jpg')
+}
+
+export const night: data = {
+  image: require('../assets/weather/night.jpeg')
 }

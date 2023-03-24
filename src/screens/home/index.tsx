@@ -71,12 +71,14 @@ const Home = ({navigation}: any) => {
                   }}>
                   My Crops
                 </Text>
-                <Ionicons
-                  name="add"
-                  color="red"
-                  size={30}
-                  style={{marginLeft: 10}}
-                />
+                <TouchableOpacity onPress={() => {}}>
+                  <Ionicons
+                    name="add"
+                    color={config.constants.primaryColor}
+                    size={30}
+                    style={{marginLeft: 10}}
+                  />
+                </TouchableOpacity>
               </View>
               <View style={styles.crops}>
                 {user?.crops?.length !== 0 ? (
@@ -92,14 +94,11 @@ const Home = ({navigation}: any) => {
                 )}
               </View>
             </View>
-            <Weather token={token} />
+            <Weather
+              onPress={() => navigation.navigate('Weather')}
+              token={token}
+            />
           </ScrollView>
-          <Button
-            onPress={() => {
-              navigation.openDrawer();
-            }}
-            title="Press Me"
-          />
         </>
       )}
     </SafeAreaView>
@@ -141,7 +140,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
     height: 150,
+    borderBottomColor: config.constants.primaryColor,
+    borderBottomWidth: 0.5,
   },
 });

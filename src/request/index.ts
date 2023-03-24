@@ -159,18 +159,15 @@ export const addPost = async (token: string, payload: any) => {
 export const getWeather = async (location: any, token: string) => {
   try {
     console.log('locccccccccccccccccccccccccccccccccccccc', location);
-    const res = await axiosInstance.get(
-      '/home/weather',
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          lat: location?.coords?.latitude,
-          long: location?.coords?.longitude 
-        },
+    const res = await axiosInstance.get('/home/weather', {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+      params: {
+        lat: location?.coords?.latitude || 28.7041,
+        long: location?.coords?.longitude || 77.1025,
+      },
+    });
     const data = await res.data;
     console.log('$$$$$$$$$$$$ all weather', data);
     return data.data;

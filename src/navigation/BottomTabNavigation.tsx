@@ -7,11 +7,8 @@ import Home from '../screens/home';
 import Settings from '../screens/settings';
 import AgriStore from '../screens/agristore';
 import config from '../config';
-import KisanVedika from '../screens/kisanVedika';
 import PostStack from './PostStack';
-import Post from '../screens/post';
-// import PostStack from './PostStack';
-// import Post from '../components/post/index';
+import Forecast from '../screens/weather';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -22,6 +19,11 @@ const HomeStack = () => {
         name="Home"
         component={Home}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Weather"
+        component={Forecast}
+        options={{headerTransparent: true, headerTintColor: '#fff'}}
       />
     </Stack.Navigator>
   );

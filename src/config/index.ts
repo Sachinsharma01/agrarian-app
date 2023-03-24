@@ -1,6 +1,6 @@
 export default {
-  baseURL: 'https://quiz-backend-rewamp.onrender.com/api',
-  // baseURL: 'http://ec2-43-204-102-117.ap-south-1.compute.amazonaws.com:9000/api',
+  // baseURL: 'https://quiz-backend-rewamp.onrender.com/api',
+  baseURL: 'http://ec2-43-204-102-117.ap-south-1.compute.amazonaws.com:9000/api',
   constants: {
     primaryColor: '#01423A',
     borderColor: '#01423A',
@@ -16,6 +16,8 @@ export default {
     REMOVE_PHONE_NUMER: 'REMOVE_PHONE_NUMER',
     UPDATE_CROPS: 'UPDATE_CROPS',
     REMOVE_CROPS: 'REMOVE_CROPS',
+    SET_LOCATION: 'SET_LOCATION',
+    REMOVE_LOCATION: 'REMOVE_LOCATION'
   },
   websiteURL: 'https://agrarianthetrustforgrowth.com/about',
 };

@@ -83,7 +83,7 @@ const CreatePost = ({navigation}: any) => {
             style={{height: 100, width: 100, marginRight: 10}}>
             <Image
               key={idx}
-              style={{height: 100, width: 100, aspectRatio: 1}}
+              style={{height: 70, width: 70, aspectRatio: 1, marginHorizontal: 5}}
               source={{uri: crop?.image}}
             />
           </TouchableOpacity>
