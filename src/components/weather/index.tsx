@@ -14,6 +14,7 @@ import FeatherIcons from 'react-native-vector-icons/Feather';
 import {getWeather} from '../../request';
 import config from '../../config';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 import {useDispatch} from 'react-redux';
 import {setUserLocation} from '../../redux/actions/locationActions';
 
@@ -46,12 +47,13 @@ const Weather = ({token, onPress}: any) => {
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState({});
   const [weather, setWeather]: any = useState({});
+  const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     requestLocationPermission();
     getLocation();
-  }, []);
+  }, [reload]);
 
   const getLocation = async () => {
     Geolocation.getCurrentPosition(
@@ -86,16 +88,26 @@ const Weather = ({token, onPress}: any) => {
         <ActivityIndicator size="large" color={config.constants.primaryColor} />
       ) : (
         <View style={styles.main}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: '#000',
-              marginTop: 10,
-              marginRight: 10,
-              marginLeft: 10,
-            }}>
-            {weather?.location?.name}
-          </Text>
+          <View style={styles.place}>
+            <Text
+              style={{
+                fontSize: 20,
+                color: '#000',
+                marginTop: 10,
+                marginRight: 10,
+                marginLeft: 10,
+              }}>
+              {weather?.location?.name}
+            </Text>
+            <TouchableOpacity onPress={() => setReload(!reload)}>
+              <Feather
+                name="refresh-cw"
+                size={22}
+                color={config.constants.primaryColor}
+                style={{marginHorizontal: 15}}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={styles.weather}>
             <View>
               <Text style={{fontSize: 20, color: '#000'}}>
@@ -131,7 +143,11 @@ const Weather = ({token, onPress}: any) => {
             }}>
             <Text style={{fontSize: 18, color: '#000'}}>Forecast</Text>
             <TouchableOpacity onPress={onPress}>
-              <Ionicons name="cloudy-outline" size={25} color={config.constants.primaryColor} />
+              <Ionicons
+                name="cloudy-outline"
+                size={25}
+                color={config.constants.primaryColor}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -145,7 +161,7 @@ const styles = StyleSheet.create({
     borderBottomColor: config.constants.primaryColor,
     width: '100%',
     borderBottomWidth: 1,
-    backgroundColor: '#dcdcdc'
+    backgroundColor: '#dcdcdc',
   },
   weather: {
     height: 110,
@@ -154,6 +170,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginHorizontal: 10,
+  },
+  place: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 

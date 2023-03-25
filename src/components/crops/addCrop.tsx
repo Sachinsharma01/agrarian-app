@@ -1,36 +1,19 @@
-import {View, Text, SafeAreaView, TextInput} from 'react-native';
+import {View, Text, SafeAreaView, TextInput, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import DatePicker from 'react-native-date-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 const AddCrop = () => {
   const [dateOpen, setDateOpen] = useState(false);
-  const [date, setDate] = useState(moment(new Date()).format('MMMM Do YYYY'));
+  const [date, setDate] = useState(dayjs(new Date()).format('MMMM DD,  YYYY'));
   const [selectedDate, setSelectedDate] = useState(new Date());
   return (
     <SafeAreaView>
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
-          width: '100%',
-        }}>
-        <TextInput
-          value={date + ''}
-          style={{
-            color: config.constants.primaryColor,
-            borderColor: config.constants.borderColor,
-            borderWidth: 0.7,
-            padding: 7,
-            margin: 10,
-            borderRadius: 6,
-            width: '80%',
-          }}
-        />
+      <View style={styles.dateWrapper}>
+        <TextInput value={date + ''} style={styles.date} />
         <TouchableOpacity onPress={() => setDateOpen(true)}>
           <Ionicons
             name="ios-calendar"
@@ -45,7 +28,7 @@ const AddCrop = () => {
           maximumDate={new Date()}
           onConfirm={date => {
             setDateOpen(false);
-            setDate(moment(date).format('MMMM Do YYYY'));
+            setDate(dayjs(date).format('MMMM DD YYYY'));
             setSelectedDate(date);
           }}
           onCancel={() => {
@@ -56,5 +39,23 @@ const AddCrop = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  dateWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+  },
+  date: {
+    color: config.constants.primaryColor,
+    borderColor: config.constants.borderColor,
+    borderWidth: 0.7,
+    padding: 7,
+    margin: 10,
+    borderRadius: 6,
+    width: '80%',
+  },
+});
 
 export default AddCrop;
