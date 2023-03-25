@@ -62,8 +62,8 @@ const Forecast = ({navigation}: any) => {
           </View>
         </View>
         <ScrollView>
-          {weather?.forecast?.forecastday.map((weather: any) => {
-            return <ForecastItem weather={weather} />;
+          {weather?.forecast?.forecastday.map((weather: any, idx:number) => {
+            return <ForecastItem key={idx} weather={weather} />;
           })}
         </ScrollView>
       </ImageBackground>

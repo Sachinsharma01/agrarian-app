@@ -71,7 +71,7 @@ const Home = ({navigation}: any) => {
                   }}>
                   My Crops
                 </Text>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => {navigation.navigate('Crop')}}>
                   <Ionicons
                     name="add"
                     color={config.constants.primaryColor}

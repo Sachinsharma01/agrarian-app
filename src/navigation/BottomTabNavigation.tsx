@@ -9,6 +9,7 @@ import AgriStore from '../screens/agristore';
 import config from '../config';
 import PostStack from './PostStack';
 import Forecast from '../screens/weather';
+import Crop from '../screens/crop/index';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ const HomeStack = () => {
         component={Forecast}
         options={{headerTransparent: true, headerTintColor: '#fff'}}
       />
+      <Stack.Screen name="Crop" component={Crop} />
     </Stack.Navigator>
   );
 };
