@@ -15,7 +15,7 @@ import AddCrop from '../../components/crops/addCrop';
 const Crop = ({navigation}: any) => {
   const {crops} = useSelector((state: any) => state.cropReducer);
   const [crop, setCrop] = useState(null);
-  console.log('crrrrrrrrrrpppppppppppppppppppppppp', crop);
+  // console.log('crrrrrrrrrrpppppppppppppppppppppppp', crop);
   return (
     <SafeAreaView style={{backgroundColor: '#fff', height: '100%'}}>
       {!crop ? (
@@ -29,7 +29,6 @@ const Crop = ({navigation}: any) => {
                     setCrop({
                       ...crop,
                     });
-                    navigation.navigate('');
                   }}
                   key={idx}
                   style={{height: 100, width: 100, marginRight: 10}}>
@@ -49,7 +48,7 @@ const Crop = ({navigation}: any) => {
           </ScrollView>
         </>
       ) : (
-        <AddCrop />
+        <AddCrop selectedCrop={crop} />
       )}
     </SafeAreaView>
   );

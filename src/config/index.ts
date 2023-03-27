@@ -1,12 +1,12 @@
 export default {
-  // baseURL: 'https://quiz-backend-rewamp.onrender.com/api',
-  baseURL: 'http://ec2-43-204-102-117.ap-south-1.compute.amazonaws.com:9000/api',
+  baseURL: 'https://quiz-backend-rewamp.onrender.com/api',
+  // baseURL: 'http://ec2-43-204-102-117.ap-south-1.compute.amazonaws.com:9000/api',
   constants: {
     primaryColor: '#01423A',
     borderColor: '#01423A',
     secondaryColor: '#EDC126',
   },
-  defaultErrorMessage: 'Someting Went Wrong!. Please try again later',
+  defaultErrorMessage: 'Something Went Wrong!. Please try again later',
   actionTypes: {
     UPDATE_TOKEN: 'UPDATE_TOKEN',
     REMOVE_TOKEN: 'REMOVE_TOKEN',
@@ -17,7 +17,11 @@ export default {
     UPDATE_CROPS: 'UPDATE_CROPS',
     REMOVE_CROPS: 'REMOVE_CROPS',
     SET_LOCATION: 'SET_LOCATION',
-    REMOVE_LOCATION: 'REMOVE_LOCATION'
+    REMOVE_LOCATION: 'REMOVE_LOCATION',
+    UPDATE_USER_CROPS: 'UPDATE_USER_CROPS',
+    REMOVE_USER_CROPS: 'REMOVE_USER_CROPS'
   },
   websiteURL: 'https://agrarianthetrustforgrowth.com/about',
+  // development: 'dev',
+  development: 'prod',
 };

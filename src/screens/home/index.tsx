@@ -5,33 +5,72 @@ import {
   Button,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {getMetaData} from '../../request/index';
+import Feather from 'react-native-vector-icons/Feather';
+import {
+  getMetaData,
+  getAllCrops,
+  getUserCrops,
+  removeUserCrop,
+} from '../../request/index';
 import {updateUser} from '../../redux/actions/metaDetaActions';
 import config from '../../config';
 import Weather from '../../components/weather';
+import {updateCrops} from '../../redux/actions/cropActions';
+import CropItem from '../../components/crops/cropItem';
 
 const Home = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
   const {user} = useSelector((state: any) => state.metaDataReducer);
   const [loading, setLoading] = useState(false);
-
+  const [cropLoading, setCropLoading] = useState(false);
+  const [showCancel, setShowCancel] = useState(false);
+  const [allUserCrops, setAllUsersCrops] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     getUser();
+    getAllCrops(token as string).then((data: any) => {
+      dispatch(updateCrops(data));
+    });
   }, []);
   const getUser = async () => {
     setLoading(true);
     const userData = await getMetaData(token);
+    const userCrops: any = await getUserCrops(
+      userData.data._id as string,
+      token as string,
+    );
+    // console.log(
+    //   'cccccccccccccccccccccccccccccccccccccccccccccccccc',
+    //   userCrops,
+    // );
+    setAllUsersCrops(userCrops[0]?.crop);
     dispatch(updateUser(userData.data));
     setLoading(false);
     console.log('User details from get meta data$$$', userData);
+  };
+  const removeCrop = async (cropDetails: any) => {
+    setCropLoading(true);
+    // console.log('crrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', cropDetails);
+    const removed:any = await removeUserCrop(
+      {
+        userId: user._id,
+        crop: {
+          ...cropDetails
+        },
+      },
+      token as string,
+    );
+    // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^j', removed);
+    setAllUsersCrops(removed?.crop)
+    setCropLoading(false);
   };
   return (
     <SafeAreaView>
@@ -71,7 +110,10 @@ const Home = ({navigation}: any) => {
                   }}>
                   My Crops
                 </Text>
-                <TouchableOpacity onPress={() => {navigation.navigate('Crop')}}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('Crop');
+                  }}>
                   <Ionicons
                     name="add"
                     color={config.constants.primaryColor}
@@ -79,10 +121,41 @@ const Home = ({navigation}: any) => {
                     style={{marginLeft: 10}}
                   />
                 </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowCancel(!showCancel);
+                  }}>
+                  <Feather
+                    name="edit"
+                    color={config.constants.primaryColor}
+                    size={23}
+                    style={{marginLeft: 10, marginTop: 2}}
+                  />
+                </TouchableOpacity>
               </View>
               <View style={styles.crops}>
-                {user?.crops?.length !== 0 ? (
-                  <></>
+                {allUserCrops?.length !== 0 ? (
+                  <>
+                    {cropLoading ? (
+                      <ActivityIndicator
+                        size="large"
+                        color={config.constants.primaryColor}
+                      />
+                    ) : (
+                      <ScrollView horizontal={true} style={styles.cropScroll}>
+                        {allUserCrops.map((crop: any, idx: number) => {
+                          return (
+                            <CropItem
+                              idx={idx}
+                              crop={crop}
+                              onCancel={() => removeCrop(crop)}
+                              showCancel={showCancel}
+                            />
+                          );
+                        })}
+                      </ScrollView>
+                    )}
+                  </>
                 ) : (
                   <Text
                     style={{
@@ -140,8 +213,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 150,
+    height: 120,
     borderBottomColor: config.constants.primaryColor,
     borderBottomWidth: 0.5,
+    backgroundColor: '#fff',
+  },
+  cropScroll: {
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
 });

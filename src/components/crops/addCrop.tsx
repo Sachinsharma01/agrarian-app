@@ -1,17 +1,38 @@
-import {View, Text, SafeAreaView, TextInput, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TextInput,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import React, {useState} from 'react';
 import DatePicker from 'react-native-date-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import dayjs from 'dayjs';
+import Button from '../button';
 
-const AddCrop = () => {
+const AddCrop = ({selectedCrop}: any) => {
   const [dateOpen, setDateOpen] = useState(false);
   const [date, setDate] = useState(dayjs(new Date()).format('MMMM DD,  YYYY'));
   const [selectedDate, setSelectedDate] = useState(new Date());
   return (
     <SafeAreaView>
+      <Image
+        style={{
+          height: 45,
+          width: 45,
+          aspectRatio: 1,
+          marginHorizontal: 10,
+          marginVertical: 10,
+          // borderWidth: 1,
+          borderColor: config.constants.borderColor,
+        }}
+        source={{uri: selectedCrop?.image}}
+      />
+      <Text style={styles.text}>Sowing Date</Text>
       <View style={styles.dateWrapper}>
         <TextInput value={date + ''} style={styles.date} />
         <TouchableOpacity onPress={() => setDateOpen(true)}>
@@ -36,6 +57,13 @@ const AddCrop = () => {
           }}
         />
       </View>
+      <Text style={styles.text}>Area</Text>
+      <TextInput
+        placeholder="Hectare"
+        style={{...styles.date, width: 100, marginLeft: 25}}
+        keyboardType="numeric"
+      />
+      <Button label="Submit" onPress={() => {}} />
     </SafeAreaView>
   );
 };
@@ -55,6 +83,12 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 6,
     width: '80%',
+  },
+  text: {
+    color: '#000',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 10,
   },
 });
 

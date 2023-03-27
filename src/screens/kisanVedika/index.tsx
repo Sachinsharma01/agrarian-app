@@ -9,8 +9,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {RefreshControl, ScrollView} from 'react-native-gesture-handler';
-import {getAllPosts, getAllCrops} from '../../request/index';
-import {updateCrops} from '../../redux/actions/cropActions';
+import {getAllPosts} from '../../request/index';
 import Post from '../../components/post';
 import config from '../../config';
 import {user} from '../../assets';
@@ -26,9 +25,6 @@ const KisanVedika = ({navigation}: any) => {
       setAllPosts(data);
       setLoading(false);
     });
-    getAllCrops(token as string).then((data: any) => {
-      dispatch(updateCrops(data));
-    });
   }, []);
 
   const onRefresh = useCallback(() => {
@@ -38,7 +34,7 @@ const KisanVedika = ({navigation}: any) => {
       setLoading(false);
     });
   }, []);
-  console.log('pdkhfvbhfdbvfhbfv', allPosts);
+  // console.log('pdkhfvbhfdbvfhbfv', allPosts);
   return (
     <SafeAreaView>
       <View style={styles.top}>

@@ -175,3 +175,50 @@ export const getWeather = async (location: any, token: string) => {
     Alert.alert(config.defaultErrorMessage + ' Weather');
   }
 };
+
+export const getUserCrops = async (userId: string, token: string) => {
+  try {
+    console.log(
+      '))))))))))))))))))))))))))))))(((((((((((((((((((((((((((((((((((((((((((',
+      userId,
+    );
+    const res = await axiosInstance.get(`/crops/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        userId: userId,
+      },
+    });
+    const data = await res.data;
+    console.log('USER CROPS DATTTTTTTTTTTTTTTTTTTTTTTTTA', data);
+    return data.data;
+  } catch (err) {
+    Alert.alert(config.defaultErrorMessage);
+  }
+};
+
+export const removeUserCrop = async (
+  payload: {userId: string; crop: {name: string; image: string; _id: string}},
+  token: string,
+) => {
+  try {
+    const res = await axiosInstance.post(
+      '/crops/remove',
+      {
+        userId: payload.userId,
+        cropId: payload.crop._id
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const data = await res.data;
+    console.log('USER CROPSUpdated', data);
+    return data.data;
+  } catch (err) {
+    Alert.alert(config.defaultErrorMessage);
+  }
+};

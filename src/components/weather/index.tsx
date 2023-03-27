@@ -80,7 +80,7 @@ const Weather = ({token, onPress}: any) => {
       }),
     );
     setLoading(false);
-    console.log('rrrrrr', weather);
+    // console.log('rrrrrr', weather);
   };
   return (
     <>
@@ -102,9 +102,9 @@ const Weather = ({token, onPress}: any) => {
             <TouchableOpacity onPress={() => setReload(!reload)}>
               <Feather
                 name="refresh-cw"
-                size={22}
+                size={20}
                 color={config.constants.primaryColor}
-                style={{marginHorizontal: 15}}
+                style={{marginTop: 13}}
               />
             </TouchableOpacity>
           </View>
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   place: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
   },
