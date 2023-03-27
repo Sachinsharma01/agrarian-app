@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Geolocation from 'react-native-geolocation-service';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import {getWeather} from '../../request';
 import config from '../../config';

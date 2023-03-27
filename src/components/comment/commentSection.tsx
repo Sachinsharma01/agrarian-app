@@ -1,10 +1,8 @@
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  KeyboardAvoidingView,
 } from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';

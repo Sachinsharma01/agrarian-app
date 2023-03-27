@@ -2,10 +2,8 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
   ActivityIndicator,
-  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';

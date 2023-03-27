@@ -1,6 +1,6 @@
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import React, {useState} from 'react';
+import React from 'react';
 import config from '../../config';
 
 const CropItem = ({
