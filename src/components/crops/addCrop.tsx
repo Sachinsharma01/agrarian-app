@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState} from 'react';
 import DatePicker from 'react-native-date-picker';
@@ -13,13 +14,19 @@ import config from '../../config';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import dayjs from 'dayjs';
 import Button from '../button';
+import {useSelector} from 'react-redux';
 
-const AddCrop = ({selectedCrop}: any) => {
+const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
   const [dateOpen, setDateOpen] = useState(false);
   const [date, setDate] = useState(dayjs(new Date()).format('MMMM DD,  YYYY'));
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [area, setArea] = useState(0);
+
   return (
     <SafeAreaView>
+      {loading && (
+        <ActivityIndicator size="large" color={config.constants.primaryColor} />
+      )}
       <Image
         style={{
           height: 45,
@@ -62,8 +69,9 @@ const AddCrop = ({selectedCrop}: any) => {
         placeholder="Hectare"
         style={{...styles.date, width: 100, marginLeft: 25}}
         keyboardType="numeric"
+        onChangeText={(e: any) => setArea(e)}
       />
-      <Button label="Submit" onPress={() => {}} />
+      <Button label="Submit" onPress={onSubmit} />
     </SafeAreaView>
   );
 };

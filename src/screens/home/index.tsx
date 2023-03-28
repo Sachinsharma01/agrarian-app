@@ -30,6 +30,7 @@ const Home = ({navigation}: any) => {
   const [cropLoading, setCropLoading] = useState(false);
   const [showCancel, setShowCancel] = useState(false);
   const [allUserCrops, setAllUsersCrops] = useState([]);
+  const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,33 +42,34 @@ const Home = ({navigation}: any) => {
   const getUser = async () => {
     setLoading(true);
     const userData = await getMetaData(token);
-    const userCrops: any = await getUserCrops(
-      userData.data._id as string,
-      token as string,
-    );
-    // console.log(
-    //   'cccccccccccccccccccccccccccccccccccccccccccccccccc',
-    //   userCrops,
-    // );
-    setAllUsersCrops(userCrops[0]?.crop);
     dispatch(updateUser(userData.data));
     setLoading(false);
     console.log('User details from get meta data$$$', userData);
   };
+  useEffect(() => {
+    fetchUserCrops();
+  }, [reload]);
+  const fetchUserCrops = async () => {
+    setCropLoading(true);
+    const userCrops: any = await getUserCrops(
+      user._id as string,
+      token as string,
+    );
+    setAllUsersCrops(userCrops[0]?.crop);
+    setCropLoading(false);
+  };
   const removeCrop = async (cropDetails: any) => {
     setCropLoading(true);
-    // console.log('crrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', cropDetails);
-    const removed:any = await removeUserCrop(
+    const removed: any = await removeUserCrop(
       {
         userId: user._id,
         crop: {
-          ...cropDetails
+          ...cropDetails,
         },
       },
       token as string,
     );
-    // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^j', removed);
-    setAllUsersCrops(removed?.crop)
+    setAllUsersCrops(removed?.crop);
     setCropLoading(false);
   };
   return (
@@ -130,6 +132,14 @@ const Home = ({navigation}: any) => {
                     style={{marginLeft: 10, marginTop: 2}}
                   />
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => setReload(!reload)}>
+                  <Feather
+                    name="refresh-cw"
+                    size={23}
+                    color={config.constants.primaryColor}
+                    style={{marginLeft: 13, marginTop: 2}}
+                  />
+                </TouchableOpacity>
               </View>
               <View style={styles.crops}>
                 {allUserCrops?.length !== 0 ? (
@@ -148,6 +158,13 @@ const Home = ({navigation}: any) => {
                               crop={crop}
                               onCancel={() => removeCrop(crop)}
                               showCancel={showCancel}
+                              onPress={() =>
+                                navigation.navigate('OngoingCrop', {
+                                  crop: {
+                                    ...crop,
+                                  },
+                                })
+                              }
                             />
                           );
                         })}

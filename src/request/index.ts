@@ -207,7 +207,7 @@ export const removeUserCrop = async (
       '/crops/remove',
       {
         userId: payload.userId,
-        cropId: payload.crop._id
+        cropId: payload.crop._id,
       },
       {
         headers: {
@@ -217,6 +217,33 @@ export const removeUserCrop = async (
     );
     const data = await res.data;
     console.log('USER CROPSUpdated', data);
+    return data.data;
+  } catch (err) {
+    Alert.alert(config.defaultErrorMessage);
+  }
+};
+
+export const addCrop = async (
+  payload: {userId: string; crop: {name: string; image: string; _id: string}},
+  token: string,
+) => {
+  try {
+    const res = await axiosInstance.post(
+      '/crops/add',
+      {
+        userId: payload.userId,
+        crop: {
+          ...payload.crop,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const data = await res.data;
+    console.log('USER CROPS ADDED', data);
     return data.data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage);

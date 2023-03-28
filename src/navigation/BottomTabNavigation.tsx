@@ -10,6 +10,7 @@ import config from '../config';
 import PostStack from './PostStack';
 import Forecast from '../screens/weather';
 import Crop from '../screens/crop/index';
+import OngoingCrop from '../screens/crop/OngoingCrop';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ const HomeStack = () => {
         options={{headerTransparent: true, headerTintColor: '#fff'}}
       />
       <Stack.Screen name="Crop" component={Crop} />
+      <Stack.Screen name="OngoingCrop" component={OngoingCrop} />
     </Stack.Navigator>
   );
 };

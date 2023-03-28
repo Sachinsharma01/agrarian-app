@@ -10,11 +10,30 @@ import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import config from '../../config';
 import AddCrop from '../../components/crops/addCrop';
+import {addCrop} from '../../request';
 
 const Crop = ({navigation}: any) => {
   const {crops} = useSelector((state: any) => state.cropReducer);
-  const [crop, setCrop] = useState(null);
+  const {user} = useSelector((state: any) => state.metaDataReducer);
+  const {token} = useSelector((state: any) => state.tokenReducer);
+  const [crop, setCrop]: any = useState(null);
+  const [loading, setLoading] = useState(false)
   // console.log('crrrrrrrrrrpppppppppppppppppppppppp', crop);
+  const onAddCropSubmitHandler = async () => {
+    setLoading(true);
+    let payload = {
+      userId: user._id,
+      crop: {
+        name: crop?.name,
+        image: crop?.image,
+        _id: crop?._id,
+      },
+    };
+    const cropAdded = await addCrop(payload, token as string);
+    console.log('croppppppppppppppppppppppppp addddddddddddddded', cropAdded);
+    setLoading(false)
+    navigation.goBack();
+  };
   return (
     <SafeAreaView style={{backgroundColor: '#fff', height: '100%'}}>
       {!crop ? (
@@ -32,7 +51,7 @@ const Crop = ({navigation}: any) => {
                   key={idx}
                   style={{height: 100, width: 100, marginRight: 10}}>
                   <Image
-                    key={idx}
+                    key={idx + "i"}
                     style={{
                       height: 70,
                       width: 70,
@@ -47,7 +66,7 @@ const Crop = ({navigation}: any) => {
           </ScrollView>
         </>
       ) : (
-        <AddCrop selectedCrop={crop} />
+        <AddCrop loading={loading} onSubmit={onAddCropSubmitHandler} selectedCrop={crop} />
       )}
     </SafeAreaView>
   );

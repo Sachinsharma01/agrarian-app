@@ -1,5 +1,6 @@
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, Pressable } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {ProgressBar} from 'react-native-paper';
 import React from 'react';
 import config from '../../config';
 
@@ -7,49 +8,67 @@ const CropItem = ({
   idx,
   crop,
   onCancel,
-  showCancel
+  showCancel,
+  onPress
 }: {
   idx: number;
   crop: any;
   onCancel: any;
-  showCancel: boolean
+  showCancel: boolean;
+  onPress: any
 }) => {
   return (
     <>
-      <View key={idx} style={styles.cropItem}>
-        <Image
-          key={idx}
-          source={{uri: crop?.image}}
-          style={{height: 40, width: 40}}
+      <Pressable onPress={onPress}
+        style={styles.cropWrapper}>
+        <View key={idx} style={styles.cropItem}>
+          <Image
+            key={idx + '1i'}
+            source={{uri: crop?.image}}
+            style={{height: 40, width: 40}}
+          />
+          <Text key={idx + '1t'} style={styles.cropName}>
+            {crop?.name}
+          </Text>
+        </View>
+        <ProgressBar
+          progress={0.5}
+          color={config.constants.primaryColor}
+          style={{marginTop: 15, width: 130, height: 5, marginLeft: 5}}
         />
-        <Text key={idx + '1t'} style={styles.cropName}>
-          {crop?.name}
-        </Text>
-      </View>
-      {showCancel && (
-        <TouchableOpacity
-          key={idx + '1'}
-          style={styles.cancelIcon}
-          onPress={onCancel}>
-          <Ionicons name="remove-circle-outline" size={25} color="salmon" />
-        </TouchableOpacity>
-      )}
+        {showCancel && (
+          <TouchableOpacity
+            key={idx + '1'}
+            style={styles.cancelIcon}
+            onPress={onCancel}>
+            <Ionicons
+              key={idx + '1c'}
+              name="remove-circle-outline"
+              size={25}
+              color="salmon"
+            />
+          </TouchableOpacity>
+        )}
+      </Pressable>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  cropItem: {
-    width: 120,
-    height: 60,
-    // backgroundColor: 'red',
+  cropWrapper: {
     borderColor: config.constants.borderColor,
     borderWidth: 1,
     borderRadius: 7,
+    height: 70,
+    marginTop: 25,
+    marginHorizontal: 10,
+  },
+  cropItem: {
+    width: 120,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 25,
+    marginTop: 2,
     marginHorizontal: 10,
   },
   cropName: {
@@ -57,6 +76,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
     fontSize: 15,
   },
-  cancelIcon: {position: 'relative', top: 15, left: -22},
+  cancelIcon: {position: 'relative', top: -75, right: -120},
 });
 export default CropItem;

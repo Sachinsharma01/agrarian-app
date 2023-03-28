@@ -79,7 +79,6 @@ const Weather = ({token, onPress}: any) => {
       }),
     );
     setLoading(false);
-    // console.log('rrrrrr', weather);
   };
   return (
     <>
