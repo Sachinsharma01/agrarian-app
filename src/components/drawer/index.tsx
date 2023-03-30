@@ -11,13 +11,14 @@ import {menu, user} from '../../assets';
 import config from '../../config';
 import {signOut} from '../../utils/logout';
 import UserAvatar from '../user/UserAvatar';
+import onShare from '../../utils/share';
 
 const CustomDrawer = (props: any) => {
   const dispatch = useDispatch();
+  const farmer = useSelector((state: any) => state.metaDataReducer);
   const logoutHandler = () => {
     signOut(dispatch);
   };
-  const farmer = useSelector((state: any) => state.metaDataReducer);
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView
@@ -48,7 +49,7 @@ const CustomDrawer = (props: any) => {
         </View>
       </DrawerContentScrollView>
       <View style={{padding: 20, borderTopWidth: 1, borderTopColor: '#ccc'}}>
-        <TouchableOpacity onPress={() => {}} style={{paddingVertical: 15}}>
+        <TouchableOpacity onPress={onShare} style={{paddingVertical: 15}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="share-social-outline" size={22} color="#000" />
             <Text

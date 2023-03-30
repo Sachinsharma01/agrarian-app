@@ -55,6 +55,7 @@ const Home = ({navigation}: any) => {
       user._id as string,
       token as string,
     );
+    // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', userCrops)
     setAllUsersCrops(userCrops[0]?.crop);
     setCropLoading(false);
   };

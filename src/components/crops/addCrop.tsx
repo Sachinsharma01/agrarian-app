@@ -14,12 +14,11 @@ import config from '../../config';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import dayjs from 'dayjs';
 import Button from '../button';
-import {useSelector} from 'react-redux';
 
 const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
   const [dateOpen, setDateOpen] = useState(false);
-  const [date, setDate] = useState(dayjs(new Date()).format('MMMM DD,  YYYY'));
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [date, setDate] = useState(dayjs(new Date()).format('MMMM DD  YYYY'));
+  const [selectedDate, setSelectedDate]: any = useState(new Date());
   const [area, setArea] = useState(0);
 
   return (
@@ -52,11 +51,12 @@ const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
         <DatePicker
           modal
           open={dateOpen}
-          date={selectedDate}
+          date={new Date(selectedDate)}
           maximumDate={new Date()}
           onConfirm={date => {
             setDateOpen(false);
             setDate(dayjs(date).format('MMMM DD YYYY'));
+            console.log('dae pickerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', date)
             setSelectedDate(date);
           }}
           onCancel={() => {
@@ -71,7 +71,7 @@ const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
         keyboardType="numeric"
         onChangeText={(e: any) => setArea(e)}
       />
-      <Button label="Submit" onPress={onSubmit} />
+      <Button label="Submit" onPress={() => onSubmit(area, selectedDate)} />
     </SafeAreaView>
   );
 };

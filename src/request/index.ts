@@ -224,7 +224,7 @@ export const removeUserCrop = async (
 };
 
 export const addCrop = async (
-  payload: {userId: string; crop: {name: string; image: string; _id: string}},
+  payload: {userId: string; crop: {name: string; image: string; _id: string}, sowingDate: string, area: number},
   token: string,
 ) => {
   try {
@@ -235,6 +235,8 @@ export const addCrop = async (
         crop: {
           ...payload.crop,
         },
+        sowingDate: payload.sowingDate,
+        area: payload.area  
       },
       {
         headers: {

@@ -19,15 +19,19 @@ const Crop = ({navigation}: any) => {
   const [crop, setCrop]: any = useState(null);
   const [loading, setLoading] = useState(false)
   // console.log('crrrrrrrrrrpppppppppppppppppppppppp', crop);
-  const onAddCropSubmitHandler = async () => {
+  const onAddCropSubmitHandler = async (area:any, sowingDate: any) => {
     setLoading(true);
+    console.log('6666666666666666666666666666666666666666666666666666', typeof (sowingDate + ""))
     let payload = {
       userId: user._id,
       crop: {
         name: crop?.name,
         image: crop?.image,
         _id: crop?._id,
+        totalWeeks: crop?.totalWeeks,
       },
+      sowingDate: sowingDate,
+      area: area || 0,
     };
     const cropAdded = await addCrop(payload, token as string);
     console.log('croppppppppppppppppppppppppp addddddddddddddded', cropAdded);

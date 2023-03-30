@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {signOut} from '../../utils/logout';
 import config from '../../config';
+import onShare from '../../utils/share';
 
 const Settings = ({navigation}: any) => {
   const dispatch = useDispatch();
@@ -45,18 +46,22 @@ const Settings = ({navigation}: any) => {
       </View>
       <View style={styles.wrapper}>
         <TouchableOpacity
-          onPress={() =>
-            Linking.openURL(config.websiteURL)
-          }
+          onPress={() => Linking.openURL(config.websiteURL)}
           style={styles.signout}>
           <Text style={{fontWeight: 'bold', color: '#000'}}>About</Text>
           <Ionicons name="arrow-forward-outline" size={22} color="#000" />
         </TouchableOpacity>
       </View>
       <View style={styles.wrapper}>
+        <TouchableOpacity onPress={onShare} style={styles.signout}>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>Share</Text>
+          <Ionicons name="ios-share-social" size={22} color="#000" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.wrapper}>
         <TouchableOpacity onPress={logoutHandler} style={styles.signout}>
           <Text style={{fontWeight: 'bold', color: '#000'}}>Sign Out</Text>
-          <Ionicons name="exit-outline" size={22} color="#000" />
+          <Ionicons name="log-in" size={22} color="#000" />
         </TouchableOpacity>
       </View>
       <View style={styles.main}>
