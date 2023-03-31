@@ -156,6 +156,7 @@ const Home = ({navigation}: any) => {
                           return (
                             <CropItem
                               idx={idx}
+                              key={idx}
                               crop={crop}
                               onCancel={() => removeCrop(crop)}
                               showCancel={showCancel}

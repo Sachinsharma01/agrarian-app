@@ -19,7 +19,7 @@ const CropItem = ({
 }) => {
   return (
     <>
-      <Pressable onPress={onPress}
+      <Pressable key={idx + 'p'} onPress={onPress}
         style={styles.cropWrapper}>
         <View key={idx} style={styles.cropItem}>
           <Image
@@ -32,7 +32,7 @@ const CropItem = ({
           </Text>
         </View>
         <ProgressBar
-          progress={0.5}
+          progress={crop.progress}
           color={config.constants.primaryColor}
           style={{marginTop: 15, width: 130, height: 5, marginLeft: 5}}
         />

@@ -1,5 +1,5 @@
 import {View, Text, Dimensions, Alert, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Pdf from 'react-native-pdf';
 import {ActivityIndicator} from 'react-native-paper';
 import config from '../../config';
@@ -9,20 +9,17 @@ const OngoingCrop = ({route, navigation}: any) => {
     'crrrrrrrrrrrrrrrrrrrrroooooooooooooooooooooooooooooooooo',
     route.params,
   );
+  const [crop, setCrop] = useState(route.params.crop)
   return (
-    // <View>
-    //   <Text>
-    //     OngoingCrop Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-    //     Corrupti qui, vel illo fugit laborum impedit maxime quis quam a?
-    //     Voluptatem soluta eos dolore, beatae porro eligendi nesciunt architecto
-    //     quae nisi.
-    //   </Text>
     <>
       <View>
         <Image
           style={{width: 50, height: 50}}
           source={{uri: route.params.crop.image}}
         />
+        <View>
+          <Text style={{fontSize: 10, fontFamily: 'bold'}}>{crop?.name}</Text>
+        </View>
       </View>
       <View
         style={{
@@ -49,6 +46,7 @@ const OngoingCrop = ({route, navigation}: any) => {
             flex: 1,
             width: Dimensions.get('window').width,
             height: Dimensions.get('window').height,
+            backgroundColor: '#fff'
           }}
         />
       </View>
