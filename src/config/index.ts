@@ -22,6 +22,6 @@ export default {
     REMOVE_USER_CROPS: 'REMOVE_USER_CROPS'
   },
   websiteURL: 'https://agrarianthetrustforgrowth.com/about',
-  // development: 'dev',
-  development: 'prod',
+  development: 'dev',
+  // development: 'prod',
 };

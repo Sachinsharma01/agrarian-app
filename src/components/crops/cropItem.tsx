@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     color: config.constants.primaryColor,
     marginRight: 20,
     fontSize: 15,
+    textTransform: 'capitalize',
   },
   cancelIcon: {position: 'relative', top: -75, right: -120},
 });

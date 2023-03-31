@@ -17,7 +17,7 @@ import Button from '../button';
 
 const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
   const [dateOpen, setDateOpen] = useState(false);
-  const [date, setDate] = useState(dayjs(new Date()).format('MMMM DD  YYYY'));
+  const [date, setDate] = useState(dayjs(new Date()).format('MMMM DD YYYY'));
   const [selectedDate, setSelectedDate]: any = useState(new Date());
   const [area, setArea] = useState(0);
 
