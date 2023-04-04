@@ -13,7 +13,6 @@ import FeatherIcons from 'react-native-vector-icons/Feather';
 import {getWeather} from '../../request';
 import config from '../../config';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
 import {useDispatch} from 'react-redux';
 import {setUserLocation} from '../../redux/actions/locationActions';
 
@@ -98,7 +97,7 @@ const Weather = ({token, onPress}: any) => {
               {weather?.location?.name}
             </Text>
             <TouchableOpacity onPress={() => setReload(!reload)}>
-              <Feather
+              <FeatherIcons
                 name="refresh-cw"
                 size={20}
                 color={config.constants.primaryColor}

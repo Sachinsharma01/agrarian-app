@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Image
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,6 +23,8 @@ import config from '../../config';
 import Weather from '../../components/weather';
 import {updateCrops} from '../../redux/actions/cropActions';
 import CropItem from '../../components/crops/cropItem';
+import Soil from '../../components/soil';
+import { logoNew } from '../../assets';
 
 const Home = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -80,7 +83,7 @@ const Home = ({navigation}: any) => {
       ) : (
         <>
           <View style={{...styles.top}}>
-            <Text
+            {/* <Text
               style={{
                 textAlign: 'center',
                 color: '#fff',
@@ -88,7 +91,8 @@ const Home = ({navigation}: any) => {
                 marginLeft: 10,
               }}>
               Agrarian
-            </Text>
+            </Text> */}
+            <Image source={logoNew.image} style={{height: 40, width: 120, marginLeft: 10}} />
             <Ionicons
               onPress={() => {
                 navigation.openDrawer();
@@ -188,6 +192,7 @@ const Home = ({navigation}: any) => {
               onPress={() => navigation.navigate('Weather')}
               token={token}
             />
+            <Soil onPress={() => {}} />
           </ScrollView>
         </>
       )}

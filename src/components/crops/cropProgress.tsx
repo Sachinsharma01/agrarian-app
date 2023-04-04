@@ -36,7 +36,7 @@ const CropProgress = ({crop}: any) => {
           }}>
           {'Crop Planted On ' +
             date +
-            '                          ' +
+            '    Progress : ' +
             parseInt(crop.progress * 100 + '', 10) +
             '%'}
         </Text>

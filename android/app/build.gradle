@@ -163,8 +163,9 @@ dependencies {
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-safe-area-context')
     implementation project(':react-native-screens')
-    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation platform('com.google.firebase:firebase-bom:31.3.0')
     implementation "com.google.firebase:firebase-auth:{{ android.firebase.auth }}"
+    implementation 'com.google.firebase:firebase-analytics'
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 

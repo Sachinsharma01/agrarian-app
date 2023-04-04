@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,21 +9,30 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
-import {logo} from '../../assets'
+import {welcomeLogo} from '../../assets';
+import First from '../../components/onboarding/First';
+import Second from '../../components/onboarding/Second';
 
 const Welcome = ({navigation}: any) => {
+  const [screen, setScreen] = useState(1);
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.imageView}>
-        <Image source={logo.image} style={styles.image} />
-      </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.buttonText}>Let's Begin</Text>
-        <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
-      </TouchableOpacity>
-    </SafeAreaView>
+    <>
+      {screen === 1 && (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.imageView}>
+            <Image source={welcomeLogo.image} style={styles.image} />
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setScreen(2)}>
+            <Text style={styles.buttonText}>Let's Begin</Text>
+            <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
+          </TouchableOpacity>
+        </SafeAreaView>
+      )}
+      {screen === 2 && <First onPress={() => setScreen(3)} />}
+      {screen === 3 && <Second onPress={() => navigation.navigate('Login')} />}
+    </>
   );
 };
 

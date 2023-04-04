@@ -5,6 +5,7 @@ export default {
     primaryColor: '#01423A',
     borderColor: '#01423A',
     secondaryColor: '#EDC126',
+    ternaryColor: '#32612D'
   },
   defaultErrorMessage: 'Something Went Wrong!. Please try again later',
   actionTypes: {

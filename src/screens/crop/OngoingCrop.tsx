@@ -62,6 +62,17 @@ const OngoingCrop = ({route, navigation}: any) => {
             }}>
             <Text style={{color: 'grey'}}>Fertilizer Calculator</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setActiveTab(5)}
+            style={{
+              marginHorizontal: 25,
+              padding: 15,
+              borderBottomWidth: 1,
+              borderBottomColor:
+                activeTab === 5 ? config.constants.borderColor : '#fff',
+            }}>
+            <Text style={{color: 'grey'}}>Crop Diseases</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
       <PDF />
