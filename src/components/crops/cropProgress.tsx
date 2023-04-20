@@ -34,9 +34,9 @@ const CropProgress = ({crop}: any) => {
             color: config.constants.primaryColor,
             textTransform: 'capitalize',
           }}>
-          {'Crop Planted On ' +
+          {'Planted On ' +
             date +
-            '    Progress : ' +
+            ' | Progress : ' +
             parseInt(crop.progress * 100 + '', 10) +
             '%'}
         </Text>

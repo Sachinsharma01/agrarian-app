@@ -28,7 +28,7 @@ const First = ({onPress}: any) => {
           farmers will get benefited as the inputs from the team will provide
           knowledge for systematic crop cultivation. Our team provides knowledge
           for maximum land utilization and how to increase the
-          productivity of land.
+          productivity of land.
         </Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={onPress}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     backgroundColor: '#ffffff',
     height: '100%',
-    marginTop: 20
+    // marginTop: 20
   },
   text: {
     fontSize: 30,

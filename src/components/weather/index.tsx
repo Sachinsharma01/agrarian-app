@@ -80,11 +80,11 @@ const Weather = ({token, onPress}: any) => {
     setLoading(false);
   };
   return (
-    <>
+    <View style={styles.main}>
       {loading ? (
         <ActivityIndicator size="large" color={config.constants.primaryColor} />
       ) : (
-        <View style={styles.main}>
+        <>
           <View style={styles.place}>
             <Text
               style={{
@@ -147,9 +147,9 @@ const Weather = ({token, onPress}: any) => {
               />
             </TouchableOpacity>
           </View>
-        </View>
+        </>
       )}
-    </>
+    </View>
   );
 };
 

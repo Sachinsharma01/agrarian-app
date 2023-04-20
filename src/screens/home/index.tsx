@@ -4,7 +4,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-  Image
+  Image,
+  Linking,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -24,7 +26,7 @@ import Weather from '../../components/weather';
 import {updateCrops} from '../../redux/actions/cropActions';
 import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
-import { logoNew } from '../../assets';
+import {logoNew} from '../../assets';
 
 const Home = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -35,7 +37,6 @@ const Home = ({navigation}: any) => {
   const [allUserCrops, setAllUsersCrops] = useState([]);
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
-
   useEffect(() => {
     getUser();
     getAllCrops(token as string).then((data: any) => {
@@ -76,6 +77,15 @@ const Home = ({navigation}: any) => {
     setAllUsersCrops(removed?.crop);
     setCropLoading(false);
   };
+
+  const callHandler = () => {
+    if (user?.isPaid === false) {
+      Alert.alert('Please Buy Premium to avail this service');
+    } else {
+      Linking.openURL(`tel:${config.helplineNumber}`);
+    }
+  };
+
   return (
     <SafeAreaView>
       {loading ? (
@@ -92,16 +102,33 @@ const Home = ({navigation}: any) => {
               }}>
               Agrarian
             </Text> */}
-            <Image source={logoNew.image} style={{height: 40, width: 120, marginLeft: 10}} />
-            <Ionicons
-              onPress={() => {
-                navigation.openDrawer();
-              }}
-              name="ios-menu-outline"
-              color="#fff"
-              size={32}
-              style={{marginRight: 10}}
+            <Image
+              source={logoNew.image}
+              style={{height: 40, width: 120, marginLeft: 10}}
             />
+            <View
+              style={{
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <Ionicons
+                onPress={callHandler}
+                name="ios-call"
+                color="#fff"
+                size={22}
+                style={{marginRight: 10}}
+              />
+              <Ionicons
+                onPress={() => {
+                  navigation.openDrawer();
+                }}
+                name="ios-menu-outline"
+                color="#fff"
+                size={32}
+                style={{marginRight: 10}}
+              />
+            </View>
           </View>
           <ScrollView>
             <View>

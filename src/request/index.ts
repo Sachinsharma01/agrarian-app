@@ -251,3 +251,19 @@ export const addCrop = async (
     Alert.alert(config.defaultErrorMessage);
   }
 };
+
+export const getCropDetails = async (token: string, cropId: string) => {
+  try {
+    const res = await axiosInstance.get(`/crops/${cropId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await res.data;
+    console.log("Crop details fetched", data);
+    return data.data;
+  } catch(err) {
+    Alert.alert(config.defaultErrorMessage);
+
+  }
+}

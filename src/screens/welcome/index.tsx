@@ -22,16 +22,14 @@ const Welcome = ({navigation}: any) => {
           <View style={styles.imageView}>
             <Image source={welcomeLogo.image} style={styles.image} />
           </View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setScreen(2)}>
+          <TouchableOpacity style={styles.button} onPress={() => setScreen(2)}>
             <Text style={styles.buttonText}>Let's Begin</Text>
             <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
           </TouchableOpacity>
         </SafeAreaView>
       )}
-      {screen === 2 && <First onPress={() => setScreen(3)} />}
-      {screen === 3 && <Second onPress={() => navigation.navigate('Login')} />}
+      {screen === 2 && <First onPress={() => navigation.navigate('Login')} />}
+      {/* {screen === 3 && <Second onPress={() => navigation.navigate('Login')} />} */}
     </>
   );
 };

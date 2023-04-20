@@ -5,7 +5,7 @@ export default {
     primaryColor: '#01423A',
     borderColor: '#01423A',
     secondaryColor: '#EDC126',
-    ternaryColor: '#32612D'
+    ternaryColor: '#32612D',
   },
   defaultErrorMessage: 'Something Went Wrong!. Please try again later',
   actionTypes: {
@@ -20,9 +20,10 @@ export default {
     SET_LOCATION: 'SET_LOCATION',
     REMOVE_LOCATION: 'REMOVE_LOCATION',
     UPDATE_USER_CROPS: 'UPDATE_USER_CROPS',
-    REMOVE_USER_CROPS: 'REMOVE_USER_CROPS'
+    REMOVE_USER_CROPS: 'REMOVE_USER_CROPS',
   },
   websiteURL: 'https://agrarianthetrustforgrowth.com/about',
   development: 'dev',
+  helplineNumber: '+918809140983',
   // development: 'prod',
 };
