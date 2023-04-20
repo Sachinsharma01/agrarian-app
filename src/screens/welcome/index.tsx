@@ -13,36 +13,16 @@ import config from '../../config';
 import {logo} from '../../assets';
 import {welcomeLogo} from '../../assets';
 import First from '../../components/onboarding/First';
-import Second from '../../components/onboarding/Second';
-
-// const Welcome = ({navigation}: any) => {
-//   const {t, i18n} = useTranslation();
-
-//   const [currentLanguage, setLanguage] = useState('en');
-//   const changeLanguageHandler = async (value:string) => {
-//     setLanguage(value);
-//     await i18n.changeLanguage(value)
-//     navigation.navigate('Login');
-//   };
-//   return (
-//     <SafeAreaView style={styles.container}>
-//       <View style={styles.imageView}>
-//         <Image source={logo.image} style={styles.image} />
-//       </View>
-//       <TouchableOpacity
-//         style={styles.button}
-//         onPress={() => changeLanguageHandler('en')}>
-//         <Text style={styles.buttonText}>English</Text>
-//         <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
-//       </TouchableOpacity>
-//       <TouchableOpacity style={styles.button} onPress={() => changeLanguageHandler('hi')}>
-//         <Text style={styles.buttonText}>{t('Hindi')}</Text>
-//         <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
-//       </TouchableOpacity>
-//     </SafeAreaView>
 
 const Welcome = ({navigation}: any) => {
   const [screen, setScreen] = useState(1);
+  const {t, i18n} = useTranslation();
+    const [currentLanguage, setLanguage] = useState('en');
+    const changeLanguageHandler = async (value:string) => {
+      setLanguage(value);
+      await i18n.changeLanguage(value)
+      setScreen(2);
+    };
   return (
     <>
       {screen === 1 && (
@@ -50,14 +30,17 @@ const Welcome = ({navigation}: any) => {
           <View style={styles.imageView}>
             <Image source={welcomeLogo.image} style={styles.image} />
           </View>
-          <TouchableOpacity style={styles.button} onPress={() => setScreen(2)}>
-            <Text style={styles.buttonText}>Let's Begin</Text>
+          <TouchableOpacity style={styles.button} onPress={() => changeLanguageHandler('hi')}>
+            <Text style={styles.buttonText}>हिंदी</Text>
+            <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => changeLanguageHandler('en')}>
+            <Text style={styles.buttonText}>English</Text>
             <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
           </TouchableOpacity>
         </SafeAreaView>
       )}
       {screen === 2 && <First onPress={() => navigation.navigate('Login')} />}
-      {/* {screen === 3 && <Second onPress={() => navigation.navigate('Login')} />} */}
     </>
   );
 };
