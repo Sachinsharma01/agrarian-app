@@ -1,7 +1,11 @@
 {
     "translation": {
-        "Login" : "लॉग इन करें",
-        "Hindi": "हिंदी",
-        "Enter Phone Number" : "फोन नंबर दर्ज"
+      "Login": "लॉग इन करें",
+      "Hindi": "हिंदी",
+      "Enter Phone Number": "फोन नंबर दर्ज",
+      "Our AI platform enables livestock, crop producers and processors to quickly and easily increase efficiency, improve decision making, and increase the revenue. We empower businesses across the value chain to quickly and easily provide all the essential inputs for increasing the crops yields. Our team provides all inputs at the time of sowing and also provides method of using materials. There will be less loss and farmers will get benefited as the inputs from the team will provide knowledge for systematic crop cultivation. Our team provides knowledge for maximum land utilization and how to increase the productivity of land.": "हमारा एआई प्लेटफॉर्म पशुधन, फसल उत्पादकों और प्रोसेसर को सक्षम बनाता है दक्षता में तेजी से और आसानी से वृद्धि, निर्णय लेने में सुधार, और राजस्व बढ़ाओ। हम संपूर्ण मूल्य श्रृंखला में व्यवसायों को सशक्त बनाते हैं तेजी से और आसानी से बढ़ाने के लिए सभी आवश्यक इनपुट प्रदान करें फसलों की पैदावार। हमारी टीम बुवाई के समय सभी इनपुट प्रदान करती है और सामग्री के उपयोग की विधि भी प्रदान करता है। कम नुकसान होगा और टीम के इनपुट के रूप में किसान लाभान्वित होंगे व्यवस्थित फसल खेती के लिए ज्ञान। हमारी टीम ज्ञान प्रदान करती है अधिकतम भूमि उपयोग के लिए और कैसे बढ़ाया जाए भूमि की उत्पादकता।",
+      "Next": "अगला",
+      "An OTP is sent to": "कृपया अपना ओटीपी जांचें",
+      "Validate": "मान्य"
     }
 }

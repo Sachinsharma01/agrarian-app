@@ -7,33 +7,32 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {onBoardLogoOne} from '../../assets';
 import config from '../../config';
 
 const First = ({onPress}: any) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Image source={onBoardLogoOne.image} style={styles.image} />
       </View>
-      <View style={{marginHorizontal: 20,}}>
+      <View style={{marginHorizontal: 20}}>
         <Text style={{textAlign: 'justify', fontSize: 15, color: 'gray'}}>
-          Our AI platform enables livestock, crop producers and processors to
-          quickly and easily increase efficiency, improve decision making, and
-          increase the revenue. We empower businesses across the value chain to
-          quickly and easily provide all the essential inputs for increasing the
-          crops yields. Our team provides all inputs at the time of sowing and
-          also provides method of using materials. There will be less loss and
-          farmers will get benefited as the inputs from the team will provide
-          knowledge for systematic crop cultivation. Our team provides knowledge
-          for maximum land utilization and how to increase the
-          productivity of land.
+          {t(
+            'Our AI platform enables livestock, crop producers and processors to quickly and easily increase efficiency, improve decision making, and increase the revenue. We empower businesses across the value chain to quickly and easily provide all the essential inputs for increasing the crops yields. Our team provides all inputs at the time of sowing and also provides method of using materials. There will be less loss and farmers will get benefited as the inputs from the team will provide knowledge for systematic crop cultivation. Our team provides knowledge for maximum land utilization and how to increase the productivity of land.',
+          )}
         </Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>Next</Text>
-        <Ionicons name="arrow-forward-outline" color={config.constants.primaryColor} size={22} />
+        <Text style={styles.buttonText}>{t('Next')}</Text>
+        <Ionicons
+          name="arrow-forward-outline"
+          color={config.constants.primaryColor}
+          size={22}
+        />
       </TouchableOpacity>
     </SafeAreaView>
   );

@@ -9,6 +9,7 @@ import {
   ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import config from '../../config';
 import OTPSvg from '../../assets/screens/otp.svg';
@@ -18,12 +19,14 @@ import {updateToken} from '../../redux/actions/tokenActions';
 import {updateUser} from '../../redux/actions/metaDetaActions';
 
 const OTP = ({navigation}: any) => {
+  const {t, i18n} = useTranslation();
+
   const [otp, setOtp]: any = useState('');
   const dispatch = useDispatch();
   const {phone} = useSelector((state: any) => state.phoneNumberReducer);
   const {token} = useSelector((state: any) => state.tokenReducer);
   console.log('phoneeeeeeeeeeeee', phone);
-  
+
   const clickHandler = async () => {
     setOtp('');
     const response = await verifyOTP({
@@ -33,7 +36,6 @@ const OTP = ({navigation}: any) => {
     if (response.error) {
       Alert.alert(config.defaultErrorMessage);
     } else {
-
       dispatch(updateToken(response?.data?.token));
       const userData = await getMetaData(token);
       dispatch(updateUser(userData?.data));
@@ -58,7 +60,9 @@ const OTP = ({navigation}: any) => {
           onChangeText={e => setOtp(e)}
         />
       </View>
-      <Text style={{marginTop: 10, color: '#000'}}>An OTP is sent to {phone}</Text>
+      <Text style={{marginTop: 10, color: '#000'}}>
+        {t('An OTP is sent to')} {phone}
+      </Text>
       <View style={{width: '50%', marginTop: 30}}>
         <TouchableOpacity
           onPress={clickHandler}
@@ -75,7 +79,7 @@ const OTP = ({navigation}: any) => {
               fontSize: 16,
               color: '#fff',
             }}>
-            Validate
+            {t('Validate')}
           </Text>
         </TouchableOpacity>
       </View>
