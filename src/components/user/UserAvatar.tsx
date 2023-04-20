@@ -9,6 +9,7 @@ const UserAvatar = (props: any) => {
         height: props.height || 120,
         width: props.width || 120,
         borderRadius: props.bordder || 60,
+        marginLeft: props.marginLeft || null,
       }}
     />
   );

@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {signOut} from '../../utils/logout';
 import config from '../../config';
+import onShare from '../../utils/share';
 
 const Settings = ({navigation}: any) => {
   const dispatch = useDispatch();
@@ -39,31 +40,35 @@ const Settings = ({navigation}: any) => {
         <TouchableOpacity
           onPress={() => navigation.navigate('Profile')}
           style={styles.signout}>
-          <Text style={{fontWeight: 'bold'}}>Edit Profile</Text>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>Edit Profile</Text>
           <MaterialIcons name="edit" size={22} color="#000" />
         </TouchableOpacity>
       </View>
       <View style={styles.wrapper}>
         <TouchableOpacity
-          onPress={() =>
-            Linking.openURL(config.websiteURL)
-          }
+          onPress={() => Linking.openURL(config.websiteURL)}
           style={styles.signout}>
-          <Text style={{fontWeight: 'bold'}}>About</Text>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>About</Text>
           <Ionicons name="arrow-forward-outline" size={22} color="#000" />
         </TouchableOpacity>
       </View>
       <View style={styles.wrapper}>
+        <TouchableOpacity onPress={onShare} style={styles.signout}>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>Share</Text>
+          <Ionicons name="ios-share-social" size={22} color="#000" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.wrapper}>
         <TouchableOpacity onPress={logoutHandler} style={styles.signout}>
-          <Text style={{fontWeight: 'bold'}}>Sign Out</Text>
-          <Ionicons name="exit-outline" size={22} color="#000" />
+          <Text style={{fontWeight: 'bold', color: '#000'}}>Sign Out</Text>
+          <Ionicons name="log-in" size={22} color="#000" />
         </TouchableOpacity>
       </View>
       <View style={styles.main}>
-        <Text style={{textAlign: 'center', marginTop: 10}}>
+        <Text style={{textAlign: 'center', marginTop: 10, color: '#000'}}>
           Agrarian v1.0.0
         </Text>
-        <Text style={{textAlign: 'center', marginTop: 10}}>
+        <Text style={{textAlign: 'center', marginTop: 10, color: '#000'}}>
           Copyright ©2023 All Rights Reserved by Agrarian
         </Text>
       </View>

@@ -1,12 +1,12 @@
 import {Alert} from 'react-native';
 import storage from '@react-native-firebase/storage';
 
-const upload = async (file: any) => {
+const upload = async (file: any,userName: string) => {
   try {
     let filename = file.substring(file.lastIndexOf('/') + 1);
     const extension = filename.split('.').pop(); 
     const name = filename.split('.').slice(0, -1).join('.');
-    filename = name + Date.now() + '.' + extension;
+    filename = userName + name + Date.now() + '.' + extension;
     console.log(filename + " " + extension + " " + name)
     const storageRef = await storage().ref(`agrarian/users/${filename}`);
     const task = await storageRef.putFile(file);

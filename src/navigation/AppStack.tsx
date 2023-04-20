@@ -8,6 +8,8 @@ import Profile from '../screens/profile';
 import AgriStore from '../screens/agristore';
 import Settings from '../screens/settings';
 import config from '../config';
+import KisanVedika from '../screens/kisanVedika/index';
+import Post from '../screens/post';
 
 const Drawer = createDrawerNavigator();
 
@@ -40,7 +42,7 @@ const AppStack = () => {
         component={Profile}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="person-outline"  size={22} color={color} />
+            <Ionicons name="person-outline" size={22} color={color} />
           ),
         }}
       />
@@ -50,6 +52,15 @@ const AppStack = () => {
         options={{
           drawerIcon: ({color}) => (
             <FeatherIcons name="shopping-bag" size={22} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Kisan Vedika"
+        component={KisanVedika}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name="people-outline" size={22} color={color} />
           ),
         }}
       />

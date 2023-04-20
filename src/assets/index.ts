@@ -19,6 +19,23 @@ export const user: data = {
 export const camera: data = {
   image: require('../assets/modals/camera.png')
 }
+
 export const gallery: data = {
   image: require('../assets/modals/image.jpg')
+}
+
+export const night: data = {
+  image: require('../assets/weather/night.jpeg')
+}
+
+export const logoNew: data = {
+  image: require('../assets/screens/Agrarian-Main.png')
+}
+
+export const welcomeLogo: data = {
+  image: require('../assets/screens/agrarian-full-app.png')
+}
+
+export const onBoardLogoOne: data = {
+  image: require('../assets/screens/market-logo.png')
 }

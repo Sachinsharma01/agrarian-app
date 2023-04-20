@@ -50,7 +50,7 @@ const Profile = () => {
       pincode,
     };
     if (pickerResponse !== null) {
-      const fileUrl = await upload(pickerResponse);
+      const fileUrl = await upload(pickerResponse, farmer?.user?.name as string);
       console.log('fileUrlll', fileUrl);
       updateData.image = fileUrl;
     }

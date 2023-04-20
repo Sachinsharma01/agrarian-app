@@ -5,9 +5,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import Home from '../screens/home';
 import Settings from '../screens/settings';
-import Profile from '../screens/profile';
 import AgriStore from '../screens/agristore';
 import config from '../config';
+import PostStack from './PostStack';
+import Forecast from '../screens/weather';
+import Crop from '../screens/crop/index';
+import OngoingCrop from '../screens/crop/OngoingCrop';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -19,6 +22,13 @@ const HomeStack = () => {
         component={Home}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="Weather"
+        component={Forecast}
+        options={{headerTransparent: true, headerTintColor: '#fff'}}
+      />
+      <Stack.Screen name="Crop" component={Crop} />
+      <Stack.Screen name="OngoingCrop" component={OngoingCrop} />
     </Stack.Navigator>
   );
 };
@@ -31,12 +41,13 @@ const BottomTabNavigation = () => {
         tabBarActiveTintColor: 'yellow',
         tabBarInactiveTintColor: '#fff',
         tabBarShowLabel: true,
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name="Home2"
         component={HomeStack}
         options={{
-            tabBarLabel: 'Home',
+          tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (
             <Ionicons name="ios-home-outline" color={color} size={30} />
           ),
@@ -44,7 +55,6 @@ const BottomTabNavigation = () => {
       />
       <Tab.Screen
         options={{
-        //   tabBarBadge: 3,
           tabBarLabel: 'Agri Store',
           tabBarIcon: ({color, size}) => (
             <FeatherIcons name="shopping-bag" size={22} color={color} />
@@ -56,13 +66,13 @@ const BottomTabNavigation = () => {
       <Tab.Screen
         options={{
           tabBarLabel: 'Kisan Vedika',
-          title: 'Profile',
+          title: 'Kisan Vedika',
           tabBarIcon: ({color, size}) => (
             <Ionicons name="people-outline" color={color} size={30} />
           ),
         }}
-        name="Profile"
-        component={Profile}
+        name="KisanVedika"
+        component={PostStack}
       />
       <Tab.Screen
         options={{

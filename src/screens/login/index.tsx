@@ -60,6 +60,7 @@ const Login = ({navigation}: any) => {
           keyboardType="numeric"
           value={phone}
           maxLength={10}
+          autoComplete="sms-otp"
           onChangeText={e => setPhone(e)}
         />
       </View>
