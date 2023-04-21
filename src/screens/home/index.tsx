@@ -27,6 +27,7 @@ import {updateCrops} from '../../redux/actions/cropActions';
 import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
 import {logoNew} from '../../assets';
+import {AddGaEvent} from '../../analytics/analytics';
 
 const Home = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -216,7 +217,10 @@ const Home = ({navigation}: any) => {
               </View>
             </View>
             <Weather
-              onPress={() => navigation.navigate('Weather')}
+              onPress={async () => {
+                await AddGaEvent('forecast' as string, {});
+                navigation.navigate('Weather');
+              }}
               token={token}
             />
             <Soil onPress={() => {}} />

@@ -16,6 +16,7 @@ import {verifyOTP, getMetaData} from '../../request/index';
 import {IVerifyotp} from '../../interfaces/IVerifyotp';
 import {updateToken} from '../../redux/actions/tokenActions';
 import {updateUser} from '../../redux/actions/metaDetaActions';
+import {AddGaEvent, AddGaLogin} from '../../analytics/analytics';
 
 const OTP = ({navigation}: any) => {
   const [otp, setOtp]: any = useState('');
@@ -33,7 +34,11 @@ const OTP = ({navigation}: any) => {
     if (response.error) {
       Alert.alert(config.defaultErrorMessage);
     } else {
-
+      AddGaEvent('login', {
+        phone: phone,
+        otp: otp,
+        time: Date.now()
+      })
       dispatch(updateToken(response?.data?.token));
       const userData = await getMetaData(token);
       dispatch(updateUser(userData?.data));
