@@ -6,10 +6,11 @@ import {
   StyleSheet,
   SafeAreaView,
   ActivityIndicator,
+  ScrollView
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
-import {ScrollView, TextInput} from 'react-native-gesture-handler';
+import { TextInput} from 'react-native-gesture-handler';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import UserAvatar from '../../components/user/UserAvatar';
@@ -63,7 +64,17 @@ const PostScreen = ({route, navigation}: any) => {
               />
               <View style={{marginLeft: 10}}>
                 <Text style={styles.name}>
-                  {postDetails?.post?.name || 'Farmer'}
+                  {postDetails?.post?.postedBy?.name || 'Farmer'}
+                  {postDetails?.post?.postedBy?.isPaid && (
+                    <Text
+                      style={{
+                        color: config.constants.secondaryColor,
+                        paddingLeft: 10,
+                      }}>
+                      {' '}
+                      VIP
+                    </Text>
+                  )}
                 </Text>
                 <Text style={{color: '#000'}}>
                   {postDetails?.post?.state || ''}
@@ -81,7 +92,10 @@ const PostScreen = ({route, navigation}: any) => {
               </View>
             )}
             <View style={{marginLeft: 10}}>
-              <Text style={styles.description}>{postDetails?.post?.title}{postDetails?.post?.description}</Text>
+              <Text style={styles.description}>
+                {postDetails?.post?.title}
+                {postDetails?.post?.description}
+              </Text>
               <Text style={{color: '#d1cdcd'}}>
                 {`${postDetails?.post?.likes} likes`}
                 {'  |  '}
@@ -90,22 +104,8 @@ const PostScreen = ({route, navigation}: any) => {
                 {`${postDetails?.post?.totalAnswers} Comments`}
               </Text>
             </View>
-            <View style={styles.details}>
-              <TouchableOpacity>
-                <SimpleLineIcons name="like" size={25} color="#000" />
-                <Text style={{textAlign: 'center'}}>Like</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <EvilIcons name="comment" size={35} color="#000" />
-                <Text>Comment</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <EvilIcons name="share-google" size={35} color="#000" />
-                <Text style={{textAlign: 'center'}}>Share</Text>
-              </TouchableOpacity>
-            </View>
           </View>
-          <ScrollView style={{height: '70%'}}>
+          <ScrollView style={{height: '60%'}}>
             <CommentSection
               value={comment}
               onPress={addCommentHandler}
@@ -122,6 +122,7 @@ const PostScreen = ({route, navigation}: any) => {
                     title={comment?.comment}
                     postedOn={comment.commentedOn}
                     key={idx}
+                    isPaid={comment?.commentedBy?.isPaid}
                   />
                 );
               })
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
     marginVertical: 2,
     backgroundColor: '#fff',
     width: '100%',
+    // height: '40%'
   },
   innerPost: {
     margin: 10,
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     borderRadius: 10,
-    aspectRatio: 2,
+    aspectRatio: 3,
   },
   details: {
     height: 50,

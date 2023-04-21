@@ -73,15 +73,15 @@ const AppStack = () => {
           ),
         }}
       />
-      {/* <Drawer.Screen
-        name="Settings"
+      <Drawer.Screen
+        name="Help"
         component={Settings}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="settings-outline" size={22} color={color} />
+            <Ionicons name="md-help-circle-outline" size={22} color={color} />
           ),
         }}
-      /> */}
+      />
     </Drawer.Navigator>
   );
 };

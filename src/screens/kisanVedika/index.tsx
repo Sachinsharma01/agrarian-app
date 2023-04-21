@@ -84,6 +84,7 @@ const KisanVedika = ({navigation}: any) => {
               image={post?.image || null}
               state={post?.state}
               name={post?.postedBy?.name}
+              isPaid={post?.postedBy?.isPaid}
               title={post.description || post.title}
               likes={post.likes}
               views={post.views}

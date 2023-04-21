@@ -6,7 +6,6 @@ import UserAvatar from '../user/UserAvatar';
 import config from '../../config';
 
 const Post = (props: any) => {
-  console.log()
   return (
     <View style={styles.post}>
       <View style={styles.innerPost}>
@@ -17,7 +16,12 @@ const Post = (props: any) => {
           default={props.userImage}
         />
         <View style={{marginLeft: 10}}>
-          <Text style={styles.name}>{props.name || 'Farmer'}</Text>
+          <Text style={styles.name}>
+            {props.name || 'Farmer'}
+            {props.isPaid && (
+              <Text style={{color: config.constants.secondaryColor, paddingLeft: 10}}> VIP</Text>
+            )}
+          </Text>
           <Text style={{color: '#000'}}>
             {props.state || ''}
             {` | Posted on ${props.postedOn.split('T')[0]}`}
