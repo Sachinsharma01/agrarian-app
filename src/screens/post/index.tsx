@@ -10,9 +10,6 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
-import { TextInput} from 'react-native-gesture-handler';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import UserAvatar from '../../components/user/UserAvatar';
 import config from '../../config';
 import {getPostDetails, addComment} from '../../request/index';

@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     borderBottomColor: config.constants.primaryColor,
     width: '100%',
     borderBottomWidth: 1,
-    backgroundColor: '#dcdcdc',
+    backgroundColor: '#ededed',
   },
   weather: {
     height: 110,
