@@ -80,7 +80,10 @@ const Home = ({navigation}: any) => {
 
   const callHandler = () => {
     if (user?.isPaid === false) {
-      Alert.alert('Please Buy Premium to avail this service');
+      Alert.alert(
+        'Premium Required',
+        'This feature is for Premium members only. Please buy Premium to avail this service.',
+      );
     } else {
       Linking.openURL(`tel:${config.helplineNumber}`);
     }
@@ -112,6 +115,16 @@ const Home = ({navigation}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
+              {user?.isPaid && (
+                <Text
+                  style={{
+                    color: config.constants.secondaryColor,
+                    paddingRight: 10,
+                  }}>
+                  {' '}
+                  Premium
+                </Text>
+              )}
               <Ionicons
                 onPress={callHandler}
                 name="ios-call"

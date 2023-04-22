@@ -4,11 +4,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  Image,
+  ToastAndroid,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import FeatherIcons from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
 
 const Soil = ({onPress}: any) => {
@@ -145,6 +144,15 @@ const Soil = ({onPress}: any) => {
               </View>
             </View>
           </View>
+          <TouchableOpacity
+            onPress={() =>
+              ToastAndroid.show(
+                'This feature is coming soon. Sorry for the inconvenience caused',
+                1,
+              )
+            }>
+            <Text style={styles.buttonText}>See More</Text>
+          </TouchableOpacity>
         </>
       )}
     </View>
@@ -153,7 +161,7 @@ const Soil = ({onPress}: any) => {
 
 const styles = StyleSheet.create({
   main: {
-    height: 110,
+    height: 150,
     borderBottomColor: config.constants.primaryColor,
     width: '100%',
     borderBottomWidth: 1,
@@ -171,6 +179,20 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  button: {
+    backgroundColor: config.constants.ternaryColor,
+    padding: 5,
+    borderRadius: 10,
+    // marginBottom: 30,
+    width: '30%',
+  },
+  buttonText: {
+    textAlign: 'right',
+    fontWeight: '700',
+    fontSize: 14,
+    color: config.constants.ternaryColor,
+    marginRight: 10,
   },
 });
 

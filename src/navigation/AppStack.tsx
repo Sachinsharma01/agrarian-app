@@ -50,6 +50,8 @@ const AppStack = () => {
         name="AgriStore"
         component={AgriStore}
         options={{
+          headerShown: true,
+          headerShadowVisible: true,
           drawerIcon: ({color}) => (
             <FeatherIcons name="shopping-bag" size={22} color={color} />
           ),

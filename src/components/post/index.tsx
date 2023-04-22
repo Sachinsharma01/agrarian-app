@@ -50,7 +50,7 @@ const Post = (props: any) => {
         </Text>
       </View>
       <View style={styles.details}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.onPostLike}>
           <SimpleLineIcons name="like" size={25} color="#000" />
           <Text style={{textAlign: 'center'}}>Like</Text>
         </TouchableOpacity>
