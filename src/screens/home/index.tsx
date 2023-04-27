@@ -7,6 +7,7 @@ import {
   Image,
   Linking,
   Alert,
+  ToastAndroid
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -27,6 +28,7 @@ import {updateCrops} from '../../redux/actions/cropActions';
 import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
 import {logoNew} from '../../assets';
+import Services from '../../components/services';
 
 const Home = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -125,6 +127,27 @@ const Home = ({navigation}: any) => {
                   Premium
                 </Text>
               )}
+              <Ionicons
+                onPress={() => {
+                  ToastAndroid.show(
+                    'This feature is coming soon. Sorry for the inconvenience caused',
+                    1,
+                  )
+                }}
+                name="notifications"
+                color="#fff"
+                size={25}
+                style={{marginRight: 10}}
+              />
+              <Ionicons
+                onPress={() => {
+                  navigation.navigate('Cart');
+                }}
+                name="cart"
+                color="#fff"
+                size={25}
+                style={{marginRight: 10}}
+              />
               <Ionicons
                 onPress={callHandler}
                 name="ios-call"
@@ -228,11 +251,16 @@ const Home = ({navigation}: any) => {
                 )}
               </View>
             </View>
+            {/* <Services /> */}
             <Weather
               onPress={() => navigation.navigate('Weather')}
               token={token}
             />
-            <Soil onPress={() => {}} />
+            <Soil
+              onPress={() => {
+                navigation.navigate('SoilHealth');
+              }}
+            />
           </ScrollView>
         </>
       )}
@@ -284,5 +312,10 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
+  },
+  greeting: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });

@@ -53,31 +53,17 @@ const Soil = ({onPress}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <View
+              <Text
                 style={{
-                  height: 40,
-                  width: 40,
-                  backgroundColor: config.constants.ternaryColor,
-                  borderRadius: 7,
+                  color: config.constants.primaryColor,
+                  fontWeight: 'bold',
                 }}>
-                <Text
-                  style={{color: '#fff', textAlign: 'center', lineHeight: 40}}>
-                  N
-                </Text>
-              </View>
-              <View
-                style={{
-                  height: 40,
-                  width: 40,
-                  borderColor: config.constants.ternaryColor,
-                  borderWidth: 0.5,
-                  borderRadius: 7,
-                }}>
-                <Text
-                  style={{color: '#000', textAlign: 'center', lineHeight: 40}}>
-                  10
-                </Text>
-              </View>
+                pH Status:
+              </Text>
+              <Text
+                style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
+                10
+              </Text>
             </View>
             <View
               style={{
@@ -85,31 +71,17 @@ const Soil = ({onPress}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <View
+              <Text
                 style={{
-                  height: 40,
-                  width: 40,
-                  backgroundColor: config.constants.ternaryColor,
-                  borderRadius: 7,
+                  color: config.constants.primaryColor,
+                  fontWeight: 'bold',
                 }}>
-                <Text
-                  style={{color: '#fff', textAlign: 'center', lineHeight: 40}}>
-                  P
-                </Text>
-              </View>
-              <View
-                style={{
-                  height: 40,
-                  width: 40,
-                  borderColor: config.constants.ternaryColor,
-                  borderWidth: 0.5,
-                  borderRadius: 7,
-                }}>
-                <Text
-                  style={{color: '#000', textAlign: 'center', lineHeight: 40}}>
-                  10
-                </Text>
-              </View>
+                Moisture:
+              </Text>
+              <Text
+                style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
+                14%
+              </Text>
             </View>
             <View
               style={{
@@ -117,41 +89,25 @@ const Soil = ({onPress}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <View
+              <Text
                 style={{
-                  height: 40,
-                  width: 40,
-                  backgroundColor: config.constants.ternaryColor,
-                  borderRadius: 7,
+                  color: config.constants.primaryColor,
+                  fontWeight: 'bold',
                 }}>
-                <Text
-                  style={{color: '#fff', textAlign: 'center', lineHeight: 40}}>
-                  K
-                </Text>
-              </View>
-              <View
-                style={{
-                  height: 40,
-                  width: 40,
-                  borderColor: config.constants.ternaryColor,
-                  borderWidth: 0.5,
-                  borderRadius: 7,
-                }}>
-                <Text
-                  style={{color: '#000', textAlign: 'center', lineHeight: 40}}>
-                  10
-                </Text>
-              </View>
+                Humidity:
+              </Text>
+              <Text
+                style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
+                75%
+              </Text>
             </View>
           </View>
           <TouchableOpacity
-            onPress={() =>
-              ToastAndroid.show(
-                'This feature is coming soon. Sorry for the inconvenience caused',
-                1,
-              )
-            }>
-            <Text style={styles.buttonText}>See More</Text>
+            style={{
+              marginHorizontal: 10,
+            }}
+            onPress={onPress}>
+            <Text style={styles.buttonText}>Check Health</Text>
           </TouchableOpacity>
         </>
       )}
@@ -159,9 +115,13 @@ const Soil = ({onPress}: any) => {
   );
 };
 
+// ToastAndroid.show(
+//   'This feature is coming soon. Sorry for the inconvenience caused',
+//   1,
+// )
 const styles = StyleSheet.create({
   main: {
-    height: 150,
+    height: 180,
     borderBottomColor: config.constants.primaryColor,
     width: '100%',
     borderBottomWidth: 1,
@@ -170,7 +130,7 @@ const styles = StyleSheet.create({
   soil: {
     height: 80,
     // flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
     marginHorizontal: 10,
@@ -188,11 +148,13 @@ const styles = StyleSheet.create({
     width: '30%',
   },
   buttonText: {
-    textAlign: 'right',
+    textAlign: 'center',
     fontWeight: '700',
     fontSize: 14,
-    color: config.constants.ternaryColor,
-    marginRight: 10,
+    color: '#fff',
+    backgroundColor: config.constants.primaryColor,
+    padding: 15,
+    borderRadius: 10,
   },
 });
 

@@ -118,9 +118,12 @@ const Profile = ({navigation}: any) => {
         onImageLibraryPress={onImageLibraryPress}
         onCameraPress={onCameraPress}
       />
-      <ScrollView style={{height: '32%'}}>
+      <ScrollView style={{height: 210}}>
         <View style={styles.user}>
-          <UserAvatar image={farmer?.user?.image || null} default={user?.image} />
+          <UserAvatar
+            image={farmer?.user?.image || null}
+            default={user?.image}
+          />
           {editable && (
             <TouchableOpacity onPress={() => setShowModal(true)}>
               <MaterialIcon name="edit" color="#000" size={28} />
@@ -129,9 +132,7 @@ const Profile = ({navigation}: any) => {
           <Text style={styles.userName}>{farmer?.user?.name || 'Farmer'}</Text>
           <Text style={styles.userName}>
             Member since{' '}
-            {dayjs(new Date(farmer.user.createDrawerNavigator)).format(
-              'DD MMMM YYYY',
-            )}
+            {dayjs(new Date(farmer?.user?.createdAt)).format('DD MMMM YYYY')}
           </Text>
         </View>
         <View style={{height: 10}}></View>
@@ -147,12 +148,18 @@ const Profile = ({navigation}: any) => {
           />
         </View>
         <View style={{...styles.input, opacity: 0.5}}>
-          <Text style={{color: 'black', fontWeight: 'bold'}}>Role : </Text>
+          <Text
+            style={{
+              color: 'black',
+              fontWeight: 'bold',
+            }}>
+            Role :
+          </Text>
           <TextInput
             onChangeText={e => {}}
             editable={false}
             value={farmer?.user?.role}
-            style={{color: 'black'}}
+            style={{color: 'black', textTransform: 'capitalize'}}
           />
         </View>
         <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
@@ -224,6 +231,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     // position: 'absolute'
+    backgroundColor: '#fff',
   },
   user: {
     height: '100%',
