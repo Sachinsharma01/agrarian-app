@@ -129,10 +129,11 @@ const Home = ({navigation}: any) => {
               )}
               <Ionicons
                 onPress={() => {
-                  ToastAndroid.show(
-                    'This feature is coming soon. Sorry for the inconvenience caused',
-                    1,
-                  )
+                  // ToastAndroid.show(
+                  //   'This feature is coming soon. Sorry for the inconvenience caused',
+                  //   1,
+                  // )
+                  navigation.navigate('Notifications')
                 }}
                 name="notifications"
                 color="#fff"
