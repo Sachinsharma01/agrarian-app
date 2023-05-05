@@ -142,6 +142,7 @@ export const addPost = async (token: string, payload: any) => {
           cropImage: payload.crop.cropImage,
           cropId: payload.crop.cropId,
         },
+        image: payload.image
       },
       {
         headers: {
@@ -224,7 +225,12 @@ export const removeUserCrop = async (
 };
 
 export const addCrop = async (
-  payload: {userId: string; crop: {name: string; image: string; _id: string}, sowingDate: string, area: number},
+  payload: {
+    userId: string;
+    crop: {name: string; image: string; _id: string};
+    sowingDate: string;
+    area: number;
+  },
   token: string,
 ) => {
   try {
@@ -236,7 +242,7 @@ export const addCrop = async (
           ...payload.crop,
         },
         sowingDate: payload.sowingDate,
-        area: payload.area  
+        area: payload.area,
       },
       {
         headers: {
@@ -256,14 +262,72 @@ export const getCropDetails = async (token: string, cropId: string) => {
   try {
     const res = await axiosInstance.get(`/crops/${cropId}`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     const data = await res.data;
-    console.log("Crop details fetched", data);
+    console.log('Crop details fetched', data);
     return data.data;
-  } catch(err) {
+  } catch (err) {
     Alert.alert(config.defaultErrorMessage);
-
   }
-}
+};
+
+export const updatePost = async (token: string, postId: string) => {
+  try {
+    console.log('Post like starts', postId);
+    const res = await axiosInstance.put(
+      `/post/updatePost/${postId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          like: true,
+        },
+      },
+    );
+    const data = await res.data;
+    console.log('Post Liked', data);
+  } catch (err) {
+    console.log('ERROR ocurred in like post');
+  }
+};
+
+export const getALLNotifications = async (token: string, userId: string) => {
+  try {
+    const res = await axiosInstance.get(
+      `/notification/?userId=${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      },
+    );
+    const data = await res.data;
+    console.log('All Notifications', data);
+    return data.data
+  } catch (err) {
+    console.log('ERROR ocurred in like post');
+  }
+};
+
+export const readNotification = async (token: string, payload: {notificationId: string}) => {
+  try {
+    const res = await axiosInstance.put(
+      `/notification/read/?notificationId=${payload?.notificationId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      },
+    );
+    const data = await res.data;
+    console.log('All Notifications', data);
+    return data.data
+  } catch (err) {
+    console.log('ERROR ocurred read notification');
+  }
+};

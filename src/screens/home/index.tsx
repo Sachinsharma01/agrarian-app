@@ -7,8 +7,9 @@ import {
   Image,
   Linking,
   Alert,
+  ToastAndroid
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -28,6 +29,7 @@ import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
 import {logoNew} from '../../assets';
 import {AddGaEvent} from '../../analytics/analytics';
+import Services from '../../components/services';
 
 const Home = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -38,7 +40,7 @@ const Home = ({navigation}: any) => {
   const [allUserCrops, setAllUsersCrops] = useState([]);
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
+  useLayoutEffect(() => {
     getUser();
     getAllCrops(token as string).then((data: any) => {
       dispatch(updateCrops(data));
@@ -81,7 +83,10 @@ const Home = ({navigation}: any) => {
 
   const callHandler = () => {
     if (user?.isPaid === false) {
-      Alert.alert('Please Buy Premium to avail this service');
+      Alert.alert(
+        'Premium Required',
+        'This feature is for Premium members only. Please buy Premium to avail this service.',
+      );
     } else {
       Linking.openURL(`tel:${config.helplineNumber}`);
     }
@@ -113,6 +118,38 @@ const Home = ({navigation}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
+              {user?.isPaid && (
+                <Text
+                  style={{
+                    color: config.constants.secondaryColor,
+                    paddingRight: 10,
+                  }}>
+                  {' '}
+                  Premium
+                </Text>
+              )}
+              <Ionicons
+                onPress={() => {
+                  // ToastAndroid.show(
+                  //   'This feature is coming soon. Sorry for the inconvenience caused',
+                  //   1,
+                  // )
+                  navigation.navigate('Notifications')
+                }}
+                name="notifications"
+                color="#fff"
+                size={25}
+                style={{marginRight: 10}}
+              />
+              <Ionicons
+                onPress={() => {
+                  navigation.navigate('Cart');
+                }}
+                name="cart"
+                color="#fff"
+                size={25}
+                style={{marginRight: 10}}
+              />
               <Ionicons
                 onPress={callHandler}
                 name="ios-call"
@@ -144,7 +181,8 @@ const Home = ({navigation}: any) => {
                   My Crops
                 </Text>
                 <TouchableOpacity
-                  onPress={() => {
+                  onPress={async () => {
+                    await AddGaEvent('addCrop' as string, {});
                     navigation.navigate('Crop');
                   }}>
                   <Ionicons
@@ -184,7 +222,7 @@ const Home = ({navigation}: any) => {
                       />
                     ) : (
                       <ScrollView horizontal={true} style={styles.cropScroll}>
-                        {allUserCrops.map((crop: any, idx: number) => {
+                        {allUserCrops?.map((crop: any, idx: number) => {
                           return (
                             <CropItem
                               idx={idx}
@@ -216,6 +254,7 @@ const Home = ({navigation}: any) => {
                 )}
               </View>
             </View>
+            {/* <Services /> */}
             <Weather
               onPress={async () => {
                 await AddGaEvent('forecast' as string, {});
@@ -223,7 +262,11 @@ const Home = ({navigation}: any) => {
               }}
               token={token}
             />
-            <Soil onPress={() => {}} />
+            <Soil
+              onPress={() => {
+                navigation.navigate('SoilHealth');
+              }}
+            />
           </ScrollView>
         </>
       )}
@@ -275,5 +318,10 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
+  },
+  greeting: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });

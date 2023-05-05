@@ -10,8 +10,10 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import React, {useState, useCallback} from 'react';
+import dayjs from 'dayjs';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
 import {user} from '../../assets';
 import UserAvatar from '../../components/user/UserAvatar';
@@ -20,9 +22,10 @@ import Button from '../../components/button';
 import {updateUserDetails} from '../../request/index';
 import {updateUser} from '../../redux/actions/metaDetaActions';
 import {ImagePickerModal} from '../../modals/ImagePickerModal';
-import upload from '../../utils/upload';
+import {upload} from '../../utils/upload';
+import { AddGaEvent } from '../../analytics/analytics';
 
-const Profile = () => {
+const Profile = ({navigation}: any) => {
   const [showLoader, setShowLoader] = useState(false);
   const farmer = useSelector((state: any) => state.metaDataReducer);
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -50,10 +53,14 @@ const Profile = () => {
       pincode,
     };
     if (pickerResponse !== null) {
-      const fileUrl = await upload(pickerResponse, farmer?.user?.name as string);
+      const fileUrl = await upload(
+        pickerResponse,
+        farmer?.user?.name as string,
+      );
       console.log('fileUrlll', fileUrl);
       updateData.image = fileUrl;
     }
+    await AddGaEvent('profile_updated' as string, updateData)
     const response = await updateUserDetails(updateData, token);
     if (response.error) {
       Alert.alert(config.defaultErrorMessage);
@@ -89,6 +96,21 @@ const Profile = () => {
   console.log('picker@@@@@@@@@@@', pickerResponse);
   return (
     <SafeAreaView style={styles.main}>
+      <View style={styles.top}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back-outline"
+            size={30}
+            color="#fff"
+            style={{marginHorizontal: 10}}
+          />
+        </TouchableOpacity>
+        <View style={{marginLeft: 10}}>
+          <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
+            Back
+          </Text>
+        </View>
+      </View>
       {showLoader && (
         <ActivityIndicator size="large" color={config.constants.primaryColor} />
       )}
@@ -98,17 +120,21 @@ const Profile = () => {
         onImageLibraryPress={onImageLibraryPress}
         onCameraPress={onCameraPress}
       />
-      <ScrollView style={{height: '32%'}}>
+      <ScrollView style={{height: 210}}>
         <View style={styles.user}>
-          <UserAvatar image={farmer.user.image || null} default={user.image} />
+          <UserAvatar
+            image={farmer?.user?.image || null}
+            default={user?.image}
+          />
           {editable && (
             <TouchableOpacity onPress={() => setShowModal(true)}>
               <MaterialIcon name="edit" color="#000" size={28} />
             </TouchableOpacity>
           )}
-          <Text style={styles.userName}>{farmer.user.name || 'Farmer'}</Text>
+          <Text style={styles.userName}>{farmer?.user?.name || 'Farmer'}</Text>
           <Text style={styles.userName}>
-            Member since {farmer.user.createdAt.split('T')[0]}
+            Member since{' '}
+            {dayjs(new Date(farmer?.user?.createdAt)).format('DD MMMM YYYY')}
           </Text>
         </View>
         <View style={{height: 10}}></View>
@@ -121,6 +147,21 @@ const Profile = () => {
             editable={editable}
             value={name}
             style={{color: 'black'}}
+          />
+        </View>
+        <View style={{...styles.input, opacity: 0.5}}>
+          <Text
+            style={{
+              color: 'black',
+              fontWeight: 'bold',
+            }}>
+            Role :
+          </Text>
+          <TextInput
+            onChangeText={e => {}}
+            editable={false}
+            value={farmer?.user?.role}
+            style={{color: 'black', textTransform: 'capitalize'}}
           />
         </View>
         <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
@@ -180,10 +221,19 @@ const Profile = () => {
 };
 
 const styles = StyleSheet.create({
+  top: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 70,
+    backgroundColor: config.constants.primaryColor,
+    color: '#fff',
+  },
   main: {
     flex: 1,
     flexDirection: 'column',
     // position: 'absolute'
+    backgroundColor: '#fff',
   },
   user: {
     height: '100%',

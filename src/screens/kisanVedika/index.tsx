@@ -5,18 +5,19 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {RefreshControl, ScrollView} from 'react-native-gesture-handler';
-import {getAllPosts} from '../../request/index';
+import {getAllPosts, updatePost} from '../../request/index';
+import {AddGaEvent} from '../../analytics/analytics';
 import Post from '../../components/post';
 import config from '../../config';
 import {user} from '../../assets';
 
 const KisanVedika = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState([]);
   useEffect(() => {
@@ -34,9 +35,15 @@ const KisanVedika = ({navigation}: any) => {
       setLoading(false);
     });
   }, []);
+
+  const likePosHandler = async (postId: string) => {
+    await updatePost(token as string, postId as string);
+    ToastAndroid.show('You Liked The Post', 0.3);
+    await AddGaEvent('post_liked' as string, {postId});
+  };
   // console.log('pdkhfvbhfdbvfhbfv', allPosts);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.main}>
       <View style={styles.top}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons
@@ -71,16 +78,17 @@ const KisanVedika = ({navigation}: any) => {
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={onRefresh} />
         }
-        style={{backgroundColor: '#e8e4e3', height: '90%'}}>
+        style={{...styles.main, height: '90%'}}>
         {allPosts?.map((post: any, idx) => {
           return (
             <Post
               userImage={post?.postedBy?.userImage || null}
-              onPostPress={() =>
+              onPostPress={async () => {
+                await AddGaEvent('postOpened' as string, {postId: post?._id});
                 navigation.navigate('PostScreen', {
                   postId: post?._id,
-                })
-              }
+                });
+              }}
               image={post?.image || null}
               state={post?.state}
               name={post?.postedBy?.name}
@@ -92,6 +100,7 @@ const KisanVedika = ({navigation}: any) => {
               postedOn={post.createdAt}
               default={user.image}
               key={idx}
+              onPostLike={() => likePosHandler(post?._id)}
             />
           );
         })}
@@ -101,6 +110,9 @@ const KisanVedika = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
+  main: {
+    backgroundColor: '#fff',
+  },
   top: {
     flexDirection: 'row',
     justifyContent: 'flex-start',

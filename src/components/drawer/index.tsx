@@ -43,6 +43,16 @@ const CustomDrawer = (props: any) => {
             }}>
             {farmer?.user?.name || 'Farmer'}
           </Text>
+          {farmer?.user?.isPaid && (
+            <Text
+              style={{
+                color: config.constants.secondaryColor,
+                paddingRight: 10,
+              }}>
+              {' '}
+              Premium
+            </Text>
+          )}
         </ImageBackground>
         <View style={{flex: 1, backgroundColor: '#fff', paddingTop: 10}}>
           <DrawerItemList {...props} />

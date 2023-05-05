@@ -39,3 +39,7 @@ export const welcomeLogo: data = {
 export const onBoardLogoOne: data = {
   image: require('../assets/screens/market-logo.png')
 }
+
+export const kisanVedika: data = {
+  image: require('../assets/screens/friendly.png')
+}

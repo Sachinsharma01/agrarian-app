@@ -19,7 +19,14 @@ const Post = (props: any) => {
           <Text style={styles.name}>
             {props.name || 'Farmer'}
             {props.isPaid && (
-              <Text style={{color: config.constants.secondaryColor, paddingLeft: 10}}> VIP</Text>
+              <Text
+                style={{
+                  color: config.constants.secondaryColor,
+                  paddingLeft: 10,
+                }}>
+                {' '}
+                VIP
+              </Text>
             )}
           </Text>
           <Text style={{color: '#000'}}>
@@ -33,7 +40,7 @@ const Post = (props: any) => {
           <Image
             source={props.image ? {uri: props.image} : props.default}
             style={styles.image}
-            resizeMode="contain"
+            // resizeMode="contain"
           />
         </View>
       )}
@@ -50,17 +57,17 @@ const Post = (props: any) => {
         </Text>
       </View>
       <View style={styles.details}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.onPostLike}>
           <SimpleLineIcons name="like" size={25} color="#000" />
-          <Text style={{textAlign: 'center'}}>Like</Text>
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Like</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPostPress}>
           <EvilIcons name="comment" size={35} color="#000" />
-          <Text>Comment</Text>
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Comment</Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <EvilIcons name="share-google" size={35} color="#000" />
-          <Text style={{textAlign: 'center'}}>Share</Text>
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Share</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -96,7 +103,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     borderRadius: 10,
-    aspectRatio: 1.8,
+    aspectRatio: 1,
   },
   details: {
     height: 50,

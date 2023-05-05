@@ -18,4 +18,21 @@ const upload = async (file: any,userName: string) => {
   }
 };
 
-export default upload;
+const uploadPostImage = async (file: any, userName: string) => {
+  try {
+    console.log("post image upload starts ", file, userName)
+    let filename = file.substring(file.lastIndexOf('/') + 1);
+    const extension = filename.split('.').pop();
+    const name = filename.split('.').slice(0, -1).join('.');
+    filename = userName + name + new Date() + '.' + extension;
+    console.log(filename + ' ' + extension + ' ' + name);
+    const storageRef = await storage().ref(`agrarian/posts/${userName}/${filename}`);
+    const task = await storageRef.putFile(file);
+    const fileURL = await storageRef.getDownloadURL();
+    return fileURL;
+  } catch(err) {
+    console.log('File Upload Error', err);
+    Alert.alert("OOPS!", 'File Upload Error Please Try again Later!');
+  }
+}
+export {upload, uploadPostImage};

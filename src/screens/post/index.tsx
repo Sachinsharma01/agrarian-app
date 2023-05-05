@@ -6,13 +6,10 @@ import {
   StyleSheet,
   SafeAreaView,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
-import { TextInput} from 'react-native-gesture-handler';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import UserAvatar from '../../components/user/UserAvatar';
 import config from '../../config';
 import {getPostDetails, addComment} from '../../request/index';
@@ -21,7 +18,7 @@ import Comment from '../../components/comment';
 import CommentSection from '../../components/comment/commentSection';
 
 const PostScreen = ({route, navigation}: any) => {
-  navigation?.setOptions({tabBarStyle: {display: 'none'}});
+  // navigation?.setOptions({tabBarStyle: {display: 'none'}});
   const {postId} = route.params;
   const {token} = useSelector((state: any) => state.tokenReducer);
   const [postDetails, setPostDetails]: any = useState({});
@@ -54,58 +51,53 @@ const PostScreen = ({route, navigation}: any) => {
         <ActivityIndicator size="large" color={config.constants.primaryColor} />
       ) : (
         <>
-          <View style={styles.post}>
-            <View style={styles.innerPost}>
-              <UserAvatar
-                height={40}
-                width={40}
-                image={postDetails?.post?.postedBy?.userImage || null}
-                default={user.image}
-              />
-              <View style={{marginLeft: 10}}>
-                <Text style={styles.name}>
-                  {postDetails?.post?.postedBy?.name || 'Farmer'}
-                  {postDetails?.post?.postedBy?.isPaid && (
-                    <Text
-                      style={{
-                        color: config.constants.secondaryColor,
-                        paddingLeft: 10,
-                      }}>
-                      {' '}
-                      VIP
-                    </Text>
-                  )}
-                </Text>
-                <Text style={{color: '#000'}}>
-                  {postDetails?.post?.state || ''}
-                  {` | Posted on ${postDetails?.post?.createdAt.split('T')[0]}`}
-                </Text>
-              </View>
-            </View>
-            {postDetails?.post?.image && (
-              <View style={styles.imageContainer}>
-                <Image
-                  source={{uri: postDetails?.post?.image}}
-                  style={styles.image}
-                  resizeMode="contain"
+          <ScrollView>
+            <View style={styles.post}>
+              <View style={styles.innerPost}>
+                <UserAvatar
+                  height={40}
+                  width={40}
+                  image={postDetails?.post?.postedBy?.userImage || null}
+                  default={user.image}
                 />
+                <View style={{marginLeft: 10}}>
+                  <Text style={styles.name}>
+                    {postDetails?.post?.postedBy?.name || 'Farmer'}
+                    {postDetails?.post?.postedBy?.isPaid && (
+                      <Text
+                        style={{
+                          color: config.constants.secondaryColor,
+                          paddingLeft: 10,
+                        }}>
+                        {' '}
+                        VIP
+                      </Text>
+                    )}
+                  </Text>
+                  <Text style={{color: '#000'}}>
+                    {postDetails?.post?.state || ''}
+                    {` | Posted on ${
+                      postDetails?.post?.createdAt.split('T')[0]
+                    }`}
+                  </Text>
+                </View>
               </View>
-            )}
-            <View style={{marginLeft: 10}}>
-              <Text style={styles.description}>
-                {postDetails?.post?.title}
-                {postDetails?.post?.description}
-              </Text>
-              <Text style={{color: '#d1cdcd'}}>
-                {`${postDetails?.post?.likes} likes`}
-                {'  |  '}
-                {`${postDetails?.post?.views} views`}
-                {'  |  '}
-                {`${postDetails?.post?.totalAnswers} Comments`}
-              </Text>
+              {postDetails?.post?.image && (
+                <View style={styles.imageContainer}>
+                  <Image
+                    source={{uri: postDetails?.post?.image}}
+                    style={styles.image}
+                    // resizeMode="center"
+                  />
+                </View>
+              )}
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.description}>
+                  {postDetails?.post?.title}
+                  {postDetails?.post?.description}
+                </Text>
+              </View>
             </View>
-          </View>
-          <ScrollView style={{height: '60%'}}>
             <CommentSection
               value={comment}
               onPress={addCommentHandler}
@@ -168,7 +160,8 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     borderRadius: 10,
-    aspectRatio: 3,
+    aspectRatio: 1,
+    // width: '100%',
   },
   details: {
     height: 50,
