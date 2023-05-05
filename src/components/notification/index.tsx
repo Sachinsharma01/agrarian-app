@@ -5,12 +5,18 @@ import config from '../../config';
 
 const NotificationItem = (props: any) => {
   return (
-    <TouchableOpacity onPress={props.onPress} key={props?.idx} style={styles.notif}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      key={props?.idx}
+      style={styles.notif}>
       <View style={styles.content}>
         <Text style={styles.text}>{props?.content}</Text>
+        <Text style={styles.descriptionText}>{props?.description}</Text>
       </View>
       <View style={styles.description}>
-        <Text style={styles.dText}>{dayjs(new Date(props?.createdAt)).format('DD MMMM YYYY hh:mm A')}</Text>
+        <Text style={styles.dText}>
+          {dayjs(new Date(props?.createdAt)).format('DD MMMM YYYY hh:mm A')}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -23,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: config.constants.ternaryColor,
     backgroundColor: '#CAD5E2',
-    height: 100,
+    // height: 110,
   },
   text: {
     fontWeight: 'bold',
@@ -38,10 +44,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     marginRight: 10,
+    height: 10
   },
   dText: {
     position: 'absolute',
-    bottom: -55
+    marginVertical: 10,
+    // bottom: -35
+  },
+  descriptionText: {
+    color: "#000"
   }
 });
 

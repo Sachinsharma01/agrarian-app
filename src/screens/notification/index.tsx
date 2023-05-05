@@ -36,6 +36,7 @@ const Notification = () => {
     await readNotification(token as string, {
       notificationId: notification?.notificationId,
     });
+      setReload(!reload);
   };
 
   const Loader: any = () => {
@@ -65,11 +66,12 @@ const Notification = () => {
                   <NotificationItem
                     onPress={() => {
                       readNotificationHandler(notification);
-                      setReload(!reload);
+                      // setReload(!reload);
                     }}
                     key={idx}
                     content={notification?.content}
                     createdAt={notification?.createdAt}
+                    description={notification?.description}
                   />
                 );
               })}

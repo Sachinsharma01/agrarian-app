@@ -9,7 +9,7 @@ import {
   Alert,
   ToastAndroid
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -39,7 +39,7 @@ const Home = ({navigation}: any) => {
   const [allUserCrops, setAllUsersCrops] = useState([]);
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
+  useLayoutEffect(() => {
     getUser();
     getAllCrops(token as string).then((data: any) => {
       dispatch(updateCrops(data));
@@ -220,7 +220,7 @@ const Home = ({navigation}: any) => {
                       />
                     ) : (
                       <ScrollView horizontal={true} style={styles.cropScroll}>
-                        {allUserCrops.map((crop: any, idx: number) => {
+                        {allUserCrops?.map((crop: any, idx: number) => {
                           return (
                             <CropItem
                               idx={idx}
