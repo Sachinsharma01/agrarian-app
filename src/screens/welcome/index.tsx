@@ -28,8 +28,8 @@ const Welcome = ({navigation}: any) => {
           </TouchableOpacity>
         </SafeAreaView>
       )}
-      {screen === 2 && <First onPress={() => navigation.navigate('Login')} />}
-      {/* {screen === 3 && <Second onPress={() => navigation.navigate('Login')} />} */}
+      {screen === 2 && <First onPress={() => setScreen(3)} />}
+      {screen === 3 && <Second onPress={() => navigation.navigate('Login')} />}
     </>
   );
 };

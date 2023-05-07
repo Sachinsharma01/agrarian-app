@@ -137,7 +137,7 @@ const Home = ({navigation}: any) => {
                 }}
                 name="notifications"
                 color="#fff"
-                size={25}
+                size={20}
                 style={{marginRight: 10}}
               />
               <Ionicons
@@ -146,14 +146,14 @@ const Home = ({navigation}: any) => {
                 }}
                 name="cart"
                 color="#fff"
-                size={25}
+                size={22}
                 style={{marginRight: 10}}
               />
               <Ionicons
                 onPress={callHandler}
                 name="ios-call"
                 color="#fff"
-                size={22}
+                size={20}
                 style={{marginRight: 10}}
               />
               <Ionicons
