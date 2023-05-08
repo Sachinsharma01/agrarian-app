@@ -56,7 +56,7 @@ const OngoingCrop = ({route, navigation}: any) => {
         <ActivityIndicator size="small" color={config.constants.primaryColor} />
       ) : (
         <>
-          <View style={{height: 50, backgroundColor: '#fff'}}>
+          <View style={{height: 55, backgroundColor: '#fff'}}>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}>

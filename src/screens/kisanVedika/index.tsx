@@ -17,7 +17,6 @@ import {user} from '../../assets';
 
 const KisanVedika = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState([]);
   useEffect(() => {

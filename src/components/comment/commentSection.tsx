@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderColor: config.constants.borderColor,
     marginTop: 10,
+    color: '#000'
     // marginHorizontal: 10,
   },
 });
