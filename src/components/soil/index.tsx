@@ -12,7 +12,6 @@ import config from '../../config';
 
 const Soil = ({onPress}: any) => {
   const [loading, setLoading] = useState(false);
-  const [weather, setWeather]: any = useState({});
   const [reload, setReload] = useState(false);
   useEffect(() => {
     setLoading(true);
@@ -104,7 +103,7 @@ const Soil = ({onPress}: any) => {
           </View>
           <TouchableOpacity
             style={{
-              marginHorizontal: 10,
+              marginHorizontal: '7%',
             }}
             onPress={onPress}>
             <Text style={styles.buttonText}>Check Health</Text>

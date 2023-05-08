@@ -1,31 +1,23 @@
 import {
-  View,
   Text,
   SafeAreaView,
-  Image,
   TouchableOpacity,
   StyleSheet,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {onBoardLogoOne} from '../../assets';
 import config from '../../config';
 
 const Second = ({onPress}: any) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.imageView}>
-        <Image
-          source={{
-            uri: 'https://firebasestorage.googleapis.com/v0/b/agrarian-app.appspot.com/o/agrarian%2Fusers%2Fwindmill.gif?alt=media&token=884222ce-53ff-4597-8cf5-f333da3b8a0f',
-          }}
-          style={styles.image}
-        />
-      </View>
-      <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>Let's Begin</Text>
-        <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
-      </TouchableOpacity>
+      <ImageBackground
+        source={require('../../assets/screens/marketing.jpg')}
+        style={{height: '100%', width: '100%'}}>
+        <TouchableOpacity style={styles.button} onPress={onPress}>
+          <Text style={styles.buttonText}>Next</Text>
+        </TouchableOpacity>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -54,17 +46,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonText: {
-    color: '#ffffff',
+    color: config.constants.primaryColor,
     fontWeight: 'normal',
-    fontSize: 20,
+    fontSize: 17,
   },
   button: {
-    backgroundColor: config.constants.primaryColor,
-    padding: 20,
-    width: '90%',
+    padding: 4,
+    paddingHorizontal: 7,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 50,
+    marginBottom: 10,
+    marginTop: 30,
+    position: 'absolute',
+    // bottom: 120,
+    right: 10,
+    borderColor: config.constants.primaryColor,
+    borderWidth: 1,
     borderRadius: 10,
   },
 });

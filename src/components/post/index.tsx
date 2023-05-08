@@ -1,11 +1,16 @@
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import React from 'react';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import React, {useState} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import UserAvatar from '../user/UserAvatar';
 import config from '../../config';
 
 const Post = (props: any) => {
+  const [liked, setLiked] = useState(false);
+  const likeClickHandler = () => {
+    props.onPostLike();
+    setLiked(true);
+  };
   return (
     <View style={styles.post}>
       <View style={styles.innerPost}>
@@ -57,8 +62,12 @@ const Post = (props: any) => {
         </Text>
       </View>
       <View style={styles.details}>
-        <TouchableOpacity onPress={props.onPostLike}>
-          <SimpleLineIcons name="like" size={25} color="#000" />
+        <TouchableOpacity onPress={likeClickHandler}>
+          <AntDesign
+            name={liked ? 'like1' : 'like2'}
+            size={25}
+            color={liked ? config.constants.primaryColor : '#000'}
+          />
           <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Like</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPostPress}>
@@ -104,6 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 10,
     aspectRatio: 1,
+    marginHorizontal: '2%',
   },
   details: {
     height: 50,
@@ -119,6 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#000',
     backgroundColor: '#fff',
+    marginHorizontal: '2%',
   },
 });
 

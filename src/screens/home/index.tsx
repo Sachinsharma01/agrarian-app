@@ -7,7 +7,7 @@ import {
   Image,
   Linking,
   Alert,
-  ToastAndroid
+  ToastAndroid,
 } from 'react-native';
 import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -40,8 +40,10 @@ const Home = ({navigation}: any) => {
   const [allUserCrops, setAllUsersCrops] = useState([]);
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
-  useLayoutEffect(() => {
-    getUser();
+  useEffect(() => {
+    getUser().then((data: any) => {
+      fetchUserCrops();
+    });
     getAllCrops(token as string).then((data: any) => {
       dispatch(updateCrops(data));
     });
@@ -56,15 +58,18 @@ const Home = ({navigation}: any) => {
   useEffect(() => {
     fetchUserCrops();
   }, [reload]);
+
   const fetchUserCrops = async () => {
     setCropLoading(true);
-    const userCrops: any = await getUserCrops(
-      user._id as string,
-      token as string,
-    );
-    // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', userCrops)
-    setAllUsersCrops(userCrops[0]?.crop);
-    setCropLoading(false);
+    if (user) {
+      const userCrops: any = await getUserCrops(
+        user._id as string,
+        token as string,
+      );
+      // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', userCrops)
+      setAllUsersCrops(userCrops[0]?.crop);
+      setCropLoading(false);
+    }
   };
   const removeCrop = async (cropDetails: any) => {
     setCropLoading(true);
@@ -128,17 +133,18 @@ const Home = ({navigation}: any) => {
                   Premium
                 </Text>
               )}
+              
               <Ionicons
                 onPress={() => {
                   // ToastAndroid.show(
                   //   'This feature is coming soon. Sorry for the inconvenience caused',
                   //   1,
                   // )
-                  navigation.navigate('Notifications')
+                  navigation.navigate('Notifications');
                 }}
                 name="notifications"
                 color="#fff"
-                size={25}
+                size={20}
                 style={{marginRight: 10}}
               />
               <Ionicons
@@ -147,14 +153,14 @@ const Home = ({navigation}: any) => {
                 }}
                 name="cart"
                 color="#fff"
-                size={25}
+                size={22}
                 style={{marginRight: 10}}
               />
               <Ionicons
                 onPress={callHandler}
                 name="ios-call"
                 color="#fff"
-                size={22}
+                size={20}
                 style={{marginRight: 10}}
               />
               <Ionicons
@@ -249,7 +255,7 @@ const Home = ({navigation}: any) => {
                       color: '#000',
                       marginLeft: 5,
                     }}>
-                    No Crops Please Add One.
+                    No Crops Please Add One or refresh
                   </Text>
                 )}
               </View>

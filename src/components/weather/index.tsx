@@ -169,13 +169,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    marginHorizontal: 10,
+    marginHorizontal: '5%',
   },
   place: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-  },
+    // marginHorizontal: '5%',
+    },
 });
 
 export default Weather;

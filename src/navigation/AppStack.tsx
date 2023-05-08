@@ -8,8 +8,7 @@ import Profile from '../screens/profile';
 import AgriStore from '../screens/agristore';
 import Settings from '../screens/settings';
 import config from '../config';
-import KisanVedika from '../screens/kisanVedika/index';
-import Post from '../screens/post';
+import PostStack from './PostStack';
 
 const Drawer = createDrawerNavigator();
 
@@ -59,7 +58,7 @@ const AppStack = () => {
       />
       <Drawer.Screen
         name="Kisan Vedika"
-        component={KisanVedika}
+        component={PostStack}
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="people-outline" size={22} color={color} />

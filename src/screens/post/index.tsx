@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  TouchableOpacity,
   Image,
   StyleSheet,
   SafeAreaView,
@@ -162,6 +161,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     aspectRatio: 1,
     // width: '100%',
+    marginHorizontal: '2%',
   },
   details: {
     height: 50,
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#000',
     backgroundColor: '#fff',
+    marginHorizontal: '2%',
   },
   comment: {
     height: 50,
