@@ -42,8 +42,8 @@ const PostScreen = ({route, navigation}: any) => {
       setLoading(false);
     });
   };
-  console.log('pdkhfvbhfdbvfhbfv', postDetails);
-  console.log('rsetdfyghuigyftrdeswetfygu', postId);
+  // console.log('pdkhfvbhfdbvfhbfv', postDetails);
+  // console.log('rsetdfyghuigyftrdeswetfygu', postId);
   return (
     <SafeAreaView>
       {loading ? (
@@ -56,7 +56,7 @@ const PostScreen = ({route, navigation}: any) => {
                 <UserAvatar
                   height={40}
                   width={40}
-                  image={postDetails?.post?.postedBy?.userImage || null}
+                  image={postDetails?.post?.postedBy?.userImage}
                   default={user.image}
                 />
                 <View style={{marginLeft: 10}}>
@@ -106,9 +106,12 @@ const PostScreen = ({route, navigation}: any) => {
               comments?.map((comment: any, idx: number) => {
                 return (
                   <Comment
-                    userImage={comment?.commentedBy?.image}
+                    userImage={
+                      comment?.commentedBy?.image ||
+                      'https://firebasestorage.googleapis.com/v0/b/agrarian-app-5ad14.appspot.com/o/user-profile.jpg?alt=media&token=76ad20a2-7fb1-4692-917d-6ac5fe539755'
+                    }
                     onPostPress={() => {}}
-                    image={comment?.image || null}
+                    image={comment?.image}
                     name={comment.commentedBy?.name}
                     title={comment?.comment}
                     postedOn={comment.commentedOn}

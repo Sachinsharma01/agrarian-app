@@ -17,6 +17,7 @@ const CropProgress = ({crop}: any) => {
         flexDirection: 'row',
         // marginVertical: 10,
         paddingVertical: 15,
+        marginHorizontal: '5%',
       }}>
       <Image style={{width: 50, height: 50}} source={{uri: crop?.image}} />
       <View style={{marginLeft: 10}}>
@@ -45,7 +46,7 @@ const CropProgress = ({crop}: any) => {
           color={config.constants.primaryColor}
           style={{
             marginTop: 15,
-            width: Dimensions.get('window').width - 100,
+            width: Dimensions.get('window').width - 110,
             height: 5,
             marginLeft: 5,
           }}

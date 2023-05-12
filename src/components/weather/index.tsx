@@ -80,7 +80,7 @@ const Weather = ({token, onPress}: any) => {
     setLoading(false);
   };
   return (
-    <View style={styles.main}>
+    <TouchableOpacity style={styles.main} onPress={onPress}>
       <View style={styles.place}>
         <Text
           style={{
@@ -152,7 +152,7 @@ const Weather = ({token, onPress}: any) => {
           />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

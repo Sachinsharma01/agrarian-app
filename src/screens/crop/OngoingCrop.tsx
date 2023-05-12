@@ -7,6 +7,8 @@ import CropProgress from '../../components/crops/cropProgress';
 import PDF from '../../components/pdf/index';
 import config from '../../config';
 import {getCropDetails} from '../../request';
+import CropDataOne from '../../assets/data/crops';
+import {height} from '../../utils/getDimensions';
 
 const OngoingCrop = ({route, navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -51,77 +53,90 @@ const OngoingCrop = ({route, navigation}: any) => {
   };
   return (
     <>
-      <CropProgress crop={crop} />
-      {loading ? (
-        <ActivityIndicator size="small" color={config.constants.primaryColor} />
-      ) : (
-        <>
-          <View style={{height: 55, backgroundColor: '#fff'}}>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}>
-              {currentCrop?.categories?.map((category: string, idx: number) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setActiveTab(idx);
-                      setUrlOnSelect(category);
-                    }}
-                    key={idx}
-                    style={{
-                      marginHorizontal: 25,
-                      padding: 15,
-                      borderBottomWidth: 1,
-                      borderBottomColor: `${
-                        activeTab === idx
-                          ? config.constants.borderColor
-                          : '#fff'
-                      }`,
-                    }}>
-                    <Text style={{color: 'grey', textTransform: 'capitalize'}}>
-                      {category}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-              <TouchableOpacity
-                onPress={() => setActiveTab(4)}
-                style={{
-                  marginHorizontal: 25,
-                  padding: 15,
-                  borderBottomWidth: 1,
-                  borderBottomColor:
-                    activeTab === 4 ? config.constants.borderColor : '#fff',
-                }}>
-                <Text style={{color: 'grey'}}>Fertilizer Calculator</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={cropDiseasesClickHandler}
-                style={{
-                  marginHorizontal: 25,
-                  padding: 15,
-                  borderBottomWidth: 1,
-                  borderBottomColor:
-                    activeTab === 5 ? config.constants.borderColor : '#fff',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                }}>
-                <Text style={{color: 'grey'}}>Crop Diseases</Text>
-                {!user?.isPaid && (
-                  <Ionicons
-                    name="lock-closed-outline"
-                    color={config.constants.primaryColor}
-                    size={20}
-                    style={{marginLeft: 5}}
-                  />
+      <ScrollView style={{height: height}}>
+        <View style={{backgroundColor: '#fff'}}>
+          <CropProgress crop={crop} />
+        </View>
+        {loading ? (
+          <ActivityIndicator
+            size="small"
+            color={config.constants.primaryColor}
+          />
+        ) : (
+          <>
+            <View style={{height: 55, backgroundColor: '#fff'}}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}>
+                {currentCrop?.categories?.map(
+                  (category: string, idx: number) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => {
+                          setActiveTab(idx);
+                          setUrlOnSelect(category);
+                        }}
+                        key={idx}
+                        style={{
+                          marginHorizontal: 25,
+                          padding: 15,
+                          borderBottomWidth: 1,
+                          borderBottomColor: `${
+                            activeTab === idx
+                              ? config.constants.borderColor
+                              : '#fff'
+                          }`,
+                        }}>
+                        <Text
+                          style={{color: 'grey', textTransform: 'capitalize'}}>
+                          {category}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  },
                 )}
-              </TouchableOpacity>
-            </ScrollView>
-          </View>
-          <PDF url={URL} />
-        </>
-      )}
+                <TouchableOpacity
+                  onPress={() => setActiveTab(4)}
+                  style={{
+                    marginHorizontal: 25,
+                    padding: 15,
+                    borderBottomWidth: 1,
+                    borderBottomColor:
+                      activeTab === 4 ? config.constants.borderColor : '#fff',
+                  }}>
+                  <Text style={{color: 'grey'}}>Fertilizer Calculator</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={cropDiseasesClickHandler}
+                  style={{
+                    marginHorizontal: 25,
+                    padding: 15,
+                    borderBottomWidth: 1,
+                    borderBottomColor:
+                      activeTab === 5 ? config.constants.borderColor : '#fff',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                  }}>
+                  <Text style={{color: 'grey'}}>Crop Diseases</Text>
+                  {!user?.isPaid && (
+                    <Ionicons
+                      name="lock-closed-outline"
+                      color={config.constants.primaryColor}
+                      size={20}
+                      style={{marginLeft: 5}}
+                    />
+                  )}
+                </TouchableOpacity>
+              </ScrollView>
+            </View>
+            {/* <PDF url={URL} /> */}
+            <View style={{marginHorizontal: '5%', marginTop: 10}}>
+              <CropDataOne />
+            </View>
+          </>
+        )}
+      </ScrollView>
     </>
   );
 };

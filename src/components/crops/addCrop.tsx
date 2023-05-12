@@ -56,7 +56,7 @@ const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
           onConfirm={date => {
             setDateOpen(false);
             setDate(dayjs(date).format('MMMM DD YYYY'));
-            console.log('dae pickerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', date)
+            // console.log('dae pickerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', date)
             setSelectedDate(date);
           }}
           onCancel={() => {

@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: config.constants.secondaryColor,
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 10,
     width: '90%',
   },
   buttonText: {

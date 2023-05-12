@@ -6,19 +6,35 @@ import {
   ActivityIndicator,
   ToastAndroid,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect,useLayoutEffect, useState} from 'react';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import config from '../../config';
+import {db} from '../../firebase';
+import {onValue, ref} from 'firebase/database';
 
 const Soil = ({onPress}: any) => {
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
-  useEffect(() => {
+  const [soil, setSoil]:any = useState({})
+  useLayoutEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 1500);
+    getSoilData()
+      // setLoading(false);
+
   }, [reload]);
+
+  function getSoilData() {
+    let getRef = ref(db, 'Mod1');
+    onValue(getRef, (snapshot: any) => {
+      console.log('firebase data', snapshot.val());
+      setSoil(snapshot.val())
+      setLoading(false);
+    });
+  }
+
   return (
     <View style={styles.main}>
       {loading ? (
@@ -61,7 +77,7 @@ const Soil = ({onPress}: any) => {
               </Text>
               <Text
                 style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
-                10
+                {soil?.S_PH?.PH || 0}
               </Text>
             </View>
             <View
@@ -79,7 +95,7 @@ const Soil = ({onPress}: any) => {
               </Text>
               <Text
                 style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
-                14%
+                {soil?.SM?.SM}
               </Text>
             </View>
             <View
@@ -97,7 +113,7 @@ const Soil = ({onPress}: any) => {
               </Text>
               <Text
                 style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
-                75%
+                {soil?.ATH?.HUM || 0}
               </Text>
             </View>
           </View>

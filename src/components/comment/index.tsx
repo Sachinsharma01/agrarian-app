@@ -4,7 +4,7 @@ import UserAvatar from '../user/UserAvatar';
 import config from '../../config';
 
 const Comment = (props: any) => {
-  console.log();
+  // console.log();
   return (
     <View style={styles.post}>
       <View style={styles.innerPost}>
