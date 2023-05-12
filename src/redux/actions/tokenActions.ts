@@ -1,7 +1,7 @@
 import config from "../../config"
 
 const updateToken = (token:any) => {
-    console.log(token + " IN ACTION")
+    // console.log(token + " IN ACTION")
     return  {
         type: config.actionTypes.UPDATE_TOKEN,
         token: token,

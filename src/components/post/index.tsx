@@ -1,4 +1,12 @@
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Share,
+  ToastAndroid,
+} from 'react-native';
 import React, {useState} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -10,6 +18,27 @@ const Post = (props: any) => {
   const likeClickHandler = () => {
     props.onPostLike();
     setLiked(true);
+  };
+  const sharePost = async () => {
+    try {
+      const result = await Share.share({
+        title: 'Agrarian Link',
+        message:
+          'Hey! checkout this amazing post on Agrarian. Link: https://agrarian.page.link/yQ8a',
+        url: 'https://agrarian.page.link/yQ8a',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+          ToastAndroid.show('You have shared the post', 1);
+        } else {
+          // shared
+          ToastAndroid.show('You have shared the post', 1);
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (err) {}
   };
   return (
     <View style={styles.post}>
@@ -74,7 +103,7 @@ const Post = (props: any) => {
           <EvilIcons name="comment" size={35} color="#000" />
           <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Comment</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={sharePost}>
           <EvilIcons name="share-google" size={35} color="#000" />
           <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Share</Text>
         </TouchableOpacity>

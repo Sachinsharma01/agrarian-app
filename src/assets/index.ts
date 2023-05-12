@@ -47,3 +47,11 @@ export const kisanVedika: data = {
 export const marketing: data = {
   image: require('../assets/screens/marketing.jpg')
 }
+
+export const cropDoctor: data = {
+  image: require('../assets/screens/crop-doctor.jpg')
+}
+
+export const diseaseDiagnosis: data = {
+  image: require('../assets/screens/disease_diagnosis.jpg')
+}

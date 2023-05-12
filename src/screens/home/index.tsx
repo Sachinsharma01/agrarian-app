@@ -53,7 +53,7 @@ const Home = ({navigation}: any) => {
     const userData = await getMetaData(token);
     dispatch(updateUser(userData.data));
     setLoading(false);
-    console.log('User details from get meta data$$$', userData);
+    // console.log('User details from get meta data$$$', userData);
   };
   useEffect(() => {
     fetchUserCrops();
@@ -133,7 +133,7 @@ const Home = ({navigation}: any) => {
                   Premium
                 </Text>
               )}
-              
+
               <Ionicons
                 onPress={() => {
                   // ToastAndroid.show(
@@ -270,7 +270,12 @@ const Home = ({navigation}: any) => {
             />
             <Soil
               onPress={() => {
-                navigation.navigate('SoilHealth');
+                user?.isPaid
+                  ? navigation.navigate('SoilHealth')
+                  : Alert.alert(
+                      'Premium Required',
+                      'You need to buy Premium to access this feature',
+                    );
               }}
             />
           </ScrollView>

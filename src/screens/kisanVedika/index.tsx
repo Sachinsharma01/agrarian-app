@@ -71,7 +71,8 @@ const KisanVedika = ({navigation}: any) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Ionicons name="pencil-sharp" size={25} color="yellow" />
+          <Ionicons name="pencil-sharp" size={20} color="yellow" />
+          <Text style={{color: '#fff'}}>Ask</Text>
         </TouchableOpacity>
       </View>
       <ScrollView

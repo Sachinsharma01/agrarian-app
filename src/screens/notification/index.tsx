@@ -32,7 +32,7 @@ const Notification = () => {
   };
 
   const readNotificationHandler = async (notification: any) => {
-    console.log('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn', notification);
+    // console.log('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn', notification);
     await readNotification(token as string, {
       notificationId: notification?.notificationId,
     });

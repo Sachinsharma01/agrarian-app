@@ -43,7 +43,7 @@ const CreatePost = ({navigation}: any) => {
     if (pickerResponse !== null && postImageURL !== null) {
       payload.image = postImageURL;
     }
-    console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', payload);
+    // console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', payload);
     const response = await addPost(token, payload);
     setLoading(false), navigation.goBack();
   };
@@ -78,7 +78,7 @@ const CreatePost = ({navigation}: any) => {
       setPostImageURL(imageURL);
     }
   })()
-  console.log('hbvebvhvebjebvhvebejhbv', pickerResponse);
+  // console.log('hbvebvhvebjebvhvebejhbv', pickerResponse);
   return (
     <SafeAreaView style={styles.main}>
       {loading && (
@@ -90,7 +90,7 @@ const CreatePost = ({navigation}: any) => {
           <Image style={styles.postImage} source={{uri: pickerResponse}} />
         </>
       )}
-      <Text style={styles.text}>Description : </Text>
+      <Text style={styles.text}>Ask your Question : </Text>
       <View style={{...styles.input}}>
         <TextInput
           onChangeText={e => {
@@ -98,7 +98,7 @@ const CreatePost = ({navigation}: any) => {
           }}
           style={styles.inputText}
           multiline={true}
-          placeholder="Post Description."
+          placeholder="Tell us more about your question."
         />
       </View>
       <Text style={styles.text}>Add Photo :</Text>
@@ -125,6 +125,9 @@ const CreatePost = ({navigation}: any) => {
             key={idx}
             style={{height: 100, width: 100, marginRight: 10}}>
             <Image key={idx} style={styles.image} source={{uri: crop?.image}} />
+            <Text style={{ marginLeft: 17, textTransform: 'capitalize'}}>
+              {crop?.name}
+            </Text>
           </TouchableOpacity>
         );
       })}

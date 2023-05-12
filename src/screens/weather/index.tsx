@@ -29,7 +29,7 @@ const Forecast = ({navigation}: any) => {
   }, []);
 
   const fetchWeather = async () => {
-    console.log('##############################', data.weather.weather);
+    // console.log('##############################', data.weather.weather);
     setLoading(true);
     //  const weather = await getWeather(location.position, token as string);
     setWeather(data.weather.weather);

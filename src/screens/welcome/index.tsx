@@ -12,6 +12,8 @@ import config from '../../config';
 import {welcomeLogo} from '../../assets';
 import First from '../../components/onboarding/First';
 import Second from '../../components/onboarding/Second';
+import Third from '../../components/onboarding/Third';
+import Fourth from '../../components/onboarding/Fouth';
 
 const Welcome = ({navigation}: any) => {
   const [screen, setScreen] = useState(1);
@@ -29,7 +31,9 @@ const Welcome = ({navigation}: any) => {
         </SafeAreaView>
       )}
       {screen === 2 && <First onPress={() => setScreen(3)} />}
-      {screen === 3 && <Second onPress={() => navigation.navigate('Login')} />}
+      {screen === 3 && <Second onPress={() => setScreen(4)} />}
+      {screen === 4 && <Third onPress={() => setScreen(5)} />}
+      {screen === 5 && <Fourth onPress={() => navigation.navigate('Login')} />}
     </>
   );
 };

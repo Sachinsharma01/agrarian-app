@@ -23,7 +23,7 @@ const OTP = ({navigation}: any) => {
   const dispatch = useDispatch();
   const {phone} = useSelector((state: any) => state.phoneNumberReducer);
   const {token} = useSelector((state: any) => state.tokenReducer);
-  console.log('phoneeeeeeeeeeeee', phone);
+  // console.log('phoneeeeeeeeeeeee', phone);
   
   const clickHandler = async () => {
     setOtp('');
@@ -42,7 +42,7 @@ const OTP = ({navigation}: any) => {
       dispatch(updateToken(response?.data?.token));
       const userData = await getMetaData(token);
       dispatch(updateUser(userData?.data));
-      console.log('User details from get meta data$$$', userData);
+      // console.log('User details from get meta data$$$', userData);
 
       ToastAndroid.show('Welcome', 1);
     }

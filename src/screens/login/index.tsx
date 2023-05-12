@@ -26,12 +26,12 @@ const Login = ({navigation}: any) => {
     setPhone('');
     setShowLoader(true);
     const response: any = await getOTP(phone as string);
-    console.log('OTP send to mobile number', response);
+    // console.log('OTP send to mobile number', response);
     setShowLoader(false);
     if (response.error) {
       Alert.alert(config.defaultErrorMessage);
     } else {
-      console.log(`before +91${phone}`, )
+      // console.log(`before +91${phone}`, )
       dispatch(updateNumber(`+91${phone}`));
       navigation.navigate('OTP');
     }

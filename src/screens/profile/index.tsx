@@ -57,7 +57,7 @@ const Profile = ({navigation}: any) => {
         pickerResponse,
         farmer?.user?.name as string,
       );
-      console.log('fileUrlll', fileUrl);
+      // console.log('fileUrlll', fileUrl);
       updateData.image = fileUrl;
     }
     await AddGaEvent('profile_updated' as string, updateData)
@@ -93,129 +93,136 @@ const Profile = ({navigation}: any) => {
     );
     setShowModal(false);
   }, []);
-  console.log('picker@@@@@@@@@@@', pickerResponse);
+  // console.log('picker@@@@@@@@@@@', pickerResponse);
   return (
     <SafeAreaView style={styles.main}>
-      <View style={styles.top}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons
-            name="arrow-back-outline"
-            size={30}
-            color="#fff"
-            style={{marginHorizontal: 10}}
-          />
-        </TouchableOpacity>
-        <View style={{marginLeft: 10}}>
-          <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
-            Back
-          </Text>
+        <View style={styles.top}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons
+              name="arrow-back-outline"
+              size={30}
+              color="#fff"
+              style={{marginHorizontal: 10}}
+            />
+          </TouchableOpacity>
+          <View style={{marginLeft: 10}}>
+            <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
+              Back
+            </Text>
+          </View>
         </View>
-      </View>
-      {showLoader && (
-        <ActivityIndicator size="large" color={config.constants.primaryColor} />
-      )}
-      <ImagePickerModal
-        isVisible={showModal}
-        onClose={() => setShowModal(false)}
-        onImageLibraryPress={onImageLibraryPress}
-        onCameraPress={onCameraPress}
-      />
-      <ScrollView style={{height: 210}}>
-        <View style={styles.user}>
-          <UserAvatar
-            image={farmer?.user?.image || null}
-            default={user?.image}
+        {showLoader && (
+          <ActivityIndicator
+            size="large"
+            color={config.constants.primaryColor}
           />
-          {editable && (
-            <TouchableOpacity onPress={() => setShowModal(true)}>
-              <MaterialIcon name="edit" color="#000" size={28} />
-            </TouchableOpacity>
-          )}
-          <Text style={styles.userName}>{farmer?.user?.name || 'Farmer'}</Text>
-          <Text style={styles.userName}>
-            Member since{' '}
-            {dayjs(new Date(farmer?.user?.createdAt)).format('DD MMMM YYYY')}
-          </Text>
-        </View>
-        <View style={{height: 10}}></View>
-      </ScrollView>
-      <ScrollView style={styles.details}>
-        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-          <Text style={{color: 'black', fontWeight: 'bold'}}>Name : </Text>
-          <TextInput
-            onChangeText={e => setName(e)}
-            editable={editable}
-            value={name}
-            style={{color: 'black'}}
-          />
-        </View>
-        <View style={{...styles.input, opacity: 0.5}}>
-          <Text
-            style={{
-              color: 'black',
-              fontWeight: 'bold',
-            }}>
-            Role :
-          </Text>
-          <TextInput
-            onChangeText={e => {}}
-            editable={false}
-            value={farmer?.user?.role}
-            style={{color: 'black', textTransform: 'capitalize'}}
-          />
-        </View>
-        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-          <Text style={{color: 'black', fontWeight: 'bold'}}>Email : </Text>
-          <TextInput
-            onChangeText={e => setEmail(e)}
-            editable={editable}
-            value={email}
-            style={{color: 'black'}}
-          />
-        </View>
-        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-          <Text style={{color: 'black', fontWeight: 'bold'}}>Adddress : </Text>
-          <TextInput
-            onChangeText={e => setAddress(e)}
-            multiline={true}
-            editable={editable}
-            value={address}
-            style={{color: 'black', width: '80%'}}
-          />
-        </View>
-        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-          <Text style={{color: 'black', fontWeight: 'bold'}}>State : </Text>
-          <TextInput
-            onChangeText={e => setState(e)}
-            editable={editable}
-            value={state}
-            style={{color: 'black'}}
-          />
-        </View>
-        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-          <Text style={{color: 'black', fontWeight: 'bold'}}>City : </Text>
-          <TextInput
-            onChangeText={e => setCity(e)}
-            editable={editable}
-            value={city}
-            style={{color: 'black'}}
-          />
-        </View>
-        <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-          <Text style={{color: 'black', fontWeight: 'bold'}}>Pincode : </Text>
-          <TextInput
-            onChangeText={e => setPincode(e)}
-            editable={editable}
-            value={pincode}
-            style={{color: 'black'}}
-          />
-        </View>
-      </ScrollView>
-      {!editable ? (
-        <Button label="Edit" onPress={() => setEditable(true)} />
-      ) : (
-        <Button label="Submit" onPress={editDetailsHandler} />
-      )}
+        )}
+        <ImagePickerModal
+          isVisible={showModal}
+          onClose={() => setShowModal(false)}
+          onImageLibraryPress={onImageLibraryPress}
+          onCameraPress={onCameraPress}
+        />
+        <ScrollView >
+          <View style={styles.user}>
+            <UserAvatar
+              image={farmer?.user?.image || null}
+              default={user?.image}
+            />
+            {editable && (
+              <TouchableOpacity onPress={() => setShowModal(true)}>
+                <MaterialIcon name="edit" color="#000" size={28} />
+              </TouchableOpacity>
+            )}
+            <Text style={styles.userName}>
+              {farmer?.user?.name || 'Farmer'}
+            </Text>
+            <Text style={styles.userName}>
+              Member since{' '}
+              {dayjs(new Date(farmer?.user?.createdAt)).format('DD MMMM YYYY')}
+            </Text>
+          </View>
+          <View style={{height: 10}}></View>
+        </ScrollView>
+        <ScrollView style={styles.details}>
+          <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>Name : </Text>
+            <TextInput
+              onChangeText={e => setName(e)}
+              editable={editable}
+              value={name}
+              style={{color: 'black'}}
+            />
+          </View>
+          <View style={{...styles.input, opacity: 0.5}}>
+            <Text
+              style={{
+                color: 'black',
+                fontWeight: 'bold',
+              }}>
+              Role :
+            </Text>
+            <TextInput
+              onChangeText={e => {}}
+              editable={false}
+              value={farmer?.user?.role}
+              style={{color: 'black', textTransform: 'capitalize'}}
+            />
+          </View>
+          <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>Email : </Text>
+            <TextInput
+              onChangeText={e => setEmail(e)}
+              editable={editable}
+              value={email}
+              style={{color: 'black'}}
+            />
+          </View>
+          <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>
+              Adddress :{' '}
+            </Text>
+            <TextInput
+              onChangeText={e => setAddress(e)}
+              multiline={true}
+              editable={editable}
+              value={address}
+              style={{color: 'black', width: '80%'}}
+            />
+          </View>
+          <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>State : </Text>
+            <TextInput
+              onChangeText={e => setState(e)}
+              editable={editable}
+              value={state}
+              style={{color: 'black'}}
+            />
+          </View>
+          <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>City : </Text>
+            <TextInput
+              onChangeText={e => setCity(e)}
+              editable={editable}
+              value={city}
+              style={{color: 'black'}}
+            />
+          </View>
+          <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>Pincode : </Text>
+            <TextInput
+              onChangeText={e => setPincode(e)}
+              editable={editable}
+              value={pincode}
+              style={{color: 'black'}}
+            />
+          </View>
+        </ScrollView>
+        {!editable ? (
+          <Button label="Edit" onPress={() => setEditable(true)} />
+        ) : (
+          <Button label="Submit" onPress={editDetailsHandler} />
+        )}
     </SafeAreaView>
   );
 };
@@ -248,7 +255,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   details: {
-    height: '55%',
+    // height: '55%',
     // backgroundColor: 'red',
     borderTopColor: config.constants.borderColor,
     borderTopWidth: 2,

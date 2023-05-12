@@ -21,7 +21,7 @@ const Crop = ({navigation}: any) => {
   // console.log('crrrrrrrrrrpppppppppppppppppppppppp', crop);
   const onAddCropSubmitHandler = async (area:any, sowingDate: any) => {
     setLoading(true);
-    console.log('6666666666666666666666666666666666666666666666666666', typeof (sowingDate + ""))
+    // console.log('6666666666666666666666666666666666666666666666666666', typeof (sowingDate + ""))
     let payload = {
       userId: user._id,
       crop: {
@@ -34,7 +34,7 @@ const Crop = ({navigation}: any) => {
       area: area || 0,
     };
     const cropAdded = await addCrop(payload, token as string);
-    console.log('croppppppppppppppppppppppppp addddddddddddddded', cropAdded);
+    // console.log('croppppppppppppppppppppppppp addddddddddddddded', cropAdded);
     setLoading(false)
     navigation.goBack();
   };
