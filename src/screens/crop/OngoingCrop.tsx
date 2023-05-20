@@ -7,7 +7,7 @@ import CropProgress from '../../components/crops/cropProgress';
 import PDF from '../../components/pdf/index';
 import config from '../../config';
 import {getCropDetails} from '../../request';
-import CropDataOne from '../../assets/data/crops';
+import { CropDataNursery, CropDataTransNurseryDamage, CropDataTransPlanting } from '../../assets/data/crops';
 import {height} from '../../utils/getDimensions';
 
 const OngoingCrop = ({route, navigation}: any) => {
@@ -17,6 +17,7 @@ const OngoingCrop = ({route, navigation}: any) => {
   const [crop, setCrop] = useState(route?.params?.crop);
   const [activeTab, setActiveTab]: any = useState(0);
   const [loading, setLoading]: any = useState(false);
+  const[tab, setTab] = useState(1);
   const [URL, setURL] = useState('');
   console.log(
     'crrrrrrrrrrrrrrrrrrrrroooooooooooooooooooooooooooooooooo',
@@ -53,7 +54,7 @@ const OngoingCrop = ({route, navigation}: any) => {
   };
   return (
     <>
-      <View style={{height: height}}>
+      <View style={{height: height, backgroundColor: '#fff'}}>
         <View style={{backgroundColor: '#fff'}}>
           <CropProgress crop={crop} />
         </View>
@@ -75,6 +76,7 @@ const OngoingCrop = ({route, navigation}: any) => {
                         onPress={() => {
                           setActiveTab(idx);
                           setUrlOnSelect(category);
+                          setTab(idx + 1)
                         }}
                         key={idx}
                         style={{
@@ -131,8 +133,10 @@ const OngoingCrop = ({route, navigation}: any) => {
               </ScrollView>
             </View>
             {/* <PDF url={URL} /> */}
-            <View style={{marginHorizontal: '5%', marginTop: 10}}>
-              <CropDataOne />
+            <View style={{marginHorizontal: '6%', marginTop: 10, backgroundColor: '#fff'}}>
+              {tab === 1 && <CropDataNursery />}
+              {tab === 2 && <CropDataTransPlanting />}
+              {tab === 3 && <CropDataTransNurseryDamage />}
             </View>
           </>
         )}

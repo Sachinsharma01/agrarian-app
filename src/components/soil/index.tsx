@@ -29,7 +29,7 @@ const Soil = ({onPress}: any) => {
   function getSoilData() {
     let getRef = ref(db, 'Mod1');
     onValue(getRef, (snapshot: any) => {
-      console.log('firebase data', snapshot.val());
+      // console.log('firebase data', snapshot.val());
       setSoil(snapshot.val())
       setLoading(false);
     });

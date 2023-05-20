@@ -171,7 +171,7 @@ export const getWeather = async (location: any, token: string) => {
       },
     });
     const data = await res.data;
-    console.log('$$$$$$$$$$$$ all weather', data);
+    // console.log('$$$$$$$$$$$$ all weather', data);
     return data.data;
   } catch (err) {
     Alert.alert(config.defaultErrorMessage + ' Weather');
