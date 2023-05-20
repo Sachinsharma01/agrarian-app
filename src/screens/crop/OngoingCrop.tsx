@@ -53,7 +53,7 @@ const OngoingCrop = ({route, navigation}: any) => {
   };
   return (
     <>
-      <ScrollView style={{height: height}}>
+      <View style={{height: height}}>
         <View style={{backgroundColor: '#fff'}}>
           <CropProgress crop={crop} />
         </View>
@@ -136,7 +136,7 @@ const OngoingCrop = ({route, navigation}: any) => {
             </View>
           </>
         )}
-      </ScrollView>
+      </View>
     </>
   );
 };

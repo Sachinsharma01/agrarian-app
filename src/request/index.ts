@@ -6,6 +6,7 @@ import axiosInstance from './axios';
 export const getOTP = async (phone: string) => {
   try {
     // console.log('+91'.concat(phone));
+    // console.log("hitt")
     const res = await axiosInstance.post('/auth/generate-otp', {
       phone: String('+91'.concat(phone)),
     });
