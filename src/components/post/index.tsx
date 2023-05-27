@@ -82,10 +82,10 @@ const Post = (props: any) => {
         <TouchableOpacity onPress={props.onPostPress}>
           <Text style={styles.description}>{props.title}</Text>
         </TouchableOpacity>
-        <Text style={{color: '#d1cdcd'}}>
-          {`${props.likes} likes`}
+        <Text style={{color: '#d1cdcd', marginLeft: 10}}>
+          {`${props.likes} Likes`}
           {'  |  '}
-          {`${props.views} views`}
+          {`${props.views} Views`}
           {'  |  '}
           {`${props.totalAnswers} Comments`}
         </Text>
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
   details: {
     height: 50,
     margin: 10,
+    marginVertical: 5,
     borderTopColor: 'gray',
     borderTopWidth: 0.8,
     flexDirection: 'row',

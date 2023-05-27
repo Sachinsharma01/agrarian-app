@@ -4,8 +4,8 @@ const onShare = async () => {
     const result = await Share.share({
       title: 'Agrarian Link',
       message:
-        'Please install this app and make your crop grow safer and more , AppLink :https://play.google.com/store/apps',
-      url: 'https://play.google.com/store/apps/agrarian',
+        'Please install this app and make your crop grow safer and more , AppLink :https://play.google.com/store/apps/details?id=com.agrarian',
+      url: 'https://play.google.com/store/apps/details?id=com.agrarian',
     });
     if (result.action === Share.sharedAction) {
       if (result.activityType) {

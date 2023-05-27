@@ -14,6 +14,7 @@ import First from '../../components/onboarding/First';
 import Second from '../../components/onboarding/Second';
 import Third from '../../components/onboarding/Third';
 import Fourth from '../../components/onboarding/Fouth';
+import Fifth from '../../components/onboarding/Fifth';
 
 const Welcome = ({navigation}: any) => {
   const [screen, setScreen] = useState(1);
@@ -33,7 +34,8 @@ const Welcome = ({navigation}: any) => {
       {screen === 2 && <First onPress={() => setScreen(3)} />}
       {screen === 3 && <Second onPress={() => setScreen(4)} />}
       {screen === 4 && <Third onPress={() => setScreen(5)} />}
-      {screen === 5 && <Fourth onPress={() => navigation.navigate('Login')} />}
+      {screen === 5 && <Fourth onPress={() => setScreen(6)} />}
+      {screen === 6 && <Fifth onPress={() => navigation.navigate('Login')} />}
     </>
   );
 };

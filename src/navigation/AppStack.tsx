@@ -2,6 +2,7 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcons from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomDrawer from '../components/drawer';
 import BottomTabNavigation from './BottomTabNavigation';
 import Profile from '../screens/profile';
@@ -9,6 +10,8 @@ import AgriStore from '../screens/agristore';
 import Settings from '../screens/settings';
 import config from '../config';
 import PostStack from './PostStack';
+import Feedback from '../screens/feedback';
+import HelpAndSupport from '../screens/help';
 
 const Drawer = createDrawerNavigator();
 
@@ -76,10 +79,19 @@ const AppStack = () => {
       />
       <Drawer.Screen
         name="Help"
-        component={Settings}
+        component={HelpAndSupport}
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="md-help-circle-outline" size={22} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Feedback"
+        component={Feedback}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcons name="feedback" size={20} color={color} />
           ),
         }}
       />

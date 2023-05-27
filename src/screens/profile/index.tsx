@@ -94,6 +94,7 @@ const Profile = ({navigation}: any) => {
   // console.log('picker@@@@@@@@@@@', pickerResponse);
   return (
     <SafeAreaView style={styles.main}>
+      <ScrollView>
         <View style={styles.top}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons
@@ -121,7 +122,7 @@ const Profile = ({navigation}: any) => {
           onImageLibraryPress={onImageLibraryPress}
           onCameraPress={onCameraPress}
         />
-        <ScrollView >
+        <ScrollView>
           <View style={styles.user}>
             <UserAvatar
               image={farmer?.user?.image || null}
@@ -129,7 +130,7 @@ const Profile = ({navigation}: any) => {
             />
             {editable && (
               <TouchableOpacity onPress={() => setShowModal(true)}>
-                <MaterialIcon name="edit" color="#000" size={28} />
+                <MaterialIcon name="camera-alt" color="#000" size={28} />
               </TouchableOpacity>
             )}
             <Text style={styles.userName}>
@@ -173,19 +174,19 @@ const Profile = ({navigation}: any) => {
               onChangeText={e => setEmail(e)}
               editable={editable}
               value={email}
-              style={{color: 'black'}}
+              style={{color: 'black', width: '90%'}}
             />
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
             <Text style={{color: 'black', fontWeight: 'bold'}}>
-              Adddress :{' '}
+              Address :{' '}
             </Text>
             <TextInput
               onChangeText={e => setAddress(e)}
               multiline={true}
               editable={editable}
               value={address}
-              style={{color: 'black', width: '80%'}}
+              style={{color: 'black', width: '90%'}}
             />
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
@@ -194,7 +195,7 @@ const Profile = ({navigation}: any) => {
               onChangeText={e => setState(e)}
               editable={editable}
               value={state}
-              style={{color: 'black'}}
+              style={{color: 'black', width: '90%'}}
             />
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
@@ -203,7 +204,7 @@ const Profile = ({navigation}: any) => {
               onChangeText={e => setCity(e)}
               editable={editable}
               value={city}
-              style={{color: 'black'}}
+              style={{color: 'black', width: '90%'}}
             />
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
@@ -212,7 +213,7 @@ const Profile = ({navigation}: any) => {
               onChangeText={e => setPincode(e)}
               editable={editable}
               value={pincode}
-              style={{color: 'black'}}
+              style={{color: 'black', width: '90%'}}
             />
           </View>
         </ScrollView>
@@ -221,6 +222,7 @@ const Profile = ({navigation}: any) => {
         ) : (
           <Button label="Submit" onPress={editDetailsHandler} />
         )}
+      </ScrollView>
     </SafeAreaView>
   );
 };

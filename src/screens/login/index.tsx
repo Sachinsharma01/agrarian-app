@@ -39,7 +39,9 @@ const Login = ({navigation}: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {showLoader && <ActivityIndicator size='large' color={config.constants.primaryColor} />}
+      {showLoader && (
+        <ActivityIndicator size="large" color={config.constants.primaryColor} />
+      )}
       <View style={styles.imageView}>
         <LoginSvg height={300} width={300} />
       </View>
@@ -54,7 +56,7 @@ const Login = ({navigation}: any) => {
         <TextInput
           placeholder="Enter Phone Number"
           placeholderTextColor="#000"
-          style={{color: 'black'}}
+          style={{color: 'black', width: '90%'}}
           keyboardType="numeric"
           value={phone}
           maxLength={10}

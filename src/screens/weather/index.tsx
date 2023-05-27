@@ -10,6 +10,7 @@ import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {ScrollView} from 'react-native-gesture-handler';
 import ForecastItem from '../../components/weather/Forecast';
+import {height} from '../../utils/getDimensions';
 
 const Forecast = ({navigation}: any) => {
   const [isDay, setIsDay] = useState(false);
@@ -47,25 +48,27 @@ const Forecast = ({navigation}: any) => {
         }
         style={{height: '100%', width: '100%'}}
         blurRadius={2}>
-        <View style={styles.topSection}>
-          <View>
-            <Text style={{color: '#fff', fontSize: 100, textAlign: 'center'}}>
-              {weather?.current?.temp_c}&deg;
-            </Text>
-            <Text style={{color: '#fff', fontSize: 30, textAlign: 'center'}}>
-              {weather?.location?.name}
-            </Text>
-            <Text style={{color: '#fff', fontSize: 15, textAlign: 'center'}}>
-              {weather?.current?.condition?.text} |{' '}
-              {'Feels Like ' + weather?.current?.feelslike_c}&deg;
-            </Text>
+        {/* <ScrollView> */}
+          <View style={styles.topSection}>
+            <View>
+              <Text style={{color: '#fff', fontSize: 100, textAlign: 'center'}}>
+                {weather?.current?.temp_c}&deg;
+              </Text>
+              <Text style={{color: '#fff', fontSize: 30, textAlign: 'center'}}>
+                {weather?.location?.name}
+              </Text>
+              <Text style={{color: '#fff', fontSize: 15, textAlign: 'center'}}>
+                {weather?.current?.condition?.text} |{' '}
+                {'Feels Like ' + weather?.current?.feelslike_c}&deg;
+              </Text>
+            </View>
           </View>
-        </View>
-        <ScrollView>
-          {weather?.forecast?.forecastday.map((weather: any, idx:number) => {
-            return <ForecastItem key={idx} weather={weather} />;
-          })}
-        </ScrollView>
+          <ScrollView style={{height: '62%'}}>
+            {weather?.forecast?.forecastday.map((weather: any, idx: number) => {
+              return <ForecastItem key={idx} weather={weather} />;
+            })}
+          </ScrollView>
+        {/* </ScrollView> */}
       </ImageBackground>
     </SafeAreaView>
   );

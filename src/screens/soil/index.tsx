@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
   soilCompositionData: {
     marginVertical: 5,
     fontSize: 15,
-    fontWeight: '800',
+    fontWeight: '700',
+    color: '#000',
   },
 });
 

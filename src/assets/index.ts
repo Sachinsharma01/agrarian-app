@@ -55,3 +55,7 @@ export const cropDoctor: data = {
 export const diseaseDiagnosis: data = {
   image: require('../assets/screens/disease_diagnosis.jpg')
 }
+
+export const agristore: data ={
+  image: require('../assets/screens/agristore.png')
+}
