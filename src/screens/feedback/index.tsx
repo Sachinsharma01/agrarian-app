@@ -11,9 +11,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
 
 const Feedback = ({navigation}: any) => {
-  useEffect(() => {
-    Linking.openURL(config.feedbackURL);
-  }, []);
   return (
     <>
       <SafeAreaView>
@@ -44,13 +41,29 @@ const Feedback = ({navigation}: any) => {
           We would love to hear from you. Please share your valuable feedback.
         </Text>
 
+        <TouchableOpacity>
+          <Text
+            onPress={() => Linking.openURL(config.feedbackURL)}
+            style={{
+              marginHorizontal: '5%',
+              marginVertical: '5%',
+              padding: 10,
+              color: '#fff',
+              backgroundColor: config.constants.primaryColor,
+              textAlign: 'center',
+              borderRadius: 10,
+            }}>
+            Feedback
+          </Text>
+        </TouchableOpacity>
+
         <Text
           style={{marginHorizontal: '5%', marginVertical: '5%', color: '#000'}}>
           Join our farmer community on WhatsApp:
         </Text>
         <TouchableOpacity>
           <Text
-          onPress={() => Linking.openURL(config.whatsappURL)}
+            onPress={() => Linking.openURL(config.whatsappURL)}
             style={{
               marginHorizontal: '5%',
               marginVertical: '5%',

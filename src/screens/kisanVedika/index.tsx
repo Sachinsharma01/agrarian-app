@@ -15,14 +15,12 @@ import {getAllPosts, updatePost} from '../../request/index';
 import Post from '../../components/post';
 import config from '../../config';
 import {user} from '../../assets';
-import RefreshButton from '../../components/button/refreshButton';
 
 const KisanVedika = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
   const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [allPosts, setAllPosts] = useState([]);
-  const [count, setCount] = useState(1);
   useEffect(() => {
     setLoading(true);
     getAllPosts(token as string).then((data: any) => {
@@ -32,25 +30,6 @@ const KisanVedika = ({navigation}: any) => {
 
     });
   }, []);
-
-  const onLoadClickHandler = async () =>{
-    setCount(count + 1);
-    getAllPosts(token as string).then((data) => {
-      setAllPosts(data)
-      console.log("Hitttt", count)
-    })
-  }
-  // const isCloseToBottom = ({
-  //   layoutMeasurement,
-  //   contentOffset,
-  //   contentSize,
-  // }: any) => {
-  //   const paddingToBottom = 20;
-  //   return (
-  //     layoutMeasurement.height + contentOffset.y >=
-  //     contentSize.height - paddingToBottom
-  //   );
-  // };
 
   const onRefresh = useCallback(() => {
     setLoading(true);
@@ -65,7 +44,6 @@ const KisanVedika = ({navigation}: any) => {
     await updatePost(token as string, postId as string);
     ToastAndroid.show('You Liked The Post', 0.3);
   };
-  // console.log('pdkhfvbhfdbvfhbfv', allPosts);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.top}>
@@ -100,13 +78,6 @@ const KisanVedika = ({navigation}: any) => {
         </TouchableOpacity>
       </View>
       <ScrollView
-        // onScroll={({nativeEvent}) => {
-        //   if (isCloseToBottom(nativeEvent)) {
-        //     // enableSomeButton();
-        //     console.log('end reached');
-        //   }
-        // }}
-        // scrollEventThrottle={400}
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={onRefresh} />
         }
@@ -135,7 +106,6 @@ const KisanVedika = ({navigation}: any) => {
             />
           );
         })}
-        {showButton && <RefreshButton onPress={onLoadClickHandler} />}
       </ScrollView>
     </SafeAreaView>
   );

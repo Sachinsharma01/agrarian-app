@@ -7,7 +7,6 @@ import {
   Image,
   Linking,
   Alert,
-  ToastAndroid,
 } from 'react-native';
 import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -15,6 +14,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   getMetaData,
   getAllCrops,
@@ -28,7 +28,6 @@ import {updateCrops} from '../../redux/actions/cropActions';
 import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
 import {logoNew} from '../../assets';
-import Services from '../../components/services';
 
 const Home = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -52,7 +51,7 @@ const Home = ({navigation}: any) => {
     const userData = await getMetaData(token);
     dispatch(updateUser(userData.data));
     setLoading(false);
-    // console.log('User details from get meta data$$$', userData);
+
   };
   useEffect(() => {
     fetchUserCrops();
@@ -65,7 +64,6 @@ const Home = ({navigation}: any) => {
         user._id as string,
         token as string,
       );
-      // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', userCrops)
       setAllUsersCrops(userCrops[0]?.crop);
       setCropLoading(false);
     }
@@ -123,22 +121,16 @@ const Home = ({navigation}: any) => {
                 flexDirection: 'row',
               }}>
               {user?.isPaid && (
-                <Text
-                  style={{
-                    color: config.constants.secondaryColor,
-                    paddingRight: 10,
-                  }}>
-                  {' '}
-                  Premium
-                </Text>
+                <AntDesign
+                  name="star"
+                  color={config.constants.secondaryColor}
+                  size={20}
+                  style={{paddingRight: 10}}
+                />
               )}
 
               <Ionicons
                 onPress={() => {
-                  // ToastAndroid.show(
-                  //   'This feature is coming soon. Sorry for the inconvenience caused',
-                  //   1,
-                  // )
                   navigation.navigate('Notifications');
                 }}
                 name="notifications"
