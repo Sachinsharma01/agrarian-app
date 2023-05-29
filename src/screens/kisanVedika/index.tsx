@@ -5,38 +5,69 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  ToastAndroid,
+  ScrollView,
 } from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {RefreshControl, ScrollView} from 'react-native-gesture-handler';
-import {getAllPosts} from '../../request/index';
+import {RefreshControl} from 'react-native-gesture-handler';
+import {getAllPosts, updatePost} from '../../request/index';
 import Post from '../../components/post';
 import config from '../../config';
 import {user} from '../../assets';
+import RefreshButton from '../../components/button/refreshButton';
 
 const KisanVedika = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [showButton, setShowButton] = useState(false);
   const [allPosts, setAllPosts] = useState([]);
+  const [count, setCount] = useState(1);
   useEffect(() => {
     setLoading(true);
     getAllPosts(token as string).then((data: any) => {
       setAllPosts(data);
       setLoading(false);
+      setShowButton(true);
+
     });
   }, []);
+
+  const onLoadClickHandler = async () =>{
+    setCount(count + 1);
+    getAllPosts(token as string).then((data) => {
+      setAllPosts(data)
+      console.log("Hitttt", count)
+    })
+  }
+  // const isCloseToBottom = ({
+  //   layoutMeasurement,
+  //   contentOffset,
+  //   contentSize,
+  // }: any) => {
+  //   const paddingToBottom = 20;
+  //   return (
+  //     layoutMeasurement.height + contentOffset.y >=
+  //     contentSize.height - paddingToBottom
+  //   );
+  // };
 
   const onRefresh = useCallback(() => {
     setLoading(true);
     getAllPosts(token as string).then((data: any) => {
       setAllPosts(data);
       setLoading(false);
+      setShowButton(true)
     });
   }, []);
+
+  const likePosHandler = async (postId: string) => {
+    await updatePost(token as string, postId as string);
+    ToastAndroid.show('You Liked The Post', 0.3);
+  };
   // console.log('pdkhfvbhfdbvfhbfv', allPosts);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.main}>
       <View style={styles.top}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons
@@ -64,14 +95,22 @@ const KisanVedika = ({navigation}: any) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Ionicons name="pencil-sharp" size={25} color="yellow" />
+          <Ionicons name="pencil-sharp" size={20} color="yellow" />
+          <Text style={{color: '#fff'}}>Ask</Text>
         </TouchableOpacity>
       </View>
       <ScrollView
+        // onScroll={({nativeEvent}) => {
+        //   if (isCloseToBottom(nativeEvent)) {
+        //     // enableSomeButton();
+        //     console.log('end reached');
+        //   }
+        // }}
+        // scrollEventThrottle={400}
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={onRefresh} />
         }
-        style={{backgroundColor: '#e8e4e3', height: '90%'}}>
+        style={{...styles.main, height: '91%'}}>
         {allPosts?.map((post: any, idx) => {
           return (
             <Post
@@ -84,6 +123,7 @@ const KisanVedika = ({navigation}: any) => {
               image={post?.image || null}
               state={post?.state}
               name={post?.postedBy?.name}
+              isPaid={post?.postedBy?.isPaid}
               title={post.description || post.title}
               likes={post.likes}
               views={post.views}
@@ -91,15 +131,20 @@ const KisanVedika = ({navigation}: any) => {
               postedOn={post.createdAt}
               default={user.image}
               key={idx}
+              onPostLike={() => likePosHandler(post?._id)}
             />
           );
         })}
+        {showButton && <RefreshButton onPress={onLoadClickHandler} />}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  main: {
+    backgroundColor: '#fff',
+  },
   top: {
     flexDirection: 'row',
     justifyContent: 'flex-start',

@@ -2,14 +2,16 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcons from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomDrawer from '../components/drawer';
 import BottomTabNavigation from './BottomTabNavigation';
 import Profile from '../screens/profile';
 import AgriStore from '../screens/agristore';
 import Settings from '../screens/settings';
 import config from '../config';
-import KisanVedika from '../screens/kisanVedika/index';
-import Post from '../screens/post';
+import PostStack from './PostStack';
+import Feedback from '../screens/feedback';
+import HelpAndSupport from '../screens/help';
 
 const Drawer = createDrawerNavigator();
 
@@ -50,6 +52,8 @@ const AppStack = () => {
         name="AgriStore"
         component={AgriStore}
         options={{
+          headerShown: true,
+          headerShadowVisible: true,
           drawerIcon: ({color}) => (
             <FeatherIcons name="shopping-bag" size={22} color={color} />
           ),
@@ -57,7 +61,7 @@ const AppStack = () => {
       />
       <Drawer.Screen
         name="Kisan Vedika"
-        component={KisanVedika}
+        component={PostStack}
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="people-outline" size={22} color={color} />
@@ -73,15 +77,24 @@ const AppStack = () => {
           ),
         }}
       />
-      {/* <Drawer.Screen
-        name="Settings"
-        component={Settings}
+      <Drawer.Screen
+        name="Help"
+        component={HelpAndSupport}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="settings-outline" size={22} color={color} />
+            <Ionicons name="md-help-circle-outline" size={22} color={color} />
           ),
         }}
-      /> */}
+      />
+      <Drawer.Screen
+        name="Feedback"
+        component={Feedback}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcons name="feedback" size={20} color={color} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 };

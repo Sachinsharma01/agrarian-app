@@ -13,15 +13,15 @@ const Button = ({label, onPress}:any) => {
 };
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginTop: 30,
+    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   button: {
     backgroundColor: config.constants.secondaryColor,
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
-    marginBottom: 30,
+    marginBottom: 5,
     width: '90%',
   },
   buttonText: {

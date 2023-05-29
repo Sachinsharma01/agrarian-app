@@ -39,3 +39,23 @@ export const welcomeLogo: data = {
 export const onBoardLogoOne: data = {
   image: require('../assets/screens/market-logo.png')
 }
+
+export const kisanVedika: data = {
+  image: require('../assets/screens/friendly.png')
+}
+
+export const marketing: data = {
+  image: require('../assets/screens/marketing.jpg')
+}
+
+export const cropDoctor: data = {
+  image: require('../assets/screens/crop-doctor.jpg')
+}
+
+export const diseaseDiagnosis: data = {
+  image: require('../assets/screens/disease_diagnosis.jpg')
+}
+
+export const agristore: data ={
+  image: require('../assets/screens/agristore.png')
+}

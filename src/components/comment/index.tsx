@@ -4,7 +4,7 @@ import UserAvatar from '../user/UserAvatar';
 import config from '../../config';
 
 const Comment = (props: any) => {
-  console.log();
+  // console.log();
   return (
     <View style={styles.post}>
       <View style={styles.innerPost}>
@@ -15,7 +15,19 @@ const Comment = (props: any) => {
           default={props.userImage}
         />
         <View style={{marginLeft: 10}}>
-          <Text style={styles.name}>{props.name || 'Agrarian Farmer'}</Text>
+          <Text style={styles.name}>
+            {props.name || 'Agrarian Farmer'}
+            {props.isPaid && (
+              <Text
+                style={{
+                  color: config.constants.secondaryColor,
+                  paddingLeft: 10,
+                }}>
+                {' '}
+                VIP
+              </Text>
+            )}
+          </Text>
           <Text style={{color: '#000'}}>
             {props.state || ''}
             {`Posted on ${props.postedOn.split('T')[0]}`}
@@ -46,14 +58,14 @@ const styles = StyleSheet.create({
     borderBottomColor: 'gray',
     borderBottomWidth: 1,
     marginVertical: 2,
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#ededed',
   },
   innerPost: {
     margin: 10,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#ededed',
   },
   name: {
     fontWeight: 'bold',
@@ -64,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#ededed',
   },
   image: {
     flex: 1,
@@ -79,12 +91,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#ededed',
   },
   description: {
     fontSize: 18,
     color: '#000',
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#ededed',
   },
 });
 

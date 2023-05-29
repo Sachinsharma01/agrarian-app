@@ -80,32 +80,35 @@ const Weather = ({token, onPress}: any) => {
     setLoading(false);
   };
   return (
-    <View style={styles.main}>
-      {loading ? (
-        <ActivityIndicator size="large" color={config.constants.primaryColor} />
-      ) : (
-        <>
-          <View style={styles.place}>
-            <Text
-              style={{
-                fontSize: 20,
-                color: '#000',
-                marginTop: 10,
-                marginRight: 10,
-                marginLeft: 10,
-              }}>
-              {weather?.location?.name}
-            </Text>
-            <TouchableOpacity onPress={() => setReload(!reload)}>
-              <FeatherIcons
-                name="refresh-cw"
-                size={20}
-                color={config.constants.primaryColor}
-                style={{marginTop: 13}}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.weather}>
+    <TouchableOpacity style={styles.main} onPress={onPress}>
+      <View style={styles.place}>
+        <Text
+          style={{
+            fontSize: 20,
+            color: '#000',
+            marginTop: 10,
+            marginRight: 10,
+            marginLeft: 10,
+          }}>
+          {weather?.location?.name}
+        </Text>
+        <TouchableOpacity onPress={() => setReload(!reload)}>
+          <FeatherIcons
+            name="refresh-cw"
+            size={20}
+            color={config.constants.primaryColor}
+            style={{marginTop: 13}}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.weather}>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={config.constants.primaryColor}
+          />
+        ) : (
+          <>
             <View>
               <Text style={{fontSize: 20, color: '#000'}}>
                 {weather?.current?.temp_c} &deg;C
@@ -129,27 +132,27 @@ const Weather = ({token, onPress}: any) => {
                 style={{height: 100, width: 100, marginLeft: 20}}
               />
             </View>
-          </View>
-          <View
-            style={{
-              marginRight: 10,
-              gap: 10,
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-              flexDirection: 'row',
-            }}>
-            <Text style={{fontSize: 18, color: '#000'}}>Forecast</Text>
-            <TouchableOpacity onPress={onPress}>
-              <Ionicons
-                name="cloudy-outline"
-                size={25}
-                color={config.constants.primaryColor}
-              />
-            </TouchableOpacity>
-          </View>
-        </>
-      )}
-    </View>
+          </>
+        )}
+      </View>
+      <View
+        style={{
+          marginRight: 10,
+          gap: 10,
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+          flexDirection: 'row',
+        }}>
+        <Text style={{fontSize: 18, color: '#000'}}>Forecast</Text>
+        <TouchableOpacity onPress={onPress}>
+          <Ionicons
+            name="cloudy-outline"
+            size={25}
+            color={config.constants.primaryColor}
+          />
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
     borderBottomColor: config.constants.primaryColor,
     width: '100%',
     borderBottomWidth: 1,
-    backgroundColor: '#dcdcdc',
+    backgroundColor: '#ededed',
   },
   weather: {
     height: 110,
@@ -166,13 +169,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    marginHorizontal: 10,
+    marginHorizontal: '5%',
   },
   place: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-  },
+    // marginHorizontal: '5%',
+    },
 });
 
 export default Weather;

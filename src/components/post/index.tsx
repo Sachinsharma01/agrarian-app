@@ -1,12 +1,45 @@
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import React from 'react';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Share,
+  ToastAndroid,
+} from 'react-native';
+import React, {useState} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import UserAvatar from '../user/UserAvatar';
 import config from '../../config';
 
 const Post = (props: any) => {
-  console.log()
+  const [liked, setLiked] = useState(false);
+  const likeClickHandler = () => {
+    props.onPostLike();
+    setLiked(true);
+  };
+  const sharePost = async () => {
+    try {
+      const result = await Share.share({
+        title: 'Agrarian Link',
+        message:
+          'Hey! checkout this amazing post on Agrarian. Link: https://agrarian.page.link/yQ8a',
+        url: 'https://agrarian.page.link/yQ8a',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+          ToastAndroid.show('You have shared the post', 1);
+        } else {
+          // shared
+          ToastAndroid.show('You have shared the post', 1);
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (err) {}
+  };
   return (
     <View style={styles.post}>
       <View style={styles.innerPost}>
@@ -17,7 +50,19 @@ const Post = (props: any) => {
           default={props.userImage}
         />
         <View style={{marginLeft: 10}}>
-          <Text style={styles.name}>{props.name || 'Farmer'}</Text>
+          <Text style={styles.name}>
+            {props.name || 'Farmer'}
+            {props.isPaid && (
+              <Text
+                style={{
+                  color: config.constants.secondaryColor,
+                  paddingLeft: 10,
+                }}>
+                {' '}
+                VIP
+              </Text>
+            )}
+          </Text>
           <Text style={{color: '#000'}}>
             {props.state || ''}
             {` | Posted on ${props.postedOn.split('T')[0]}`}
@@ -29,7 +74,7 @@ const Post = (props: any) => {
           <Image
             source={props.image ? {uri: props.image} : props.default}
             style={styles.image}
-            resizeMode="contain"
+            // resizeMode="contain"
           />
         </View>
       )}
@@ -37,26 +82,30 @@ const Post = (props: any) => {
         <TouchableOpacity onPress={props.onPostPress}>
           <Text style={styles.description}>{props.title}</Text>
         </TouchableOpacity>
-        <Text style={{color: '#d1cdcd'}}>
-          {`${props.likes} likes`}
+        <Text style={{color: '#d1cdcd', marginLeft: 10}}>
+          {`${props.likes} Likes`}
           {'  |  '}
-          {`${props.views} views`}
+          {`${props.views} Views`}
           {'  |  '}
           {`${props.totalAnswers} Comments`}
         </Text>
       </View>
       <View style={styles.details}>
-        <TouchableOpacity>
-          <SimpleLineIcons name="like" size={25} color="#000" />
-          <Text style={{textAlign: 'center'}}>Like</Text>
+        <TouchableOpacity onPress={likeClickHandler}>
+          <AntDesign
+            name={liked ? 'like1' : 'like2'}
+            size={25}
+            color={liked ? config.constants.primaryColor : '#000'}
+          />
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Like</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPostPress}>
           <EvilIcons name="comment" size={35} color="#000" />
-          <Text>Comment</Text>
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Comment</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={sharePost}>
           <EvilIcons name="share-google" size={35} color="#000" />
-          <Text style={{textAlign: 'center'}}>Share</Text>
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Share</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -92,11 +141,13 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     borderRadius: 10,
-    aspectRatio: 1.8,
+    aspectRatio: 1,
+    marginHorizontal: '2%',
   },
   details: {
     height: 50,
     margin: 10,
+    marginVertical: 5,
     borderTopColor: 'gray',
     borderTopWidth: 0.8,
     flexDirection: 'row',
@@ -108,6 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#000',
     backgroundColor: '#fff',
+    marginHorizontal: '2%',
   },
 });
 

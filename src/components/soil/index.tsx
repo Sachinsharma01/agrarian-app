@@ -4,23 +4,37 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  Image,
+  ToastAndroid,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect,useLayoutEffect, useState} from 'react';
 import FeatherIcons from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
+import {db} from '../../firebase';
+import {onValue, ref} from 'firebase/database';
 
 const Soil = ({onPress}: any) => {
   const [loading, setLoading] = useState(false);
-  const [weather, setWeather]: any = useState({});
   const [reload, setReload] = useState(false);
-  useEffect(() => {
+  const [soil, setSoil]:any = useState({})
+  useLayoutEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 1500);
+    getSoilData()
+      // setLoading(false);
+
   }, [reload]);
+
+  function getSoilData() {
+    let getRef = ref(db, 'Mod1');
+    onValue(getRef, (snapshot: any) => {
+      // console.log('firebase data', snapshot.val());
+      setSoil(snapshot.val())
+      setLoading(false);
+    });
+  }
+
   return (
     <View style={styles.main}>
       {loading ? (
@@ -54,31 +68,17 @@ const Soil = ({onPress}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <View
+              <Text
                 style={{
-                  height: 40,
-                  width: 40,
-                  backgroundColor: config.constants.ternaryColor,
-                  borderRadius: 7,
+                  color: config.constants.primaryColor,
+                  fontWeight: 'bold',
                 }}>
-                <Text
-                  style={{color: '#fff', textAlign: 'center', lineHeight: 40}}>
-                  N
-                </Text>
-              </View>
-              <View
-                style={{
-                  height: 40,
-                  width: 40,
-                  borderColor: config.constants.ternaryColor,
-                  borderWidth: 0.5,
-                  borderRadius: 7,
-                }}>
-                <Text
-                  style={{color: '#000', textAlign: 'center', lineHeight: 40}}>
-                  10
-                </Text>
-              </View>
+                pH Status:
+              </Text>
+              <Text
+                style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
+                {soil?.S_PH?.PH || 0}
+              </Text>
             </View>
             <View
               style={{
@@ -86,31 +86,17 @@ const Soil = ({onPress}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <View
+              <Text
                 style={{
-                  height: 40,
-                  width: 40,
-                  backgroundColor: config.constants.ternaryColor,
-                  borderRadius: 7,
+                  color: config.constants.primaryColor,
+                  fontWeight: 'bold',
                 }}>
-                <Text
-                  style={{color: '#fff', textAlign: 'center', lineHeight: 40}}>
-                  P
-                </Text>
-              </View>
-              <View
-                style={{
-                  height: 40,
-                  width: 40,
-                  borderColor: config.constants.ternaryColor,
-                  borderWidth: 0.5,
-                  borderRadius: 7,
-                }}>
-                <Text
-                  style={{color: '#000', textAlign: 'center', lineHeight: 40}}>
-                  10
-                </Text>
-              </View>
+                Moisture:
+              </Text>
+              <Text
+                style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
+                {soil?.SM?.SM}
+              </Text>
             </View>
             <View
               style={{
@@ -118,51 +104,48 @@ const Soil = ({onPress}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
-              <View
+              <Text
                 style={{
-                  height: 40,
-                  width: 40,
-                  backgroundColor: config.constants.ternaryColor,
-                  borderRadius: 7,
+                  color: config.constants.primaryColor,
+                  fontWeight: 'bold',
                 }}>
-                <Text
-                  style={{color: '#fff', textAlign: 'center', lineHeight: 40}}>
-                  K
-                </Text>
-              </View>
-              <View
-                style={{
-                  height: 40,
-                  width: 40,
-                  borderColor: config.constants.ternaryColor,
-                  borderWidth: 0.5,
-                  borderRadius: 7,
-                }}>
-                <Text
-                  style={{color: '#000', textAlign: 'center', lineHeight: 40}}>
-                  10
-                </Text>
-              </View>
+                Humidity:
+              </Text>
+              <Text
+                style={{color: '#000', fontWeight: '500', marginHorizontal: 5}}>
+                {soil?.ATH?.HUM || 0}
+              </Text>
             </View>
           </View>
+          <TouchableOpacity
+            style={{
+              marginHorizontal: '7%',
+            }}
+            onPress={onPress}>
+            <Text style={styles.buttonText}>Check Health</Text>
+          </TouchableOpacity>
         </>
       )}
     </View>
   );
 };
 
+// ToastAndroid.show(
+//   'This feature is coming soon. Sorry for the inconvenience caused',
+//   1,
+// )
 const styles = StyleSheet.create({
   main: {
-    height: 110,
+    height: 180,
     borderBottomColor: config.constants.primaryColor,
     width: '100%',
     borderBottomWidth: 1,
-    backgroundColor: '#dcdcdc',
+    backgroundColor: '#ededed',
   },
   soil: {
     height: 80,
     // flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
     marginHorizontal: 10,
@@ -171,6 +154,22 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  button: {
+    backgroundColor: config.constants.ternaryColor,
+    padding: 5,
+    borderRadius: 10,
+    // marginBottom: 30,
+    width: '30%',
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontWeight: '700',
+    fontSize: 14,
+    color: '#fff',
+    backgroundColor: config.constants.primaryColor,
+    padding: 15,
+    borderRadius: 10,
   },
 });
 

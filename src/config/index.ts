@@ -1,6 +1,7 @@
 export default {
-  baseURL: 'https://quiz-backend-rewamp.onrender.com/api',
-  // baseURL: 'http://ec2-43-204-102-117.ap-south-1.compute.amazonaws.com:9000/api',
+  // baseURL: 'https://quiz-backend-rewamp.onrender.com/api',
+  baseURL:
+    'http://ec2-43-204-102-117.ap-south-1.compute.amazonaws.com:9000/api',
   constants: {
     primaryColor: '#01423A',
     borderColor: '#01423A',
@@ -25,5 +26,7 @@ export default {
   websiteURL: 'https://agrarianthetrustforgrowth.com/about',
   development: 'dev',
   helplineNumber: '+918809140983',
+  feedbackURL: 'https://forms.gle/qektBcgKyn4hPWYUA',
+  whatsappURL: 'https://chat.whatsapp.com/Cf0GJEUIuqQL5SsUQxZiyX',
   // development: 'prod',
 };

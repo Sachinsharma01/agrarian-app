@@ -11,6 +11,9 @@ import PostStack from './PostStack';
 import Forecast from '../screens/weather';
 import Crop from '../screens/crop/index';
 import OngoingCrop from '../screens/crop/OngoingCrop';
+import SoilHealth from '../screens/soil';
+import Cart from '../screens/cart';
+import Notification from '../screens/notification';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,8 +30,19 @@ const HomeStack = () => {
         component={Forecast}
         options={{headerTransparent: true, headerTintColor: '#fff'}}
       />
+      <Stack.Screen name="SoilHealth" component={SoilHealth} />
       <Stack.Screen name="Crop" component={Crop} />
       <Stack.Screen name="OngoingCrop" component={OngoingCrop} />
+      <Stack.Screen
+        name="Notifications"
+        component={Notification}
+        options={{headerShown: true}}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
+        options={{headerShown: true}}
+      />
     </Stack.Navigator>
   );
 };
@@ -56,6 +70,7 @@ const BottomTabNavigation = () => {
       <Tab.Screen
         options={{
           tabBarLabel: 'Agri Store',
+          headerShown: true,
           tabBarIcon: ({color, size}) => (
             <FeatherIcons name="shopping-bag" size={22} color={color} />
           ),

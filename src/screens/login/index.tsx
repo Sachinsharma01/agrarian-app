@@ -28,12 +28,12 @@ const Login = ({navigation}: any) => {
     setPhone('');
     setShowLoader(true);
     const response: any = await getOTP(phone as string);
-    console.log('OTP send to mobile number', response);
+    // console.log('OTP send to mobile number', response);
     setShowLoader(false);
     if (response.error) {
       Alert.alert(config.defaultErrorMessage);
     } else {
-      console.log(`before +91${phone}`, )
+      // console.log(`before +91${phone}`, )
       dispatch(updateNumber(`+91${phone}`));
       navigation.navigate('OTP');
     }
@@ -41,7 +41,9 @@ const Login = ({navigation}: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {showLoader && <ActivityIndicator size='large' color={config.constants.primaryColor} />}
+      {showLoader && (
+        <ActivityIndicator size="large" color={config.constants.primaryColor} />
+      )}
       <View style={styles.imageView}>
         <LoginSvg height={300} width={300} />
       </View>
@@ -56,7 +58,7 @@ const Login = ({navigation}: any) => {
         <TextInput
           placeholder={t("Enter Phone Number") || ''}
           placeholderTextColor="#000"
-          style={{color: 'black'}}
+          style={{color: 'black', width: '90%'}}
           keyboardType="numeric"
           value={phone}
           maxLength={10}

@@ -7,23 +7,32 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {useSelector} from 'react-redux';
-import config from '../../config';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {ImagePickerModal} from '../../modals/ImagePickerModal';
 import {TouchableOpacity} from 'react-native';
+import config from '../../config';
 import Button from '../../components/button';
 import {addPost} from '../../request';
+import {camera} from '../../assets';
+import {uploadPostImage} from '../../utils/upload';
 
 const CreatePost = ({navigation}: any) => {
+  const {user} = useSelector((state: any) => state.metaDataReducer);
   const {token} = useSelector((state: any) => state.tokenReducer);
-  const [selectedCrop, setSelectedCrop] = useState(
-    {} as any,
-  );
+  const {crops} = useSelector((state: any) => state.cropReducer);
+
+  const [pickerResponse, setPickerResponse]: any = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCrop, setSelectedCrop] = useState({} as any);
   const [description, setDescription] = useState('');
+  const [postImageURL, setPostImageURL]: any = useState(null);
+
   const [loading, setLoading] = useState(false);
   const onCreatePostSubmitHandler = async () => {
     setLoading(true);
-    const payload = {
+    const payload: any = {
       description: description,
       crop: {
         cropName: selectedCrop?.name,
@@ -31,44 +40,78 @@ const CreatePost = ({navigation}: any) => {
         cropId: selectedCrop?.id,
       },
     };
-    console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', payload)
+    if (pickerResponse !== null && postImageURL !== null) {
+      payload.image = postImageURL;
+    }
+    // console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy', payload);
     const response = await addPost(token, payload);
     setLoading(false), navigation.goBack();
   };
-  const {crops} = useSelector((state: any) => state.cropReducer);
+
+  const onImageLibraryPress = useCallback(async () => {
+    const options: any = {
+      selectionLimit: 1,
+      mediaType: 'photo',
+      includeBase64: false,
+    };
+    await launchImageLibrary(options, async (response: any) => {
+      setPickerResponse(response?.assets && response?.assets[0]?.uri);
+    });
+    setShowModal(false);
+  }, []);
+
+  const onCameraPress = useCallback(async () => {
+    const options: any = {
+      saveToPhotos: true,
+      mediaType: 'photo',
+      includeBase64: false,
+    };
+    await launchCamera(options, async (response: any) => {
+      setPickerResponse(response?.assets && response?.assets[0]?.uri);
+    });
+    setShowModal(false);
+  }, []);
+
+  (async function imageUpload(){
+    if (pickerResponse !== null && postImageURL === null) {
+      const imageURL = await uploadPostImage(pickerResponse, user?.name);
+      setPostImageURL(imageURL);
+    }
+  })()
+  // console.log('hbvebvhvebjebvhvebejhbv', pickerResponse);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.main}>
       {loading && (
         <ActivityIndicator size="large" color={config.constants.primaryColor} />
       )}
-      <Text
-        style={{
-          color: 'black',
-          fontWeight: 'bold',
-          marginLeft: 10,
-          marginTop: 10,
-        }}>
-        Description :{' '}
-      </Text>
+      {pickerResponse && postImageURL && (
+        <>
+          <Text style={styles.text}>Image :</Text>
+          <Image style={styles.postImage} source={{uri: pickerResponse}} />
+        </>
+      )}
+      <Text style={styles.text}>Ask your Question : </Text>
       <View style={{...styles.input}}>
         <TextInput
           onChangeText={e => {
             setDescription(e);
           }}
-          style={{color: 'black', width: '100%', height: 100}}
+          style={styles.inputText}
           multiline={true}
-          placeholder="Post Description."
+          placeholder="Tell us more about your question."
         />
       </View>
-      <Text
-        style={{
-          color: 'black',
-          fontWeight: 'bold',
-          marginLeft: 10,
-          marginTop: 10,
-        }}>
-        Choose Crop :{' '}
-      </Text>
+      <Text style={styles.text}>Add Photo :</Text>
+      <TouchableOpacity onPress={() => setShowModal(true)}>
+        <Image style={styles.image} source={camera?.image} />
+      </TouchableOpacity>
+      <Text style={styles.text}>Choose Crop : </Text>
+      <ImagePickerModal
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+        onImageLibraryPress={onImageLibraryPress}
+        onCameraPress={onCameraPress}
+      />
       {crops?.map((crop: any, idx: number) => {
         return (
           <TouchableOpacity
@@ -81,11 +124,10 @@ const CreatePost = ({navigation}: any) => {
             }
             key={idx}
             style={{height: 100, width: 100, marginRight: 10}}>
-            <Image
-              key={idx}
-              style={{height: 70, width: 70, aspectRatio: 1, marginHorizontal: 5}}
-              source={{uri: crop?.image}}
-            />
+            <Image key={idx} style={styles.image} source={{uri: crop?.image}} />
+            <Text style={{ marginLeft: 17, textTransform: 'capitalize'}}>
+              {crop?.name}
+            </Text>
           </TouchableOpacity>
         );
       })}
@@ -95,6 +137,9 @@ const CreatePost = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
+  main: {
+    backgroundColor: '#fff',
+  },
   top: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -114,6 +159,25 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
   },
+  text: {
+    color: 'black',
+    fontWeight: 'bold',
+    marginLeft: 10,
+    marginTop: 10,
+  },
+  image: {
+    height: 70,
+    width: 70,
+    aspectRatio: 1,
+    marginHorizontal: 5,
+  },
+  postImage: {
+    // height: 70,
+    // width: 70,
+    aspectRatio: 2,
+    marginHorizontal: 10,
+  },
+  inputText: {color: 'black', width: '100%', height: 100},
 });
 
 export default CreatePost;

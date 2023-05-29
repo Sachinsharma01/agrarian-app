@@ -7,8 +7,9 @@ import {
   Image,
   Linking,
   Alert,
+  ToastAndroid,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -27,6 +28,7 @@ import {updateCrops} from '../../redux/actions/cropActions';
 import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
 import {logoNew} from '../../assets';
+import Services from '../../components/services';
 
 const Home = ({navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -38,7 +40,9 @@ const Home = ({navigation}: any) => {
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    getUser();
+    getUser().then((data: any) => {
+      fetchUserCrops();
+    });
     getAllCrops(token as string).then((data: any) => {
       dispatch(updateCrops(data));
     });
@@ -48,20 +52,23 @@ const Home = ({navigation}: any) => {
     const userData = await getMetaData(token);
     dispatch(updateUser(userData.data));
     setLoading(false);
-    console.log('User details from get meta data$$$', userData);
+    // console.log('User details from get meta data$$$', userData);
   };
   useEffect(() => {
     fetchUserCrops();
   }, [reload]);
+
   const fetchUserCrops = async () => {
     setCropLoading(true);
-    const userCrops: any = await getUserCrops(
-      user._id as string,
-      token as string,
-    );
-    // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', userCrops)
-    setAllUsersCrops(userCrops[0]?.crop);
-    setCropLoading(false);
+    if (user) {
+      const userCrops: any = await getUserCrops(
+        user._id as string,
+        token as string,
+      );
+      // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', userCrops)
+      setAllUsersCrops(userCrops[0]?.crop);
+      setCropLoading(false);
+    }
   };
   const removeCrop = async (cropDetails: any) => {
     setCropLoading(true);
@@ -80,7 +87,10 @@ const Home = ({navigation}: any) => {
 
   const callHandler = () => {
     if (user?.isPaid === false) {
-      Alert.alert('Please Buy Premium to avail this service');
+      Alert.alert(
+        'Premium Required',
+        'This feature is for Premium members only. Please buy Premium to avail this service.',
+      );
     } else {
       Linking.openURL(`tel:${config.helplineNumber}`);
     }
@@ -112,11 +122,44 @@ const Home = ({navigation}: any) => {
                 alignItems: 'center',
                 flexDirection: 'row',
               }}>
+              {user?.isPaid && (
+                <Text
+                  style={{
+                    color: config.constants.secondaryColor,
+                    paddingRight: 10,
+                  }}>
+                  {' '}
+                  Premium
+                </Text>
+              )}
+
+              <Ionicons
+                onPress={() => {
+                  // ToastAndroid.show(
+                  //   'This feature is coming soon. Sorry for the inconvenience caused',
+                  //   1,
+                  // )
+                  navigation.navigate('Notifications');
+                }}
+                name="notifications"
+                color="#fff"
+                size={20}
+                style={{marginRight: 10}}
+              />
+              <Ionicons
+                onPress={() => {
+                  navigation.navigate('Cart');
+                }}
+                name="cart"
+                color="#fff"
+                size={22}
+                style={{marginRight: 10}}
+              />
               <Ionicons
                 onPress={callHandler}
                 name="ios-call"
                 color="#fff"
-                size={22}
+                size={20}
                 style={{marginRight: 10}}
               />
               <Ionicons
@@ -183,7 +226,7 @@ const Home = ({navigation}: any) => {
                       />
                     ) : (
                       <ScrollView horizontal={true} style={styles.cropScroll}>
-                        {allUserCrops.map((crop: any, idx: number) => {
+                        {allUserCrops?.map((crop: any, idx: number) => {
                           return (
                             <CropItem
                               idx={idx}
@@ -210,16 +253,26 @@ const Home = ({navigation}: any) => {
                       color: '#000',
                       marginLeft: 5,
                     }}>
-                    No Crops Please Add One.
+                    No Crops Please Add One or refresh
                   </Text>
                 )}
               </View>
             </View>
+            {/* <Services /> */}
             <Weather
               onPress={() => navigation.navigate('Weather')}
               token={token}
             />
-            <Soil onPress={() => {}} />
+            <Soil
+              onPress={() => {
+                user?.isPaid
+                  ? navigation.navigate('SoilHealth')
+                  : Alert.alert(
+                      'Premium Required',
+                      'You need to buy Premium to access this feature',
+                    );
+              }}
+            />
           </ScrollView>
         </>
       )}
@@ -271,5 +324,10 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
+  },
+  greeting: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
