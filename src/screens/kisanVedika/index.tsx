@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {RefreshControl} from 'react-native-gesture-handler';
 import {getAllPosts, updatePost} from '../../request/index';
@@ -18,6 +19,7 @@ import {user} from '../../assets';
 import RefreshButton from '../../components/button/refreshButton';
 
 const KisanVedika = ({navigation}: any) => {
+  const {t, i18n} = useTranslation();
   const {token} = useSelector((state: any) => state.tokenReducer);
   const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(false);
@@ -29,35 +31,23 @@ const KisanVedika = ({navigation}: any) => {
       setAllPosts(data);
       setLoading(false);
       setShowButton(true);
-
     });
   }, []);
 
-  const onLoadClickHandler = async () =>{
+  const onLoadClickHandler = async () => {
     setCount(count + 1);
-    getAllPosts(token as string).then((data) => {
-      setAllPosts(data)
-      console.log("Hitttt", count)
-    })
-  }
-  // const isCloseToBottom = ({
-  //   layoutMeasurement,
-  //   contentOffset,
-  //   contentSize,
-  // }: any) => {
-  //   const paddingToBottom = 20;
-  //   return (
-  //     layoutMeasurement.height + contentOffset.y >=
-  //     contentSize.height - paddingToBottom
-  //   );
-  // };
+    getAllPosts(token as string).then(data => {
+      setAllPosts(data);
+      console.log('Hitttt', count);
+    });
+  };
 
   const onRefresh = useCallback(() => {
     setLoading(true);
     getAllPosts(token as string).then((data: any) => {
       setAllPosts(data);
       setLoading(false);
-      setShowButton(true)
+      setShowButton(true);
     });
   }, []);
 
@@ -65,7 +55,6 @@ const KisanVedika = ({navigation}: any) => {
     await updatePost(token as string, postId as string);
     ToastAndroid.show('You Liked The Post', 0.3);
   };
-  // console.log('pdkhfvbhfdbvfhbfv', allPosts);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.top}>
@@ -96,17 +85,10 @@ const KisanVedika = ({navigation}: any) => {
             alignItems: 'center',
           }}>
           <Ionicons name="pencil-sharp" size={20} color="yellow" />
-          <Text style={{color: '#fff'}}>Ask</Text>
+          <Text style={{color: '#fff'}}>{t('Ask')}</Text>
         </TouchableOpacity>
       </View>
       <ScrollView
-        // onScroll={({nativeEvent}) => {
-        //   if (isCloseToBottom(nativeEvent)) {
-        //     // enableSomeButton();
-        //     console.log('end reached');
-        //   }
-        // }}
-        // scrollEventThrottle={400}
         refreshControl={
           <RefreshControl refreshing={loading} onRefresh={onRefresh} />
         }

@@ -8,12 +8,16 @@ import {
   ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
+
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import UserAvatar from '../user/UserAvatar';
 import config from '../../config';
 
 const Post = (props: any) => {
+  const {t, i18n} = useTranslation();
+
   const [liked, setLiked] = useState(false);
   const likeClickHandler = () => {
     props.onPostLike();
@@ -97,15 +101,21 @@ const Post = (props: any) => {
             size={25}
             color={liked ? config.constants.primaryColor : '#000'}
           />
-          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Like</Text>
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>
+            {t('Like')}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onPostPress}>
           <EvilIcons name="comment" size={35} color="#000" />
-          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Comment</Text>
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>
+            {t('Comment')}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={sharePost}>
           <EvilIcons name="share-google" size={35} color="#000" />
-          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>Share</Text>
+          <Text style={{textAlign: 'center', color: '#d1cdcd'}}>
+            {t('Share')}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

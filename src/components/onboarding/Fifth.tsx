@@ -7,11 +7,13 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {agristore, onBoardLogoOne} from '../../assets';
 import config from '../../config';
 
 const Fifth = ({onPress}: any) => {
+  const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -19,17 +21,13 @@ const Fifth = ({onPress}: any) => {
       </View>
       <View style={{marginHorizontal: 20}}>
         <Text style={{textAlign: 'justify', fontSize: 15, color: 'gray'}}>
-          It provides all essential inputs for increasing the crop yield. Our
-          team provides all inputs at the time of sowing and also provides
-          method of using materials. There will be less loss and farmers will
-          get benefited as the inputs from the team will provide knowledge for
-          systematic crop cultivation. It provides knowledge for systematic
-          crops cultivation, maximum land utilization and how to grow more then
-          one crop over small area of land.
+          {t(
+            'It provides all essential inputs for increasing the crop yield. Our team provides all inputs at the time of sowing and also provides method of using materials. There will be less loss and farmers will get benefited as the inputs from the team will provide knowledge for systematic crop cultivation. It provides knowledge for systematic crops cultivation, maximum land utilization and how to grow more then one crop over small area of land.',
+          )}
         </Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>Next</Text>
+        <Text style={styles.buttonText}>{t('Next')}</Text>
         <Ionicons
           name="arrow-forward-outline"
           color={config.constants.primaryColor}

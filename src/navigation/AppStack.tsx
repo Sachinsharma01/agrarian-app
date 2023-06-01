@@ -3,6 +3,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useTranslation} from 'react-i18next';
 import CustomDrawer from '../components/drawer';
 import BottomTabNavigation from './BottomTabNavigation';
 import Profile from '../screens/profile';
@@ -16,6 +17,8 @@ import HelpAndSupport from '../screens/help';
 const Drawer = createDrawerNavigator();
 
 const AppStack = () => {
+  const {t, i18n} = useTranslation();
+
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer {...props} />}
@@ -31,7 +34,7 @@ const AppStack = () => {
         },
       }}>
       <Drawer.Screen
-        name="Home"
+        name={t('Home')}
         component={BottomTabNavigation}
         options={{
           drawerIcon: ({color}) => (
@@ -40,7 +43,7 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Profile"
+        name={t('Profile')}
         component={Profile}
         options={{
           drawerIcon: ({color}) => (
@@ -49,7 +52,7 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name="AgriStore"
+        name={t('AgriStore')}
         component={AgriStore}
         options={{
           headerShown: true,
@@ -60,7 +63,7 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Kisan Vedika"
+        name={t('Kisan Vedika')}
         component={PostStack}
         options={{
           drawerIcon: ({color}) => (
@@ -69,7 +72,7 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Settings"
+        name={t('Settings')}
         component={Settings}
         options={{
           drawerIcon: ({color}) => (
@@ -78,7 +81,7 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Help"
+        name={t('Help')}
         component={HelpAndSupport}
         options={{
           drawerIcon: ({color}) => (
@@ -87,7 +90,7 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Feedback"
+        name={t('Feedback')}
         component={Feedback}
         options={{
           drawerIcon: ({color}) => (

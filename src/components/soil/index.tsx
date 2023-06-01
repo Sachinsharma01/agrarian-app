@@ -6,31 +6,29 @@ import {
   ActivityIndicator,
   ToastAndroid,
 } from 'react-native';
-import React, {useEffect,useLayoutEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
+
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import config from '../../config';
 import {db} from '../../firebase';
 import {onValue, ref} from 'firebase/database';
 
 const Soil = ({onPress}: any) => {
+  const {t, i18n} = useTranslation();
+
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
-  const [soil, setSoil]:any = useState({})
+  const [soil, setSoil]: any = useState({});
   useLayoutEffect(() => {
     setLoading(true);
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 1500);
-    getSoilData()
-      // setLoading(false);
-
+    getSoilData();
   }, [reload]);
 
   function getSoilData() {
     let getRef = ref(db, 'Mod1');
-    onValue(getRef, (snapshot: any) => {
-      // console.log('firebase data', snapshot.val());
-      setSoil(snapshot.val())
+    onValue(getRef, (snapshot: any) => {;
+      setSoil(snapshot.val());
       setLoading(false);
     });
   }
@@ -50,7 +48,7 @@ const Soil = ({onPress}: any) => {
                 marginRight: 10,
                 marginLeft: 10,
               }}>
-              Soil Health
+              {t('Soil Health')}
             </Text>
             <TouchableOpacity onPress={() => setReload(!reload)}>
               <FeatherIcons
@@ -122,7 +120,7 @@ const Soil = ({onPress}: any) => {
               marginHorizontal: '7%',
             }}
             onPress={onPress}>
-            <Text style={styles.buttonText}>Check Health</Text>
+            <Text style={styles.buttonText}>{t('Check Health')}</Text>
           </TouchableOpacity>
         </>
       )}
@@ -130,10 +128,6 @@ const Soil = ({onPress}: any) => {
   );
 };
 
-// ToastAndroid.show(
-//   'This feature is coming soon. Sorry for the inconvenience caused',
-//   1,
-// )
 const styles = StyleSheet.create({
   main: {
     height: 180,

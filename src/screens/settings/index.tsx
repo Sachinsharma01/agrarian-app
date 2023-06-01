@@ -7,6 +7,8 @@ import {
   Linking,
 } from 'react-native';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
+
 import {useDispatch} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -15,6 +17,8 @@ import config from '../../config';
 import onShare from '../../utils/share';
 
 const Settings = ({navigation}: any) => {
+  const {t, i18n} = useTranslation();
+
   const dispatch = useDispatch();
   const logoutHandler = () => {
     signOut(dispatch);
@@ -32,7 +36,7 @@ const Settings = ({navigation}: any) => {
         </TouchableOpacity>
         <View style={{marginLeft: 10}}>
           <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
-            Settings
+            {t('Settings')}
           </Text>
         </View>
       </View>
@@ -40,7 +44,7 @@ const Settings = ({navigation}: any) => {
         <TouchableOpacity
           onPress={() => navigation.navigate('Profile')}
           style={styles.signout}>
-          <Text style={{fontWeight: 'bold', color: '#000'}}>Edit Profile</Text>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>{t('Edit Profile')}</Text>
           <MaterialIcons name="edit" size={22} color="#000" />
         </TouchableOpacity>
       </View>
@@ -48,19 +52,19 @@ const Settings = ({navigation}: any) => {
         <TouchableOpacity
           onPress={() => Linking.openURL(config.websiteURL)}
           style={styles.signout}>
-          <Text style={{fontWeight: 'bold', color: '#000'}}>About</Text>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>{t('About')}</Text>
           <Ionicons name="arrow-forward-outline" size={22} color="#000" />
         </TouchableOpacity>
       </View>
       <View style={styles.wrapper}>
         <TouchableOpacity onPress={onShare} style={styles.signout}>
-          <Text style={{fontWeight: 'bold', color: '#000'}}>Share</Text>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>{t('Share')}</Text>
           <Ionicons name="ios-share-social" size={22} color="#000" />
         </TouchableOpacity>
       </View>
       <View style={styles.wrapper}>
         <TouchableOpacity onPress={logoutHandler} style={styles.signout}>
-          <Text style={{fontWeight: 'bold', color: '#000'}}>Sign Out</Text>
+          <Text style={{fontWeight: 'bold', color: '#000'}}>{t('Sign Out')}</Text>
           <Ionicons name="log-in" size={22} color="#000" />
         </TouchableOpacity>
       </View>

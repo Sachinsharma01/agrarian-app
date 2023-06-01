@@ -7,13 +7,14 @@ import {
   Image,
   Linking,
   Alert,
-  ToastAndroid,
 } from 'react-native';
-import React, {useEffect, useState, useLayoutEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {
   getMetaData,
@@ -28,9 +29,9 @@ import {updateCrops} from '../../redux/actions/cropActions';
 import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
 import {logoNew} from '../../assets';
-import Services from '../../components/services';
 
 const Home = ({navigation}: any) => {
+  const {t, i18n} = useTranslation();
   const {token} = useSelector((state: any) => state.tokenReducer);
   const {user} = useSelector((state: any) => state.metaDataReducer);
   const [loading, setLoading] = useState(false);
@@ -96,6 +97,11 @@ const Home = ({navigation}: any) => {
     }
   };
 
+  const changeHandler = async () => {
+    setLoading(true);
+    await i18n.changeLanguage('en');
+    setLoading(false);
+  };
   return (
     <SafeAreaView>
       {loading ? (
@@ -103,15 +109,6 @@ const Home = ({navigation}: any) => {
       ) : (
         <>
           <View style={{...styles.top}}>
-            {/* <Text
-              style={{
-                textAlign: 'center',
-                color: '#fff',
-                fontSize: 22,
-                marginLeft: 10,
-              }}>
-              Agrarian
-            </Text> */}
             <Image
               source={logoNew.image}
               style={{height: 40, width: 120, marginLeft: 10}}
@@ -133,12 +130,16 @@ const Home = ({navigation}: any) => {
                 </Text>
               )}
 
+              <TouchableOpacity
+                onPress={changeHandler}
+                style={{paddingVertical: 15}}>
+                {/* <View style={{flexDirection: 'row', alignItems: 'center'}}> */}
+                  <FontAwesome name="language" size={20} color="#fff" style={{paddingRight: 10}} />
+                {/* </View> */}
+              </TouchableOpacity>
+
               <Ionicons
                 onPress={() => {
-                  // ToastAndroid.show(
-                  //   'This feature is coming soon. Sorry for the inconvenience caused',
-                  //   1,
-                  // )
                   navigation.navigate('Notifications');
                 }}
                 name="notifications"
@@ -183,7 +184,7 @@ const Home = ({navigation}: any) => {
                     color: '#000',
                     marginLeft: 5,
                   }}>
-                  My Crops
+                  {t('My Crops')}
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
@@ -253,7 +254,7 @@ const Home = ({navigation}: any) => {
                       color: '#000',
                       marginLeft: 5,
                     }}>
-                    No Crops Please Add One or refresh
+                    {t('No Crops Please Add One or refresh')}
                   </Text>
                 )}
               </View>

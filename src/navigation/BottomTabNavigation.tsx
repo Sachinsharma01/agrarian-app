@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcons from 'react-native-vector-icons/Feather';
+import {useTranslation} from 'react-i18next';
 import Home from '../screens/home';
 import Settings from '../screens/settings';
 import AgriStore from '../screens/agristore';
@@ -18,10 +19,11 @@ import Notification from '../screens/notification';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const HomeStack = () => {
+  const {t, i18n} = useTranslation();
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name={t('Home')}
         component={Home}
         options={{headerShown: false}}
       />
@@ -47,6 +49,7 @@ const HomeStack = () => {
   );
 };
 const BottomTabNavigation = () => {
+  const {t, i18n} = useTranslation();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -58,10 +61,10 @@ const BottomTabNavigation = () => {
         tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
-        name="Home2"
+        name={t("Home2")}
         component={HomeStack}
         options={{
-          tabBarLabel: 'Home',
+          // tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (
             <Ionicons name="ios-home-outline" color={color} size={30} />
           ),
@@ -69,24 +72,24 @@ const BottomTabNavigation = () => {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: 'Agri Store',
+          // tabBarLabel: 'Agri Store',
           headerShown: true,
           tabBarIcon: ({color, size}) => (
             <FeatherIcons name="shopping-bag" size={22} color={color} />
           ),
         }}
-        name="AgriStore"
+        name={t('Agristore')}
         component={AgriStore}
       />
       <Tab.Screen
         options={{
-          tabBarLabel: 'Kisan Vedika',
-          title: 'Kisan Vedika',
+          // tabBarLabel: 'Kisan Vedika',
+          // title: 'Kisan Vedika',
           tabBarIcon: ({color, size}) => (
             <Ionicons name="people-outline" color={color} size={30} />
           ),
         }}
-        name="KisanVedika"
+        name={t('Kisan Vedika')}
         component={PostStack}
       />
       <Tab.Screen
@@ -95,7 +98,7 @@ const BottomTabNavigation = () => {
             <Ionicons name="ios-settings-outline" color={color} size={30} />
           ),
         }}
-        name="Settings"
+        name={t('Settings')}
         component={Settings}
       />
     </Tab.Navigator>

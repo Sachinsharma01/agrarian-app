@@ -7,6 +7,8 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {useTranslation} from 'react-i18next';
 import {menu, user} from '../../assets';
 import config from '../../config';
 import {signOut} from '../../utils/logout';
@@ -14,6 +16,7 @@ import UserAvatar from '../user/UserAvatar';
 import onShare from '../../utils/share';
 
 const CustomDrawer = (props: any) => {
+  const {t, i18n} = useTranslation();
   const dispatch = useDispatch();
   const farmer = useSelector((state: any) => state.metaDataReducer);
   const logoutHandler = () => {
@@ -69,7 +72,7 @@ const CustomDrawer = (props: any) => {
                 marginLeft: 5,
                 color: '#000',
               }}>
-              Tell a Friend
+              {t('Refer')}
             </Text>
           </View>
         </TouchableOpacity>
@@ -83,7 +86,7 @@ const CustomDrawer = (props: any) => {
                 marginLeft: 5,
                 color: '#000',
               }}>
-              Sign Out
+              {t('Sign Out')}
             </Text>
           </View>
         </TouchableOpacity>

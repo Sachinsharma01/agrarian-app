@@ -7,11 +7,14 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {diseaseDiagnosis} from '../../assets';
 import config from '../../config';
 
 const Fourth = ({onPress}: any) => {
+  const {t, i18n} = useTranslation();
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -19,11 +22,9 @@ const Fourth = ({onPress}: any) => {
       </View>
       <View style={{marginHorizontal: 20}}>
         <Text style={{textAlign: 'justify', fontSize: 15, color: 'gray'}}>
-          In views of all things we develop a software that provides all the
-          information from sowing to harvesting . Via this software we will
-          provide weather forecasting data that helps to choose suitable crop ,
-          crop pattern, time of irrigation and all needed information regarding
-          cultivation practice.
+          {t(
+            'In views of all things we develop a software that provides all the information from sowing to harvesting . Via this software we will provide weather forecasting data that helps to choose suitable crop , crop pattern, time of irrigation and all needed information regarding cultivation practice.',
+          )}
         </Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={onPress}>

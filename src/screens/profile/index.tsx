@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 import React, {useState, useCallback} from 'react';
 import dayjs from 'dayjs';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -25,6 +26,8 @@ import {ImagePickerModal} from '../../modals/ImagePickerModal';
 import {upload} from '../../utils/upload';
 
 const Profile = ({navigation}: any) => {
+    const {t, i18n} = useTranslation();
+
   const [showLoader, setShowLoader] = useState(false);
   const farmer = useSelector((state: any) => state.metaDataReducer);
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -106,7 +109,7 @@ const Profile = ({navigation}: any) => {
           </TouchableOpacity>
           <View style={{marginLeft: 10}}>
             <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
-              Back
+              {t('Back')}
             </Text>
           </View>
         </View>
@@ -137,7 +140,7 @@ const Profile = ({navigation}: any) => {
               {farmer?.user?.name || 'Farmer'}
             </Text>
             <Text style={styles.userName}>
-              Member since{' '}
+             {t(' Member since')}{' '}
               {dayjs(new Date(farmer?.user?.createdAt)).format('DD MMMM YYYY')}
             </Text>
           </View>
@@ -145,7 +148,7 @@ const Profile = ({navigation}: any) => {
         </ScrollView>
         <ScrollView style={styles.details}>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-            <Text style={{color: 'black', fontWeight: 'bold'}}>Name : </Text>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>{t('Name')} : </Text>
             <TextInput
               onChangeText={e => setName(e)}
               editable={editable}
@@ -159,7 +162,7 @@ const Profile = ({navigation}: any) => {
                 color: 'black',
                 fontWeight: 'bold',
               }}>
-              Role :
+             {t(' Role')} :
             </Text>
             <TextInput
               onChangeText={e => {}}
@@ -169,7 +172,7 @@ const Profile = ({navigation}: any) => {
             />
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-            <Text style={{color: 'black', fontWeight: 'bold'}}>Email : </Text>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>{t('Email')} : </Text>
             <TextInput
               onChangeText={e => setEmail(e)}
               editable={editable}
@@ -179,7 +182,7 @@ const Profile = ({navigation}: any) => {
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
             <Text style={{color: 'black', fontWeight: 'bold'}}>
-              Address :{' '}
+              {t('Address')} :{' '}
             </Text>
             <TextInput
               onChangeText={e => setAddress(e)}
@@ -190,7 +193,7 @@ const Profile = ({navigation}: any) => {
             />
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-            <Text style={{color: 'black', fontWeight: 'bold'}}>State : </Text>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>{t('State')} : </Text>
             <TextInput
               onChangeText={e => setState(e)}
               editable={editable}
@@ -199,7 +202,7 @@ const Profile = ({navigation}: any) => {
             />
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-            <Text style={{color: 'black', fontWeight: 'bold'}}>City : </Text>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>{t('City')} : </Text>
             <TextInput
               onChangeText={e => setCity(e)}
               editable={editable}
@@ -208,7 +211,7 @@ const Profile = ({navigation}: any) => {
             />
           </View>
           <View style={{...styles.input, opacity: editable ? 1 : 0.5}}>
-            <Text style={{color: 'black', fontWeight: 'bold'}}>Pincode : </Text>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>{t('Pincode')} : </Text>
             <TextInput
               onChangeText={e => setPincode(e)}
               editable={editable}

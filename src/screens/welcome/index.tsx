@@ -8,9 +8,9 @@ import {
   Image,
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
-import {logo} from '../../assets';
 import {welcomeLogo} from '../../assets';
 import First from '../../components/onboarding/First';
 import Second from '../../components/onboarding/Second';
@@ -21,12 +21,13 @@ import Fifth from '../../components/onboarding/Fifth';
 const Welcome = ({navigation}: any) => {
   const [screen, setScreen] = useState(1);
   const {t, i18n} = useTranslation();
-    const [currentLanguage, setLanguage] = useState('en');
-    const changeLanguageHandler = async (value:string) => {
-      setLanguage(value);
-      await i18n.changeLanguage(value)
-      setScreen(2);
-    };
+  const [currentLanguage, setLanguage] = useState('en');
+  const changeLanguageHandler = async (value: string) => {
+    setLanguage(value);
+    await i18n.changeLanguage(value);
+    await AsyncStorage.setItem('language', value);
+    setScreen(2);
+  };
   return (
     <>
       {screen === 1 && (
@@ -34,11 +35,15 @@ const Welcome = ({navigation}: any) => {
           <View style={styles.imageView}>
             <Image source={welcomeLogo.image} style={styles.image} />
           </View>
-          <TouchableOpacity style={styles.button} onPress={() => changeLanguageHandler('hi')}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => changeLanguageHandler('hi')}>
             <Text style={styles.buttonText}>हिंदी</Text>
             <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => changeLanguageHandler('en')}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => changeLanguageHandler('en')}>
             <Text style={styles.buttonText}>English</Text>
             <Ionicons name="arrow-forward-outline" color="#fff" size={22} />
           </TouchableOpacity>

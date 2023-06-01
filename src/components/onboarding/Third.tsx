@@ -7,11 +7,13 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {cropDoctor} from '../../assets';
 import config from '../../config';
 
 const Third = ({onPress}: any) => {
+    const {t, i18n} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -19,13 +21,11 @@ const Third = ({onPress}: any) => {
       </View>
       <View style={{marginHorizontal: 20}}>
         <Text style={{textAlign: 'justify', fontSize: 15, color: 'gray'}}>
-          Crop Doctor is an android based mobile application for the farmers in
-          national level. The objective of this application is to wider reach
-          and easy accessibility of crop information and service among farmers.
+          {t('Crop Doctor is an android based mobile application for the farmers in national level. The objective of this application is to wider reach and easy accessibility of crop information and service among farmers.')}
         </Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>Next</Text>
+        <Text style={styles.buttonText}>{t('Next')}</Text>
         <Ionicons
           name="arrow-forward-outline"
           color={config.constants.primaryColor}
