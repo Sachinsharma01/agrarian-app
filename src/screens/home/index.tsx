@@ -31,7 +31,7 @@ import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
 import Carousal from '../../components/Banner';
 import {logoNew} from '../../assets';
-import { height } from '../../utils/getDimensions';
+import {height} from '../../utils/getDimensions';
 
 const Home = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
@@ -182,93 +182,92 @@ const Home = ({navigation}: any) => {
               />
             </View>
           </View>
-          <ScrollView style={{height: height}}>
+          <ScrollView scrollEnabled={true} style={{height: height - 120}}>
             {/* <View> */}
-              <View style={styles.cropSection}>
+            <View style={styles.cropSection}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                  color: '#000',
+                  marginLeft: 5,
+                }}>
+                {t('My Crops')}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Crop');
+                }}>
+                <Ionicons
+                  name="add"
+                  color={config.constants.primaryColor}
+                  size={30}
+                  style={{marginLeft: 10}}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowCancel(!showCancel);
+                }}>
+                <Feather
+                  name="edit"
+                  color={config.constants.primaryColor}
+                  size={23}
+                  style={{marginLeft: 10, marginTop: 2}}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setReload(!reload)}>
+                <Feather
+                  name="refresh-cw"
+                  size={23}
+                  color={config.constants.primaryColor}
+                  style={{marginLeft: 13, marginTop: 2}}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.crops}>
+              {allUserCrops?.length !== 0 ? (
+                <>
+                  {cropLoading ? (
+                    <ActivityIndicator
+                      size="large"
+                      color={config.constants.primaryColor}
+                    />
+                  ) : (
+                    <ScrollView horizontal={true} style={styles.cropScroll}>
+                      {allUserCrops?.map((crop: any, idx: number) => {
+                        return (
+                          <CropItem
+                            idx={idx}
+                            key={idx}
+                            crop={crop}
+                            onCancel={() => removeCrop(crop)}
+                            showCancel={showCancel}
+                            onPress={() =>
+                              navigation.navigate('OngoingCrop', {
+                                crop: {
+                                  ...crop,
+                                },
+                              })
+                            }
+                          />
+                        );
+                      })}
+                    </ScrollView>
+                  )}
+                </>
+              ) : (
                 <Text
                   style={{
-                    fontWeight: 'bold',
-                    fontSize: 20,
                     color: '#000',
                     marginLeft: 5,
                   }}>
-                  {t('My Crops')}
+                  {t('No Crops Please Add One or refresh')}
                 </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Crop');
-                  }}>
-                  <Ionicons
-                    name="add"
-                    color={config.constants.primaryColor}
-                    size={30}
-                    style={{marginLeft: 10}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    setShowCancel(!showCancel);
-                  }}>
-                  <Feather
-                    name="edit"
-                    color={config.constants.primaryColor}
-                    size={23}
-                    style={{marginLeft: 10, marginTop: 2}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setReload(!reload)}>
-                  <Feather
-                    name="refresh-cw"
-                    size={23}
-                    color={config.constants.primaryColor}
-                    style={{marginLeft: 13, marginTop: 2}}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.crops}>
-                {allUserCrops?.length !== 0 ? (
-                  <>
-                    {cropLoading ? (
-                      <ActivityIndicator
-                        size="large"
-                        color={config.constants.primaryColor}
-                      />
-                    ) : (
-                      <ScrollView horizontal={true} style={styles.cropScroll}>
-                        {allUserCrops?.map((crop: any, idx: number) => {
-                          return (
-                            <CropItem
-                              idx={idx}
-                              key={idx}
-                              crop={crop}
-                              onCancel={() => removeCrop(crop)}
-                              showCancel={showCancel}
-                              onPress={() =>
-                                navigation.navigate('OngoingCrop', {
-                                  crop: {
-                                    ...crop,
-                                  },
-                                })
-                              }
-                            />
-                          );
-                        })}
-                      </ScrollView>
-                    )}
-                  </>
-                ) : (
-                  <Text
-                    style={{
-                      color: '#000',
-                      marginLeft: 5,
-                    }}>
-                    {t('No Crops Please Add One or refresh')}
-                  </Text>
-                )}
+              )}
               {/* </View> */}
             </View>
             {/* <Services /> */}
-            <Carousal />
             <Weather
               onPress={() => navigation.navigate('Weather')}
               token={token}
@@ -283,6 +282,7 @@ const Home = ({navigation}: any) => {
                     );
               }}
             />
+            <Carousal />
           </ScrollView>
         </>
       )}
