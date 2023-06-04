@@ -16,7 +16,6 @@ import {getAllPosts, updatePost} from '../../request/index';
 import Post from '../../components/post';
 import config from '../../config';
 import {user} from '../../assets';
-import RefreshButton from '../../components/button/refreshButton';
 
 const KisanVedika = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
@@ -24,7 +23,6 @@ const KisanVedika = ({navigation}: any) => {
   const [loading, setLoading] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [allPosts, setAllPosts] = useState([]);
-  const [count, setCount] = useState(1);
   useEffect(() => {
     setLoading(true);
     getAllPosts(token as string).then((data: any) => {
@@ -33,14 +31,6 @@ const KisanVedika = ({navigation}: any) => {
       setShowButton(true);
     });
   }, []);
-
-  const onLoadClickHandler = async () => {
-    setCount(count + 1);
-    getAllPosts(token as string).then(data => {
-      setAllPosts(data);
-      console.log('Hitttt', count);
-    });
-  };
 
   const onRefresh = useCallback(() => {
     setLoading(true);
@@ -117,7 +107,6 @@ const KisanVedika = ({navigation}: any) => {
             />
           );
         })}
-        {showButton && <RefreshButton onPress={onLoadClickHandler} />}
       </ScrollView>
     </SafeAreaView>
   );

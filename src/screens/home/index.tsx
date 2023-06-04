@@ -13,10 +13,11 @@ import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
-// import {ScrollView} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   getMetaData,
   getAllCrops,
@@ -35,6 +36,7 @@ import {height} from '../../utils/getDimensions';
 
 const Home = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
+  const [language, setLanguage]: any = useState();
   const {token} = useSelector((state: any) => state.tokenReducer);
   const {user} = useSelector((state: any) => state.metaDataReducer);
   const [loading, setLoading] = useState(false);
@@ -43,6 +45,7 @@ const Home = ({navigation}: any) => {
   const [allUserCrops, setAllUsersCrops] = useState([]);
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
+
   useEffect(() => {
     getUser().then((data: any) => {
       fetchUserCrops();
@@ -56,7 +59,6 @@ const Home = ({navigation}: any) => {
     const userData = await getMetaData(token);
     dispatch(updateUser(userData.data));
     setLoading(false);
-    // console.log('User details from get meta data$$$', userData);
   };
   useEffect(() => {
     fetchUserCrops();
@@ -69,7 +71,6 @@ const Home = ({navigation}: any) => {
         user._id as string,
         token as string,
       );
-      // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', userCrops)
       setAllUsersCrops(userCrops[0]?.crop);
       setCropLoading(false);
     }
@@ -102,7 +103,16 @@ const Home = ({navigation}: any) => {
 
   const changeHandler = async () => {
     setLoading(true);
-    await i18n.changeLanguage('en');
+    const value: any = await AsyncStorage.getItem('language');
+    if (value === 'en') {
+      await i18n.changeLanguage('hi');
+      AsyncStorage.setItem('language', 'hi');
+      setLanguage('hi');
+    } else {
+      await i18n.changeLanguage('en');
+      AsyncStorage.setItem('language', 'en');
+      setLanguage('en');
+    }
     setLoading(false);
   };
   return (
@@ -123,27 +133,23 @@ const Home = ({navigation}: any) => {
                 flexDirection: 'row',
               }}>
               {user?.isPaid && (
-                <Text
-                  style={{
-                    color: config.constants.secondaryColor,
-                    paddingRight: 10,
-                  }}>
-                  {' '}
-                  Premium
-                </Text>
+                <AntDesign
+                  name="star"
+                  color={config.constants.secondaryColor}
+                  size={20}
+                  style={{paddingRight: 10}}
+                />
               )}
 
               <TouchableOpacity
                 onPress={changeHandler}
                 style={{paddingVertical: 15}}>
-                {/* <View style={{flexDirection: 'row', alignItems: 'center'}}> */}
                 <FontAwesome
                   name="language"
                   size={20}
                   color="#fff"
                   style={{paddingRight: 10}}
                 />
-                {/* </View> */}
               </TouchableOpacity>
 
               <Ionicons
@@ -265,9 +271,13 @@ const Home = ({navigation}: any) => {
                   {t('No Crops Please Add One or refresh')}
                 </Text>
               )}
-              {/* </View> */}
             </View>
-            {/* <Services /> */}
+            <Carousal
+              onPress={() => {
+                navigation.navigate('Agristore');
+              }}
+            />
+
             <Weather
               onPress={() => navigation.navigate('Weather')}
               token={token}
@@ -282,7 +292,6 @@ const Home = ({navigation}: any) => {
                     );
               }}
             />
-            <Carousal />
           </ScrollView>
         </>
       )}

@@ -15,6 +15,7 @@ import OngoingCrop from '../screens/crop/OngoingCrop';
 import SoilHealth from '../screens/soil';
 import Cart from '../screens/cart';
 import Notification from '../screens/notification';
+import Ticket from '../screens/help/Ticket';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,6 +46,11 @@ const HomeStack = () => {
         component={Cart}
         options={{headerShown: true}}
       />
+      <Stack.Screen
+        name="Ticket"
+        component={Ticket}
+        options={{headerShown: true}}
+      />
     </Stack.Navigator>
   );
 };
@@ -61,10 +67,9 @@ const BottomTabNavigation = () => {
         tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
-        name={t("Home2")}
+        name={t('Home2')}
         component={HomeStack}
         options={{
-          // tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (
             <Ionicons name="ios-home-outline" color={color} size={30} />
           ),
@@ -72,8 +77,18 @@ const BottomTabNavigation = () => {
       />
       <Tab.Screen
         options={{
-          // tabBarLabel: 'Agri Store',
           headerShown: true,
+          headerShadowVisible: true,
+          headerStyle: {
+            shadowColor: '#000000',
+            shadowOffset: {
+              width: 0,
+              height: 3,
+            },
+            shadowOpacity: 0.17,
+            shadowRadius: 3.05,
+            elevation: 4,
+          },
           tabBarIcon: ({color, size}) => (
             <FeatherIcons name="shopping-bag" size={22} color={color} />
           ),
@@ -83,8 +98,6 @@ const BottomTabNavigation = () => {
       />
       <Tab.Screen
         options={{
-          // tabBarLabel: 'Kisan Vedika',
-          // title: 'Kisan Vedika',
           tabBarIcon: ({color, size}) => (
             <Ionicons name="people-outline" color={color} size={30} />
           ),

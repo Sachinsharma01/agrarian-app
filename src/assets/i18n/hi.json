@@ -22,7 +22,7 @@
     "Comment": "टिप्पणी",
     "Share": "शेयर",
     "Settings": "समायोजन",
-    "Home": "होम",
+    "Home": "होम.",
     "Home2": "होम",
     "Profile": "प्रोफ़ाइल",
     "AgriStore": "एग्रीस्टोर",
@@ -116,7 +116,7 @@
     "See that protective irrigation is provided for the nes transplant": "देखें कि एनईएस प्रत्यारोपण के लिए सुरक्षात्मक सिंचाई प्रदान की जाती है",
     "Weeding": "निराई",
     "Manual weeding may be done if required with the small implements.": "यदि आवश्यक हो तो छोटे औजारों से हाथ से निराई की जा सकती है",
-    "Chemical control By using post emergent herbicides like Agil @2ml/l water may be spread.": "रासायनिक नियंत्रण एजिल 2 मि.ली./ली. पानी जैसी पोस्ट इमर्जेंट शाकनाशियों का उपयोग करके फैलाया जा सकता है।",
+    "Chemical control By using post emergent herbicides like Agil@2ml/l water may be spread.": "रासायनिक नियंत्रण एजिल 2 मि.ली./ली. पानी जैसी पोस्ट इमर्जेंट शाकनाशियों का उपयोग करके फैलाया जा सकता है।",
     "VEGETATIVE GROWTH , FLOWERING": "वनस्पति विकास, फूल",
     "Weeding Manual weeding may be done if required with the small implements": "निराई-गुड़ाई यदि आवश्यक हो तो छोटे औजारों से हाथ से निराई-गुड़ाई की जा सकती है",
     "Fertilization": "निषेचन",
@@ -189,6 +189,7 @@
     "Avoid over-lapping crops to prevent spores from older crops infecting newer ones at an early age.": "कम उम्र में नई फसलों को संक्रमित करने वाली पुरानी फसलों के बीजाणुओं को रोकने के लिए फसलों को एक साथ लगाने से बचें।",
     "Practice crop rotation, choosing a non-host crop, e.g., root crops or those in the cabbage family.": "गैर-मेज़बान फ़सल का चयन करते हुए फ़सल चक्रीकरण का अभ्यास करें, उदाहरण के लिए जड़ वाली फ़सलें या गोभी परिवार की फ़सलें।",
     "Use resistant varieties.": "प्रतिरोधी किस्मों का प्रयोग करें",
-    "It provides all essential inputs for increasing the crop yield. Our team provides all inputs at the time of sowing and also provides method of using materials. There will be less loss and farmers will get benefited as the inputs from the team will provide knowledge for systematic crop cultivation. It provides knowledge for systematic crops cultivation, maximum land utilization and how to grow more then one crop over small area of land.": "यह फसल की उपज बढ़ाने के लिए सभी आवश्यक आदान प्रदान करता है। हमारा टीम बुवाई के समय सभी इनपुट प्रदान करती है और प्रदान भी करती है सामग्री का उपयोग करने की विधि। नुकसान कम होगा और किसानों को होगा लाभान्वित होंगे क्योंकि टीम से मिले इनपुट के लिए ज्ञान प्रदान करेंगे व्यवस्थित फसल की खेती। यह व्यवस्थित करने के लिए ज्ञान प्रदान करता है फसलों की खेती, अधिकतम भूमि उपयोग और फिर अधिक कैसे उगाना है भूमि के छोटे क्षेत्र पर एक फसल।"
+    "It provides all essential inputs for increasing the crop yield. Our team provides all inputs at the time of sowing and also provides method of using materials. There will be less loss and farmers will get benefited as the inputs from the team will provide knowledge for systematic crop cultivation. It provides knowledge for systematic crops cultivation, maximum land utilization and how to grow more then one crop over small area of land.": "यह फसल की उपज बढ़ाने के लिए सभी आवश्यक आदान प्रदान करता है। हमारा टीम बुवाई के समय सभी इनपुट प्रदान करती है और प्रदान भी करती है सामग्री का उपयोग करने की विधि। नुकसान कम होगा और किसानों को होगा लाभान्वित होंगे क्योंकि टीम से मिले इनपुट के लिए ज्ञान प्रदान करेंगे व्यवस्थित फसल की खेती। यह व्यवस्थित करने के लिए ज्ञान प्रदान करता है फसलों की खेती, अधिकतम भूमि उपयोग और फिर अधिक कैसे उगाना है भूमि के छोटे क्षेत्र पर एक फसल।",
+    "Enter Area in Acre": "क्षेत्रफल एकड़ में दर्ज करें"
   }
 }

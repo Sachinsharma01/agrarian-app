@@ -27,7 +27,7 @@ const Paginate = ({activeSlide}: any) => {
   );
 };
 
-const Carousal = () => {
+const Carousal = ({onPress}: any) => {
   const renderBanner = ({item, idx}: any) => {
     return <BannerSlide data={item} />;
   };
@@ -36,6 +36,7 @@ const Carousal = () => {
     <View
       style={{
         marginTop: 5,
+        backgroundColor: '#fff'
       }}>
       <Carousel
         layout={'stack'}

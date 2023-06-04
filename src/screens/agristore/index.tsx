@@ -1,11 +1,28 @@
-import {View, Text} from 'react-native';
+import {SafeAreaView, ScrollView, View} from 'react-native';
 import React from 'react';
+import {height, width} from '../../utils/getDimensions';
+import products from '../../assets/products';
+import ProductItem from '../../components/product/ProductItem';
 
 const AgriStore = () => {
   return (
-    <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-      <Text style={{color: '#000', fontWeight: 'bold', fontSize: 20}}>AgriStore Coming Soon....</Text>
-    </View>
+    <SafeAreaView>
+      <ScrollView style={{height: height - 100, backgroundColor: '#fff'}}>
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            width: width,
+            flexWrap: 'wrap',
+          }}>
+          {products.map((product: any, idx: number) => {
+            return <ProductItem key={idx} data={product} />;
+          })}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

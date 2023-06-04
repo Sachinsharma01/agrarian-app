@@ -4,11 +4,15 @@ import {useSelector} from 'react-redux';
 import {ActivityIndicator} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CropProgress from '../../components/crops/cropProgress';
-import PDF from '../../components/pdf/index';
 import config from '../../config';
 import {getCropDetails} from '../../request';
-import { CropDataNursery, CropDataTransNurseryDamage, CropDataTransPlanting } from '../../assets/data/crops';
+import {
+  CropDataNursery,
+  CropDataTransNurseryDamage,
+  CropDataTransPlanting,
+} from '../../assets/data/crops';
 import {height} from '../../utils/getDimensions';
+import FertilizerCalculator from '../../components/fertilizer';
 
 const OngoingCrop = ({route, navigation}: any) => {
   const {token} = useSelector((state: any) => state.tokenReducer);
@@ -17,12 +21,8 @@ const OngoingCrop = ({route, navigation}: any) => {
   const [crop, setCrop] = useState(route?.params?.crop);
   const [activeTab, setActiveTab]: any = useState(0);
   const [loading, setLoading]: any = useState(false);
-  const[tab, setTab] = useState(1);
+  const [tab, setTab] = useState(1);
   const [URL, setURL] = useState('');
-  console.log(
-    'crrrrrrrrrrrrrrrrrrrrroooooooooooooooooooooooooooooooooo',
-    route.params,
-  );
   useEffect(() => {
     setLoading(true);
     getData();
@@ -76,7 +76,7 @@ const OngoingCrop = ({route, navigation}: any) => {
                         onPress={() => {
                           setActiveTab(idx);
                           setUrlOnSelect(category);
-                          setTab(idx + 1)
+                          setTab(idx + 1);
                         }}
                         key={idx}
                         style={{
@@ -98,7 +98,10 @@ const OngoingCrop = ({route, navigation}: any) => {
                   },
                 )}
                 <TouchableOpacity
-                  onPress={() => setActiveTab(4)}
+                  onPress={() => {
+                    setActiveTab(4);
+                    setTab(4);
+                  }}
                   style={{
                     marginHorizontal: 25,
                     padding: 15,
@@ -133,10 +136,16 @@ const OngoingCrop = ({route, navigation}: any) => {
               </ScrollView>
             </View>
             {/* <PDF url={URL} /> */}
-            <View style={{marginHorizontal: '6%', marginTop: 10, backgroundColor: '#fff'}}>
+            <View
+              style={{
+                marginHorizontal: '6%',
+                marginTop: 10,
+                backgroundColor: '#fff',
+              }}>
               {tab === 1 && <CropDataNursery />}
               {tab === 2 && <CropDataTransPlanting />}
               {tab === 3 && <CropDataTransNurseryDamage />}
+              {tab === 4 && <FertilizerCalculator />}
             </View>
           </>
         )}

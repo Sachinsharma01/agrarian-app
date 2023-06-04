@@ -46,7 +46,12 @@ const HelpAndSupport = ({navigation}: any) => {
         <View style={styles.container}>
           {tickets.map((ticket, index) => {
             return (
-              <TouchableOpacity key={index} style={styles.ticket}>
+              <TouchableOpacity
+                key={index}
+                style={styles.ticket}
+                onPress={() => {
+                  navigation.navigate('Ticket');
+                }}>
                 <View style={styles.innerTicket}>
                   <View>
                     <Text style={styles.ticketTitle}>{ticket.title}</Text>
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     borderColor: '#d3d3d3',
     borderWidth: 1,
-    borderRadius: 7
+    borderRadius: 7,
   },
   innerTicket: {
     marginLeft: 10,
@@ -144,7 +149,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginTop: 7,
     marginBottom: 7,
-
   },
   ticketNo: {
     color: config.constants.primaryColor,
