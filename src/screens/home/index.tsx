@@ -7,12 +7,13 @@ import {
   Image,
   Linking,
   Alert,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {ScrollView} from 'react-native-gesture-handler';
+// import {ScrollView} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -28,7 +29,9 @@ import Weather from '../../components/weather';
 import {updateCrops} from '../../redux/actions/cropActions';
 import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
+import Carousal from '../../components/Banner';
 import {logoNew} from '../../assets';
+import { height } from '../../utils/getDimensions';
 
 const Home = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
@@ -134,7 +137,12 @@ const Home = ({navigation}: any) => {
                 onPress={changeHandler}
                 style={{paddingVertical: 15}}>
                 {/* <View style={{flexDirection: 'row', alignItems: 'center'}}> */}
-                  <FontAwesome name="language" size={20} color="#fff" style={{paddingRight: 10}} />
+                <FontAwesome
+                  name="language"
+                  size={20}
+                  color="#fff"
+                  style={{paddingRight: 10}}
+                />
                 {/* </View> */}
               </TouchableOpacity>
 
@@ -174,8 +182,8 @@ const Home = ({navigation}: any) => {
               />
             </View>
           </View>
-          <ScrollView>
-            <View>
+          <ScrollView style={{height: height}}>
+            {/* <View> */}
               <View style={styles.cropSection}>
                 <Text
                   style={{
@@ -257,9 +265,10 @@ const Home = ({navigation}: any) => {
                     {t('No Crops Please Add One or refresh')}
                   </Text>
                 )}
-              </View>
+              {/* </View> */}
             </View>
             {/* <Services /> */}
+            <Carousal />
             <Weather
               onPress={() => navigation.navigate('Weather')}
               token={token}

@@ -162,6 +162,8 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomWidth: 1,
     backgroundColor: '#ededed',
+    borderTopColor: config.constants.primaryColor,
+    borderTopWidth: 1,
   },
   weather: {
     height: 110,
@@ -176,7 +178,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     // marginHorizontal: '5%',
-    },
+  },
 });
 
 export default Weather;
