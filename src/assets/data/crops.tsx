@@ -31,9 +31,9 @@ export const CropDataNursery = () => {
         {t('The chilli grows in all soils from light sandy to heavy clay.')}{' '}
         {'\n'}●{' '}
         {t(
-          'Light soils are good for an early crop, while clay loam and silt loam soios are well suiuted for heavy yields .',
+          'Light soils are good for an early crop, while clay loam and silt loam soils are well suited for heavy yields .',
         )}{' '}
-        {'\n'}●{t(' Ph range')} :- 6.5-7.5{'\n'} ●{' '}
+        {'\n'}●{t('Ph range')} :- 6.5-7.5{'\n'} ●{' '}
         {t('If the acidic soil is acidic , liming is required.')} {'\n'}●{' '}
         {t('Sufficient water availability')} {'\n'}●
         {t('Removing crop residues.')} {'\n'}●{' '}
@@ -145,7 +145,7 @@ export const CropDataNursery = () => {
       </Text>
       <Text style={{color: '#000', textAlign: 'justify'}}>
         ● {t('Apply FYM fortified with biofertilizers for main fields.')}
-        {'\n'} ●{t(' Rotavating or cultivating to mix the FYM and soil.')}
+        {'\n'} ●{t('Rotavating or cultivating to mix the FYM and soil.')}
         {'\n'} ● {t('FYM helps soil conditions')}
       </Text>
       <Text
@@ -182,7 +182,7 @@ export const CropDataNursery = () => {
         )}
       </Text>
       <Text style={{color: '#000', textAlign: 'justify'}}>
-        ● {t('Water conservation and pest management technolongies.')}
+        ● {t('Water conservation and pest management technologies.')}
         {'\n'}●{' '}
         {t(
           'Regions with water sparse and integrated cultivation techniques to conserve water drip irrigation technology are adapted by the farmers.',
@@ -233,11 +233,11 @@ export const CropDataNursery = () => {
       <Text style={{color: '#000', textAlign: 'justify'}}>
         ●{' '}
         {t(
-          'Seedlings are hardened by exposing by exposing to an outer tougher envoiroonment to make the seedlings grow studier.',
+          'Seedlings are hardened by exposing by exposing to an outer tougher enviroonment to make the seedlings grow studier.',
         )}
         {'\n'} ●{' '}
         {t(
-          'The study plants will be stromg enough to tolerate the transplanting shock.',
+          'The study plants will be strong enough to tolerate the transplanting shock.',
         )}
         {'\n'} ●{' '}
         {t(
@@ -292,9 +292,7 @@ export const CropDataTransPlanting = () => {
         ●{' '}
         {t('Manual weeding may be done if required with the small implements.')}
         {'\n'} ●{' '}
-        {t(
-          'Chemical control By using post emergent herbicides like Agil@2ml/l water may be spread.',
-        )}
+        {t('Chemical control By using post emergent herbicides like Agil @2ml/l water may be spread.')}
       </Text>
       <Text
         style={{
@@ -309,9 +307,7 @@ export const CropDataTransPlanting = () => {
         ●{' '}
         {t('Manual weeding may be done if required with the small implements.')}
         {'\n'} ●{' '}
-        {t(
-          'Chemical control By using post emergent herbicides like Agil @2ml/l water may be spread.',
-        )}
+        {t('Chemical control By using post emergent herbicides like Agil @2ml/l water may be spread.')}
       </Text>
       <Text
         style={{
@@ -397,15 +393,7 @@ export const CropDataTransNurseryDamage = () => {
         {t(
           'Collar rottening and Root rotting pathogens require favourable conditions to invade and develop the symptoms.',
         )}
-        {'\n'} 2){' '}
-        {t(
-          'Over dosage of fertilisers provided in the soil make more prone to attack of collar rot.',
-        )}
-        {'\n'} 3){' '}
-        {t(
-          'Poor drainage with excess of water in the seed bed will leads to attack to collar rot.',
-        )}
-        {'\n'} 4){' '}
+         2){' '}
         {t(
           'Presence of disease-causing pathogens in the seed bed or soil due to poor land preparations cause collar rot.',
         )}

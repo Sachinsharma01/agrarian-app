@@ -19,9 +19,9 @@ const ProductItem = ({data}: any) => {
         <Text style={{color: config.constants.primaryColor, marginLeft: '5%'}}>
           {data?.name}
         </Text>
-        <Text style={{color: config.constants.primaryColor, marginLeft: '5%'}}>
+        {/* <Text style={{color: config.constants.primaryColor, marginLeft: '5%'}}>
           Price: ₹ {data?.price}
-        </Text>
+        </Text> */}
         <TouchableOpacity style={styles.button}>
           <Text
             style={{color: '#fff', textAlign: 'center'}}

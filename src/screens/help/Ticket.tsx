@@ -1,52 +1,50 @@
 import {SafeAreaView, View, ScrollView, StyleSheet, Text} from 'react-native';
 import React from 'react';
 import config from '../../config';
+import { useTranslation } from 'react-i18next';
 
 const Ticket = () => {
+  const[t, i18n] = useTranslation()
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.heading}>Home Section</Text>
+          <Text style={styles.heading}>{t('Home')}</Text>
           <Text style={styles.text}>
-            1 : Go to + sign to add a crop you want.
+            1 : {t('Go to + sign to add a crop you want.')}
           </Text>
           <Text style={styles.text}>
-            2 : Click on pencil icon which is right of + sign to edit/remove the
-            crop.
+            2 : {t('Click on pencil icon which is right of + sign to edit/remove the crop.')}
           </Text>
           <Text style={styles.text}>
-            3 : Click anywhere in forecast section to see the weather of next 7
-            days.
+            3 : {t('Click anywhere in forecast section to see the weather of next 7 days.')}
           </Text>
           <Text style={styles.text}>
-            4 : Click on Check Health to see the realtime data of soil,
-            plant,etc.
+            4 : {t('Click on Check Health to see the realtime data of soil, plant,etc.')}
           </Text>
           <Text style={styles.text}>
-            5 : Click on Bell Icon to see the notifications.
+            5 : {t('Click on Bell Icon to see the notifications.')}
           </Text>
           <Text style={styles.text}>
-            6 : Click on Cart Icon to see your cart and add to cart.
+            6 : {t('Click on Cart Icon to see your cart and add to cart.')}
           </Text>
         </View>
         <View style={styles.container}>
-          <Text style={styles.heading}>Kisan Vedika</Text>
+          <Text style={styles.heading}>{t('Kisan Vedika')}</Text>
           <Text style={styles.text}>
-            1 : Click on pencil icon present on right upper side to ask your
-            question.
+            1 : {t('Click on pencil icon present on right upper side to ask your question.')}
           </Text>
           <Text style={styles.text}>
-            2 : Like, Comment, Share other posts if you want to be.
+            2 : {t('Like, Comment, Share other posts if you want to be.')}
           </Text>
         </View>
         <View style={styles.container}>
-          <Text style={styles.heading}>Settings</Text>
+          <Text style={styles.heading}>{t('Settings')}</Text>
           <Text style={styles.text}>
-            1 : Go to Edit Profile to edit your details.
+            1 : {t('Go to Edit Profile to edit your details.')}
           </Text>
-          <Text style={styles.text}>2 : Click on About to see about us.</Text>
-          <Text style={styles.text}>3 : Click on Share to Share our App.</Text>
+          <Text style={styles.text}>2 : {t('Click on About to see about us.')}</Text>
+          <Text style={styles.text}>3 : {t('Click on Share to Share our App.')}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
