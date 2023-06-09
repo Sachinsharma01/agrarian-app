@@ -39,7 +39,7 @@ const Carousal = ({onPress}: any) => {
         backgroundColor: '#fff'
       }}>
       <Carousel
-        layout={'stack'}
+        layout={'default'}
         layoutCardOffset={18}
         data={sliderData}
         renderItem={renderBanner}

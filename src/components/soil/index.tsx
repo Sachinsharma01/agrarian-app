@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  ToastAndroid,
 } from 'react-native';
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -167,4 +166,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Soil;
+export default React.memo(Soil);

@@ -9,7 +9,7 @@ export const updateLanguage = (language: any) => {
 
 export const setLanguage = () => {
   return {
-    crops: {},
+    language: {},
     type: config.actionTypes.SET_LANGUAGE,
   };
 };

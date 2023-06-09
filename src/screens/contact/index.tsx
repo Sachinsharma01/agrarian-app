@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
 
-const Feedback = ({navigation}: any) => {
+const Contact = ({navigation}: any) => {
   const {t} = useTranslation();
   return (
     <>
@@ -27,40 +27,14 @@ const Feedback = ({navigation}: any) => {
           </TouchableOpacity>
           <View style={{marginLeft: 10}}>
             <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
-             {t('Back')}
+              {t('Back')}
             </Text>
           </View>
         </View>
-        <Text
-          style={{marginHorizontal: '5%', marginVertical: '5%', color: '#000'}}>
-          {t(
-            "We're AGRARIAN, a startup, whose objective is to bring change in the agriculture sector. We provide a specific platform to the farmers that help them to get all the modern information and sustainable ways regarding crop cultivation practices from sowing to harvesting.",
-          )}
-        </Text>
-        <Text
-          style={{marginHorizontal: '5%', marginVertical: '5%', color: '#000'}}>
-          {t('We would love to hear from you. Please share your valuable feedback.')}
-        </Text>
-
-        <TouchableOpacity>
-          <Text
-            onPress={() => Linking.openURL(config.feedbackURL)}
-            style={{
-              marginHorizontal: '5%',
-              marginVertical: '5%',
-              padding: 10,
-              color: '#fff',
-              backgroundColor: config.constants.primaryColor,
-              textAlign: 'center',
-              borderRadius: 10,
-            }}>
-            {t('Feedback')}
-          </Text>
-        </TouchableOpacity>
 
         <Text
           style={{marginHorizontal: '5%', marginVertical: '5%', color: '#000'}}>
-         {t(' Join our farmer community on WhatsApp')}:
+          {t('Join our farmer community on WhatsApp')}:
         </Text>
         <TouchableOpacity>
           <Text
@@ -77,6 +51,14 @@ const Feedback = ({navigation}: any) => {
             {t('Join')}
           </Text>
         </TouchableOpacity>
+        <Text
+          style={{marginHorizontal: '5%', marginVertical: '5%', color: '#000'}}>
+          {t('Email')}: {config.email}
+        </Text>
+        <Text
+          style={{marginHorizontal: '5%', marginVertical: '5%', color: '#000'}}>
+          {t('Phone')}: {config.helplineNumber}
+        </Text>
       </SafeAreaView>
     </>
   );
@@ -92,4 +74,4 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 });
-export default Feedback;
+export default Contact;

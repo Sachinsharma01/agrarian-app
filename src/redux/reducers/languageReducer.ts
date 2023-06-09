@@ -1,6 +1,8 @@
 import config from '../../config';
 
-const initialState: any = {};
+const initialState: any = {
+  language: 'en'
+};
 
 export const languageReducer = (state: any = initialState, action: any) => {
   switch (action.type) {

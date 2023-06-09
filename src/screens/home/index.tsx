@@ -7,37 +7,35 @@ import {
   Image,
   Linking,
   Alert,
-  ScrollView,
   FlatList,
+  LogBox,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {
-  getMetaData,
-  getAllCrops,
-  getUserCrops,
-  removeUserCrop,
-} from '../../request/index';
+import {getMetaData, getAllCrops, getUserCrops} from '../../request/index';
 import {updateUser} from '../../redux/actions/metaDetaActions';
 import config from '../../config';
 import Weather from '../../components/weather';
 import {updateCrops} from '../../redux/actions/cropActions';
-import CropItem from '../../components/crops/cropItem';
 import Soil from '../../components/soil';
 import Carousal from '../../components/Banner';
 import {logoNew} from '../../assets';
 import {height} from '../../utils/getDimensions';
 import CropHome from '../../components/crops/cropHome';
-import { updateLanguage } from '../../redux/actions/languageActions';
+import {setLang, getLang} from '../../utils/lang';
 
 const Home = ({navigation}: any) => {
+  LogBox.ignoreLogs([
+    'ViewPropTypes will be removed',
+    'ColorPropType will be removed',
+    'Possible Unhandled Promise Rejection (id: 0):',
+  ]);
+
   const {t, i18n} = useTranslation();
   const {token} = useSelector((state: any) => state.tokenReducer);
   const {user} = useSelector((state: any) => state.metaDataReducer);
@@ -46,7 +44,7 @@ const Home = ({navigation}: any) => {
   const [allUserCrops, setAllUsersCrops] = useState([]);
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
-  const language = useSelector((state: any) => state.languageReducer);
+
   useEffect(() => {
     getUser().then((data: any) => {
       fetchUserCrops();
@@ -63,8 +61,6 @@ const Home = ({navigation}: any) => {
   };
   useEffect(() => {
     fetchUserCrops();
-  console.log('langgggggggggggggggggggggggggggg', language);
-
   }, [reload]);
 
   const fetchUserCrops = async () => {
@@ -91,13 +87,13 @@ const Home = ({navigation}: any) => {
   };
 
   const changeHandler = async () => {
-    const value: any = await AsyncStorage.getItem('language');
+    const value = await getLang();
     if (value === 'en') {
       await i18n.changeLanguage('hi');
-      dispatch(updateLanguage('hi'))
+      await setLang('hi');
     } else {
       await i18n.changeLanguage('en');
-      dispatch(updateLanguage('en'));
+      await setLang('en');
     }
   };
   return (
@@ -173,45 +169,45 @@ const Home = ({navigation}: any) => {
               />
             </View>
           </View>
-            <View>
-              <FlatList
-                data={[
-                  <CropHome />,
-                  <View>
-                    <Text
-                      style={{
-                        fontWeight: 'bold',
-                        fontSize: 20,
-                        color: '#000',
-                        marginLeft: 10,
-                      }}>
-                      {t('Products')}
-                    </Text>
-                    <Carousal
-                      onPress={() => {
-                        navigation.navigate('Agristore');
-                      }}
-                    />
-                  </View>,
-                  <Weather
-                    onPress={() => navigation.navigate('Weather')}
-                    token={token}
-                  />,
-                  <Soil
+          <View style={{height: height - 130}}>
+            <FlatList
+              data={[
+                <CropHome />,
+                <View>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: 20,
+                      color: '#000',
+                      marginLeft: 10,
+                    }}>
+                    {t('Products')}
+                  </Text>
+                  <Carousal
                     onPress={() => {
-                      user?.isPaid
-                        ? navigation.navigate('SoilHealth')
-                        : Alert.alert(
-                            'Premium Required',
-                            'You need to buy Premium to access this feature',
-                          );
+                      navigation.navigate('Agristore');
                     }}
-                  />,
-                ]}
-                renderItem={({item}) => item}
-                showsVerticalScrollIndicator={false}
-              />
-            </View>
+                  />
+                </View>,
+                <Weather
+                  onPress={() => navigation.navigate('Weather')}
+                  token={token}
+                />,
+                <Soil
+                  onPress={() => {
+                    user?.isPaid
+                      ? navigation.navigate('SoilHealth')
+                      : Alert.alert(
+                          'Premium Required',
+                          'You need to buy Premium to access this feature',
+                        );
+                  }}
+                />,
+              ]}
+              renderItem={({item}) => item}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         </>
       )}
     </SafeAreaView>

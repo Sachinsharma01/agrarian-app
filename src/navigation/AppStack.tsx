@@ -13,6 +13,7 @@ import config from '../config';
 import PostStack from './PostStack';
 import Feedback from '../screens/feedback';
 import HelpAndSupport from '../screens/help';
+import Contact from '../screens/contact';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,7 +35,7 @@ const AppStack = () => {
         },
       }}>
       <Drawer.Screen
-        name={t('Home')}
+        name={t('Home3')}
         component={BottomTabNavigation}
         options={{
           drawerIcon: ({color}) => (
@@ -95,6 +96,15 @@ const AppStack = () => {
         options={{
           drawerIcon: ({color}) => (
             <MaterialIcons name="feedback" size={20} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={t('Contact')}
+        component={Contact}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcons name="contact" size={20} color={color} />
           ),
         }}
       />

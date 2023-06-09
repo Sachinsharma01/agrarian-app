@@ -30,5 +30,6 @@ export default {
   helplineNumber: '+918737803157',
   feedbackURL: 'https://forms.gle/qektBcgKyn4hPWYUA',
   whatsappURL: 'https://chat.whatsapp.com/Cf0GJEUIuqQL5SsUQxZiyX',
+  email:'agrarianthetrustforgrowth@gmail.com'
   // development: 'prod',
 };

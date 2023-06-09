@@ -8,11 +8,13 @@ import {
 import React from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {tickets} from '../../data';
+// import {tickets} from '../../data';
+import {useTranslation} from 'react-i18next';
 import config from '../../config';
 import {height} from '../../utils/getDimensions';
 
 const HelpAndSupport = ({navigation}: any) => {
+  const {t} = useTranslation();
   const getColor = (status: string) => {
     switch (status) {
       case 'Open':
@@ -44,53 +46,55 @@ const HelpAndSupport = ({navigation}: any) => {
       </View>
       <ScrollView style={{backgroundColor: '#fff', height: height - 70}}>
         <View style={styles.container}>
-          {tickets.map((ticket, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                style={styles.ticket}
-                onPress={() => {
-                  navigation.navigate('Ticket');
-                }}>
-                <View style={styles.innerTicket}>
-                  <View>
-                    <Text style={styles.ticketTitle}>{ticket.title}</Text>
-                  </View>
+          {/* {tickets.map((ticket, index) => {
+            return ( */}
+          <TouchableOpacity
+            key={1}
+            style={styles.ticket}
+            onPress={() => {
+              navigation.navigate('Ticket');
+            }}>
+            <View style={styles.innerTicket}>
+              <View>
+                <Text style={styles.ticketTitle}>
+                  {t('How to use Agrarian?')}
+                </Text>
+              </View>
+            </View>
+            <View>
+              <View style={styles.details}>
+                <View style={styles.holder}>
+                  <Text style={{color: '#d1cdcd', fontSize: 12}}>
+                    {t('Ticket No')} :{' '}
+                  </Text>
+                  <Text style={styles.ticketNo}>123889</Text>
                 </View>
-                <View>
-                  <View style={styles.details}>
-                    <View style={styles.holder}>
-                      <Text style={{color: '#d1cdcd', fontSize: 12}}>
-                        Ticket No :{' '}
-                      </Text>
-                      <Text style={styles.ticketNo}>{ticket.ticketNo}</Text>
-                    </View>
-                    <View style={styles.holder}>
-                      <Text style={{color: '#d1cdcd'}}>Status : </Text>
-                      <Text
-                        style={{
-                          color: getColor(ticket?.status as string),
-                        }}>
-                        {ticket.status}
-                      </Text>
-                    </View>
-                    <View style={styles.holder}>
-                      <Text style={{color: '#d1cdcd', fontSize: 12}}>
-                        Date :{' '}
-                      </Text>
-                      <Text
-                        style={{
-                          color: config.constants.primaryColor,
-                          fontSize: 12,
-                        }}>
-                        {ticket.date}
-                      </Text>
-                    </View>
-                  </View>
+                <View style={styles.holder}>
+                  <Text style={{color: '#d1cdcd'}}>{t('Status')} : </Text>
+                  <Text
+                    style={{
+                      color: getColor('Pending' as string),
+                    }}>
+                    {t('Pending')}
+                  </Text>
                 </View>
-              </TouchableOpacity>
-            );
-          })}
+                <View style={styles.holder}>
+                  <Text style={{color: '#d1cdcd', fontSize: 12}}>
+                    {t('Date')} :{' '}
+                  </Text>
+                  <Text
+                    style={{
+                      color: config.constants.primaryColor,
+                      fontSize: 12,
+                    }}>
+                    07/06/2023
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+          {/* );
+          })} */}
         </View>
       </ScrollView>
     </SafeAreaView>
