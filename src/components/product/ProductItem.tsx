@@ -7,21 +7,20 @@ import {
   ToastAndroid,
 } from 'react-native';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import config from '../../config';
 
 const ProductItem = ({data}: any) => {
+  const[t, i18n] = useTranslation();
   return (
-    <View style={styles.container} key={data.id}>
+    <View style={{...styles.container, borderRightWidth : data?.index % 2 !== 0 ? 0 : 0.7}} key={data?.index}>
       <View style={styles.imageContainer}>
-        <Image source={data?.image?.image} style={styles.image} />
+        <Image source={data?.item?.image?.image} style={styles.image} />
       </View>
       <View>
         <Text style={{color: config.constants.primaryColor, marginLeft: '5%'}}>
-          {data?.name}
+          {data?.item?.name}
         </Text>
-        {/* <Text style={{color: config.constants.primaryColor, marginLeft: '5%'}}>
-          Price: ₹ {data?.price}
-        </Text> */}
         <TouchableOpacity style={styles.button}>
           <Text
             style={{color: '#fff', textAlign: 'center'}}
@@ -31,7 +30,7 @@ const ProductItem = ({data}: any) => {
                 1,
               );
             }}>
-            Buy Now
+            {t('Buy Now')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -42,10 +41,10 @@ const ProductItem = ({data}: any) => {
 const styles = StyleSheet.create({
   container: {
     width: '50%',
-    borderLeftWidth: 0.2,
-    borderBottomWidth: 0.2,
-    borderLeftColor: config.constants.primaryColor,
-    borderBottomColor: config.constants.primaryColor,
+    borderRightWidth: 0.7,
+    borderTopWidth: 0.7,
+    borderRightColor: config.constants.primaryColor,
+    borderTopColor: config.constants.primaryColor,
     height: 300,
   },
   imageContainer: {

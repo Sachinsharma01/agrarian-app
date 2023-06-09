@@ -122,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SoilHealth;
+export default React.memo(SoilHealth);

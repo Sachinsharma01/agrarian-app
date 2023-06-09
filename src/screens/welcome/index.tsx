@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,15 +18,19 @@ import Second from '../../components/onboarding/Second';
 import Third from '../../components/onboarding/Third';
 import Fourth from '../../components/onboarding/Fouth';
 import Fifth from '../../components/onboarding/Fifth';
+import {updateLanguage} from '../../redux/actions/languageActions';
 
 const Welcome = ({navigation}: any) => {
   const [screen, setScreen] = useState(1);
   const {t, i18n} = useTranslation();
   const [currentLanguage, setLanguage] = useState('en');
+  const dispatch = useDispatch();
+
   const changeLanguageHandler = async (value: string) => {
     setLanguage(value);
     await i18n.changeLanguage(value);
     await AsyncStorage.setItem('language', value);
+    dispatch(updateLanguage(value));
     setScreen(2);
   };
   return (

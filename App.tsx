@@ -5,13 +5,13 @@
  * @format
  */
 
-import React, {useState} from 'react';
+import React from 'react';
 import {Provider} from 'react-redux';
 import {persistor, store} from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import AppNavContainer from './src/navigation';
 import './src/i18n';
-import {I18nextProvider, useTranslation} from 'react-i18next';
+import {I18nextProvider} from 'react-i18next';
 import i18next from 'i18next';
 
 // clickHandler();

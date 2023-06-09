@@ -8,6 +8,7 @@ import {
   Linking,
   Alert,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -33,19 +34,19 @@ import Soil from '../../components/soil';
 import Carousal from '../../components/Banner';
 import {logoNew} from '../../assets';
 import {height} from '../../utils/getDimensions';
+import CropHome from '../../components/crops/cropHome';
+import { updateLanguage } from '../../redux/actions/languageActions';
 
 const Home = ({navigation}: any) => {
   const {t, i18n} = useTranslation();
-  const [language, setLanguage]: any = useState();
   const {token} = useSelector((state: any) => state.tokenReducer);
   const {user} = useSelector((state: any) => state.metaDataReducer);
   const [loading, setLoading] = useState(false);
   const [cropLoading, setCropLoading] = useState(false);
-  const [showCancel, setShowCancel] = useState(false);
   const [allUserCrops, setAllUsersCrops] = useState([]);
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
-
+  const language = useSelector((state: any) => state.languageReducer);
   useEffect(() => {
     getUser().then((data: any) => {
       fetchUserCrops();
@@ -62,6 +63,8 @@ const Home = ({navigation}: any) => {
   };
   useEffect(() => {
     fetchUserCrops();
+  console.log('langgggggggggggggggggggggggggggg', language);
+
   }, [reload]);
 
   const fetchUserCrops = async () => {
@@ -74,20 +77,6 @@ const Home = ({navigation}: any) => {
       setAllUsersCrops(userCrops[0]?.crop);
       setCropLoading(false);
     }
-  };
-  const removeCrop = async (cropDetails: any) => {
-    setCropLoading(true);
-    const removed: any = await removeUserCrop(
-      {
-        userId: user._id,
-        crop: {
-          ...cropDetails,
-        },
-      },
-      token as string,
-    );
-    setAllUsersCrops(removed?.crop);
-    setCropLoading(false);
   };
 
   const callHandler = () => {
@@ -102,18 +91,14 @@ const Home = ({navigation}: any) => {
   };
 
   const changeHandler = async () => {
-    setLoading(true);
     const value: any = await AsyncStorage.getItem('language');
     if (value === 'en') {
       await i18n.changeLanguage('hi');
-      AsyncStorage.setItem('language', 'hi');
-      setLanguage('hi');
+      dispatch(updateLanguage('hi'))
     } else {
       await i18n.changeLanguage('en');
-      AsyncStorage.setItem('language', 'en');
-      setLanguage('en');
+      dispatch(updateLanguage('en'));
     }
-    setLoading(false);
   };
   return (
     <SafeAreaView>
@@ -188,111 +173,45 @@ const Home = ({navigation}: any) => {
               />
             </View>
           </View>
-          <ScrollView scrollEnabled={true} style={{height: height - 120}}>
-            {/* <View> */}
-            <View style={styles.cropSection}>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 20,
-                  color: '#000',
-                  marginLeft: 5,
-                }}>
-                {t('My Crops')}
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Crop');
-                }}>
-                <Ionicons
-                  name="add"
-                  color={config.constants.primaryColor}
-                  size={30}
-                  style={{marginLeft: 10}}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  setShowCancel(!showCancel);
-                }}>
-                <Feather
-                  name="edit"
-                  color={config.constants.primaryColor}
-                  size={23}
-                  style={{marginLeft: 10, marginTop: 2}}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setReload(!reload)}>
-                <Feather
-                  name="refresh-cw"
-                  size={23}
-                  color={config.constants.primaryColor}
-                  style={{marginLeft: 13, marginTop: 2}}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.crops}>
-              {allUserCrops?.length !== 0 ? (
-                <>
-                  {cropLoading ? (
-                    <ActivityIndicator
-                      size="large"
-                      color={config.constants.primaryColor}
+            <View>
+              <FlatList
+                data={[
+                  <CropHome />,
+                  <View>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        color: '#000',
+                        marginLeft: 10,
+                      }}>
+                      {t('Products')}
+                    </Text>
+                    <Carousal
+                      onPress={() => {
+                        navigation.navigate('Agristore');
+                      }}
                     />
-                  ) : (
-                    <ScrollView horizontal={true} style={styles.cropScroll}>
-                      {allUserCrops?.map((crop: any, idx: number) => {
-                        return (
-                          <CropItem
-                            idx={idx}
-                            key={idx}
-                            crop={crop}
-                            onCancel={() => removeCrop(crop)}
-                            showCancel={showCancel}
-                            onPress={() =>
-                              navigation.navigate('OngoingCrop', {
-                                crop: {
-                                  ...crop,
-                                },
-                              })
-                            }
-                          />
-                        );
-                      })}
-                    </ScrollView>
-                  )}
-                </>
-              ) : (
-                <Text
-                  style={{
-                    color: '#000',
-                    marginLeft: 5,
-                  }}>
-                  {t('No Crops Please Add One or refresh')}
-                </Text>
-              )}
+                  </View>,
+                  <Weather
+                    onPress={() => navigation.navigate('Weather')}
+                    token={token}
+                  />,
+                  <Soil
+                    onPress={() => {
+                      user?.isPaid
+                        ? navigation.navigate('SoilHealth')
+                        : Alert.alert(
+                            'Premium Required',
+                            'You need to buy Premium to access this feature',
+                          );
+                    }}
+                  />,
+                ]}
+                renderItem={({item}) => item}
+                showsVerticalScrollIndicator={false}
+              />
             </View>
-            <Carousal
-              onPress={() => {
-                navigation.navigate('Agristore');
-              }}
-            />
-
-            <Weather
-              onPress={() => navigation.navigate('Weather')}
-              token={token}
-            />
-            <Soil
-              onPress={() => {
-                user?.isPaid
-                  ? navigation.navigate('SoilHealth')
-                  : Alert.alert(
-                      'Premium Required',
-                      'You need to buy Premium to access this feature',
-                    );
-              }}
-            />
-          </ScrollView>
         </>
       )}
     </SafeAreaView>
@@ -311,7 +230,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 70,
+    height: 60,
     backgroundColor: config.constants.primaryColor,
     color: '#fff',
   },

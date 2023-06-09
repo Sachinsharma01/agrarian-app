@@ -181,4 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Weather;
+export default React.memo(Weather);

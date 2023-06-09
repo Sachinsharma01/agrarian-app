@@ -60,7 +60,7 @@ const BottomTabNavigation = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {backgroundColor: config.constants.primaryColor},
+        tabBarStyle: {backgroundColor: config.constants.primaryColor, height: 50},
         tabBarActiveTintColor: 'yellow',
         tabBarInactiveTintColor: '#fff',
         tabBarShowLabel: true,
