@@ -36,7 +36,7 @@ const Carousal = ({onPress}: any) => {
     <View
       style={{
         marginTop: 5,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
       }}>
       <Carousel
         layout={'default'}
@@ -45,6 +45,8 @@ const Carousal = ({onPress}: any) => {
         renderItem={renderBanner}
         sliderWidth={width - 40}
         itemWidth={300}
+        autoplay={true}
+        enableSnap={true}
         loop={true}
         onSnapToItem={idx => setActiveSlide(idx)}
       />

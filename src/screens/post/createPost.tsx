@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Image,
+  Alert,
 } from 'react-native';
 import React, {useState, useCallback} from 'react';
 import {useSelector} from 'react-redux';
@@ -17,20 +18,26 @@ import Button from '../../components/button';
 import {addPost} from '../../request';
 import {camera} from '../../assets';
 import {uploadPostImage} from '../../utils/upload';
+import {useTranslation} from 'react-i18next';
 
 const CreatePost = ({navigation}: any) => {
+  const {t} = useTranslation();
   const {user} = useSelector((state: any) => state.metaDataReducer);
   const {token} = useSelector((state: any) => state.tokenReducer);
   const {crops} = useSelector((state: any) => state.cropReducer);
 
   const [pickerResponse, setPickerResponse]: any = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [selectedCrop, setSelectedCrop] = useState({} as any);
+  const [selectedCrop, setSelectedCrop] = useState(null as any);
   const [description, setDescription] = useState('');
   const [postImageURL, setPostImageURL]: any = useState(null);
 
   const [loading, setLoading] = useState(false);
   const onCreatePostSubmitHandler = async () => {
+    if (!selectedCrop) {
+      Alert.alert(t('Please select a crop'));
+      return;
+    }
     setLoading(true);
     const payload: any = {
       description: description,
@@ -72,12 +79,12 @@ const CreatePost = ({navigation}: any) => {
     setShowModal(false);
   }, []);
 
-  (async function imageUpload(){
+  (async function imageUpload() {
     if (pickerResponse !== null && postImageURL === null) {
       const imageURL = await uploadPostImage(pickerResponse, user?.name);
       setPostImageURL(imageURL);
     }
-  })()
+  })();
   // console.log('hbvebvhvebjebvhvebejhbv', pickerResponse);
   return (
     <SafeAreaView style={styles.main}>
@@ -86,11 +93,11 @@ const CreatePost = ({navigation}: any) => {
       )}
       {pickerResponse && postImageURL && (
         <>
-          <Text style={styles.text}>Image :</Text>
+          <Text style={styles.text}>{t('Image')} :</Text>
           <Image style={styles.postImage} source={{uri: pickerResponse}} />
         </>
       )}
-      <Text style={styles.text}>Ask your Question : </Text>
+      <Text style={styles.text}>{t('Ask your Question')} : </Text>
       <View style={{...styles.input}}>
         <TextInput
           onChangeText={e => {
@@ -101,11 +108,11 @@ const CreatePost = ({navigation}: any) => {
           placeholder="Tell us more about your question."
         />
       </View>
-      <Text style={styles.text}>Add Photo :</Text>
+      <Text style={styles.text}>{t('Add Photo')} :</Text>
       <TouchableOpacity onPress={() => setShowModal(true)}>
         <Image style={styles.image} source={camera?.image} />
       </TouchableOpacity>
-      <Text style={styles.text}>Choose Crop : </Text>
+      <Text style={styles.text}>{t('Choose Crop')} : </Text>
       <ImagePickerModal
         isVisible={showModal}
         onClose={() => setShowModal(false)}
@@ -125,13 +132,13 @@ const CreatePost = ({navigation}: any) => {
             key={idx}
             style={{height: 100, width: 100, marginRight: 10}}>
             <Image key={idx} style={styles.image} source={{uri: crop?.image}} />
-            <Text style={{ marginLeft: 17, textTransform: 'capitalize'}}>
+            <Text style={{marginLeft: 17, textTransform: 'capitalize'}}>
               {crop?.name}
             </Text>
           </TouchableOpacity>
         );
       })}
-      <Button label="Submit" onPress={onCreatePostSubmitHandler} />
+      <Button label={t('Submit')} onPress={onCreatePostSubmitHandler} />
     </SafeAreaView>
   );
 };

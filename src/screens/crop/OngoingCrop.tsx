@@ -1,5 +1,13 @@
-import {Text, ScrollView, TouchableOpacity, View, Alert} from 'react-native';
+import {
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Alert,
+  StyleSheet,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {ActivityIndicator} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,6 +23,7 @@ import {height} from '../../utils/getDimensions';
 import FertilizerCalculator from '../../components/fertilizer';
 
 const OngoingCrop = ({route, navigation}: any) => {
+  const [t, i18n] = useTranslation();
   const {token} = useSelector((state: any) => state.tokenReducer);
   const {user} = useSelector((state: any) => state.metaDataReducer);
   const [currentCrop, setCurrentCrop]: any = useState();
@@ -54,6 +63,21 @@ const OngoingCrop = ({route, navigation}: any) => {
   };
   return (
     <>
+      <View style={styles.top}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back-outline"
+            size={30}
+            color="#fff"
+            style={{marginHorizontal: 10}}
+          />
+        </TouchableOpacity>
+        <View style={{marginLeft: 10}}>
+          <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
+            {t('On Going Crop')}
+          </Text>
+        </View>
+      </View>
       <View style={{height: height, backgroundColor: '#fff'}}>
         <View style={{backgroundColor: '#fff'}}>
           <CropProgress crop={crop} />
@@ -153,5 +177,16 @@ const OngoingCrop = ({route, navigation}: any) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  top: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 70,
+    backgroundColor: config.constants.primaryColor,
+    color: '#fff',
+  },
+});
 
 export default OngoingCrop;

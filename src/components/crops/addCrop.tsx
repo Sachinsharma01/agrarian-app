@@ -6,16 +6,18 @@ import {
   StyleSheet,
   Image,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import DatePicker from 'react-native-date-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import config from '../../config';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import dayjs from 'dayjs';
 import Button from '../button';
 
 const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
+  const [t] = useTranslation();
   const [dateOpen, setDateOpen] = useState(false);
   const [date, setDate] = useState(dayjs(new Date()).format('MMMM DD YYYY'));
   const [selectedDate, setSelectedDate]: any = useState(new Date());
@@ -38,7 +40,7 @@ const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
         }}
         source={{uri: selectedCrop?.image}}
       />
-      <Text style={styles.text}>Sowing Date</Text>
+      <Text style={styles.text}>{t('Sowing Date')}</Text>
       <View style={styles.dateWrapper}>
         <TextInput value={date + ''} style={styles.date} />
         <TouchableOpacity onPress={() => setDateOpen(true)}>
@@ -56,7 +58,6 @@ const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
           onConfirm={date => {
             setDateOpen(false);
             setDate(dayjs(date).format('MMMM DD YYYY'));
-            // console.log('dae pickerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', date)
             setSelectedDate(date);
           }}
           onCancel={() => {
@@ -64,14 +65,14 @@ const AddCrop = ({selectedCrop, onSubmit, loading}: any) => {
           }}
         />
       </View>
-      <Text style={styles.text}>Area</Text>
+      <Text style={styles.text}>{t('Area')}</Text>
       <TextInput
         placeholder="Hectare"
         style={{...styles.date, width: 100, marginLeft: 25}}
         keyboardType="numeric"
         onChangeText={(e: any) => setArea(e)}
       />
-      <Button label="Submit" onPress={() => onSubmit(area, selectedDate)} />
+      <Button label={t("Submit")} onPress={() => onSubmit(area, selectedDate)} />
     </SafeAreaView>
   );
 };

@@ -1,8 +1,6 @@
 import {
   TouchableOpacity,
   ActivityIndicator,
-  Linking,
-  Alert,
   ScrollView,
   View,
   Text,

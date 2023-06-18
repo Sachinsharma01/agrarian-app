@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     borderRightColor: config.constants.primaryColor,
     borderTopColor: config.constants.primaryColor,
     height: 300,
+    backgroundColor: "#fff"
   },
   imageContainer: {
     flex: 1,

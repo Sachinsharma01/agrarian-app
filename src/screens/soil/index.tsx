@@ -1,31 +1,58 @@
-import {View, Text, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import { db } from '../../firebase';
+import {useTranslation} from 'react-i18next';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {db} from '../../firebase';
 import {onValue, ref} from 'firebase/database';
 
 import config from '../../config';
 
-const SoilHealth = () => {
+const SoilHealth = ({navigation}: any) => {
+  const {t} = useTranslation();
   const [soil, setSoil]: any = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
     getSoilData();
   }, []);
-   function getSoilData() {
-     let getRef = ref(db, 'Mod1');
-     onValue(getRef, (snapshot: any) => {
-       console.log('firebase data', snapshot.val());
-       setSoil(snapshot.val());
-       setLoading(false);
-     });
-   }
+  function getSoilData() {
+    let getRef = ref(db, 'Mod1');
+    onValue(getRef, (snapshot: any) => {
+      console.log('firebase data', snapshot.val());
+      setSoil(snapshot.val());
+      setLoading(false);
+    });
+  }
   return (
     <SafeAreaView>
+      <View style={styles.top}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back-outline"
+            size={30}
+            color="#fff"
+            style={{marginHorizontal: 10}}
+          />
+        </TouchableOpacity>
+        <View style={{marginLeft: 10}}>
+          <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
+            {t('Back')}
+          </Text>
+        </View>
+      </View>
       <ScrollView>
         <View style={styles.soilCompositionContiner}>
           <View>
-            <Text style={styles.soilCompositionText}>Soil Composition</Text>
+            <Text style={styles.soilCompositionText}>
+              {t('Soil Composition')}
+            </Text>
             <View>
               <Text style={styles.soilCompositionData}>
                 Nitrogen (N) :{' '}
@@ -67,7 +94,9 @@ const SoilHealth = () => {
           </View>
           <View style={{marginTop: 25}}>
             <View>
-              <Text style={styles.soilCompositionText}>Farm Location</Text>
+              <Text style={styles.soilCompositionText}>
+                {t('Farm Location')}
+              </Text>
               <View style={styles.soilCompositionData}>
                 <Text style={styles.soilCompositionData}>
                   Altitude :{' '}
@@ -93,7 +122,9 @@ const SoilHealth = () => {
           <View style={{marginTop: 25}}>
             <View>
               <Text style={styles.soilCompositionText}>Alerts </Text>
-              <Text style={{color: '#000'}}>Currently you do not have any alerts. </Text>
+              <Text style={{color: '#000'}}>
+                {t('Currently you do not have any alerts.')}{' '}
+              </Text>
             </View>
           </View>
         </View>
@@ -103,6 +134,14 @@ const SoilHealth = () => {
 };
 
 const styles = StyleSheet.create({
+  top: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 70,
+    backgroundColor: config.constants.primaryColor,
+    color: '#fff',
+  },
   soilCompositionText: {
     color: '#000',
     fontWeight: 'bold',

@@ -33,9 +33,21 @@ const HomeStack = () => {
         component={Forecast}
         options={{headerTransparent: true, headerTintColor: '#fff'}}
       />
-      <Stack.Screen name="SoilHealth" component={SoilHealth} />
-      <Stack.Screen name="Crop" component={Crop} />
-      <Stack.Screen name="OngoingCrop" component={OngoingCrop} />
+      <Stack.Screen
+        name="SoilHealth"
+        component={SoilHealth}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Crop"
+        component={Crop}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="OngoingCrop"
+        component={OngoingCrop}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="Notifications"
         component={Notification}
@@ -60,7 +72,10 @@ const BottomTabNavigation = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {backgroundColor: config.constants.primaryColor, height: 50},
+        tabBarStyle: {
+          backgroundColor: config.constants.primaryColor,
+          height: 50,
+        },
         tabBarActiveTintColor: 'yellow',
         tabBarInactiveTintColor: '#fff',
         tabBarShowLabel: true,

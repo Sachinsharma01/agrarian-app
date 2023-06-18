@@ -28,6 +28,7 @@ import {logoNew} from '../../assets';
 import {height} from '../../utils/getDimensions';
 import CropHome from '../../components/crops/cropHome';
 import {setLang, getLang} from '../../utils/lang';
+import PopOverDialog from '../../components/PopOver';
 
 const Home = ({navigation}: any) => {
   LogBox.ignoreLogs([
@@ -97,7 +98,7 @@ const Home = ({navigation}: any) => {
     }
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: '#fff'}}>
       {loading ? (
         <ActivityIndicator size="large" color={config.constants.primaryColor} />
       ) : (
@@ -124,13 +125,18 @@ const Home = ({navigation}: any) => {
 
               <TouchableOpacity
                 onPress={changeHandler}
-                style={{paddingVertical: 15}}>
+                style={{
+                  paddingVertical: 15,
+                }}>
                 <FontAwesome
                   name="language"
                   size={20}
                   color="#fff"
-                  style={{paddingRight: 10}}
+                  style={{
+                    paddingRight: 10,
+                  }}
                 />
+                <PopOverDialog />
               </TouchableOpacity>
 
               <Ionicons
@@ -172,7 +178,7 @@ const Home = ({navigation}: any) => {
           <View style={{height: height - 130}}>
             <FlatList
               data={[
-                <CropHome />,
+                <CropHome navigation={navigation} />,
                 <View>
                   <Text
                     style={{

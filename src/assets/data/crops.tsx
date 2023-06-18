@@ -477,31 +477,31 @@ export const CropDataTransNurseryDamage = () => {
         {t(
           'Damping off disease causing pathogens require favourable conditions to invade and develop the symptoms.',
         )}
-        {'\n'} 2){' '}
+        {/* {'\n'} 2){' '}
         {
           'Over dosage of fertilisers provided in the soil make more prone to attack of collar rot.'
         }
         {'\n'} 3)
         {
           'Poor drainage with excess of water in the seed bed will leads to attack to collar rot.'
-        }
-        {'\n'} 4){' '}
+        } */}
+        {'\n'} 3){' '}
         {t(
           'Presence of disease-causing pathogens in the seed bed or soil due to poor land preparations cause damping off.',
         )}
-        {'\n'} 5){' '}
+        {'\n'} 4){' '}
         {t(
           'Poor quality seeds may be untreated, poorly treated or expired seeds have more chances of getting killed.',
         )}
-        {'\n'} 6){' '}
+        {'\n'} 5){' '}
         {t(
           'Use of contaminated implements to remove weeds and take up intercultural operations in seed bed and in the fields.',
         )}
-        {'\n'} 7){' '}
+        {'\n'} 6){' '}
         {t(
           'Poor weed management in the seed beds which may harbour the diseases which leads to damping off.',
         )}
-        {'\n'} 8)
+        {'\n'} 7)
         {t('Improper conditions for seeds to germinate.')}
       </Text>
       <Text

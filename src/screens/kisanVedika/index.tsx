@@ -58,7 +58,7 @@ const KisanVedika = ({navigation}: any) => {
         </TouchableOpacity>
         <View style={{marginLeft: 10}}>
           <Text style={{textAlign: 'center', color: '#fff', fontSize: 22}}>
-            Kisan Vedika
+            {t('Kisan Vedika')}
           </Text>
         </View>
         <TouchableOpacity
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default KisanVedika;
+export default React.memo(KisanVedika);

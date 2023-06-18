@@ -53,7 +53,7 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name={t('AgriStore')}
+        name={t('Agristore')}
         component={AgriStore}
         options={{
           headerShown: true,

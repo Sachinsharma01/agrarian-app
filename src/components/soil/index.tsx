@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
 import FeatherIcons from 'react-native-vector-icons/Feather';

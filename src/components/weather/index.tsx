@@ -15,6 +15,7 @@ import config from '../../config';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
 import {setUserLocation} from '../../redux/actions/locationActions';
+import { useTranslation } from 'react-i18next';
 
 const requestLocationPermission = async () => {
   try {
@@ -42,6 +43,7 @@ const requestLocationPermission = async () => {
 };
 
 const Weather = ({token, onPress}: any) => {
+  const {t} = useTranslation();
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState({});
   const [weather, setWeather]: any = useState({});
@@ -116,11 +118,11 @@ const Weather = ({token, onPress}: any) => {
               <View>
                 <Text style={{fontSize: 16, color: '#000'}}>
                   <FeatherIcons name="wind" size={20} color="skyblue" />
-                  &nbsp; Wind {weather?.current?.wind_kph} km/h
+                  &nbsp; {t('Wind')} {weather?.current?.wind_kph} km/h
                 </Text>
                 <Text style={{fontSize: 16, color: '#000'}}>
                   <FeatherIcons name="droplet" size={20} color="skyblue" />
-                  &nbsp; Humidity {weather?.current?.humidity} %
+                  &nbsp; {t('Humidity')} {weather?.current?.humidity} %
                 </Text>
               </View>
             </View>
@@ -143,7 +145,7 @@ const Weather = ({token, onPress}: any) => {
           alignItems: 'flex-end',
           flexDirection: 'row',
         }}>
-        <Text style={{fontSize: 18, color: '#000'}}>Forecast</Text>
+        <Text style={{fontSize: 18, color: '#000'}}>{t('Forecast')}</Text>
         <TouchableOpacity onPress={onPress}>
           <Ionicons
             name="cloudy-outline"
