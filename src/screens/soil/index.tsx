@@ -121,7 +121,7 @@ const SoilHealth = ({navigation}: any) => {
           </View>
           <View style={{marginTop: 25}}>
             <View>
-              <Text style={styles.soilCompositionText}>Alerts </Text>
+              <Text style={styles.soilCompositionText}>{t('Alerts')} </Text>
               <Text style={{color: '#000'}}>
                 {t('Currently you do not have any alerts.')}{' '}
               </Text>

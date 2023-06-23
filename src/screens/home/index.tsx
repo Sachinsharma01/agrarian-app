@@ -29,6 +29,7 @@ import {height} from '../../utils/getDimensions';
 import CropHome from '../../components/crops/cropHome';
 import {setLang, getLang} from '../../utils/lang';
 import PopOverDialog from '../../components/PopOver';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}: any) => {
   LogBox.ignoreLogs([
@@ -91,9 +92,11 @@ const Home = ({navigation}: any) => {
     const value = await getLang();
     if (value === 'en') {
       await i18n.changeLanguage('hi');
+      await AsyncStorage.setItem('show', 'true');
       await setLang('hi');
     } else {
       await i18n.changeLanguage('en');
+      await AsyncStorage.setItem('show', 'true');
       await setLang('en');
     }
   };
@@ -238,7 +241,6 @@ const styles = StyleSheet.create({
   },
   weather: {
     height: 110,
-    // flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
@@ -262,8 +264,6 @@ const styles = StyleSheet.create({
   },
   cropScroll: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   greeting: {
     justifyContent: 'space-between',

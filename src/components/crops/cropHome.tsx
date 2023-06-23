@@ -49,7 +49,7 @@ const CropHome = ({navigation}: any) => {
   };
   useEffect(() => {
     fetchUserCrops();
-    console.log('langgggggggggggggggggggggggggggg', language);
+    // console.log('langgggggggggggggggggggggggggggg', language);
   }, [reload]);
 
   const fetchUserCrops = async () => {
