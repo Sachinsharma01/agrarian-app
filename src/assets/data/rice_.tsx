@@ -10,7 +10,7 @@ export const Paddy = () => {
       style={{height: height - 270}}
       showsVerticalScrollIndicator={false}>
       <Text style={{fontSize: 20, fontWeight: 'bold', color: '#000'}}>
-        {t('Paddy')}
+        {t('Rice')}
       </Text>
       
       <Text style={{color: '#000', textAlign: 'justify'}}>
