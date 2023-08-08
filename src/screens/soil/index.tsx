@@ -11,23 +11,28 @@ import {useTranslation} from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {db} from '../../firebase';
 import {onValue, ref} from 'firebase/database';
-
+import {getNPKData} from '../../request';
 import config from '../../config';
 
 const SoilHealth = ({navigation}: any) => {
   const {t} = useTranslation();
   const [soil, setSoil]: any = useState({});
   const [loading, setLoading] = useState(false);
+  const [npkData, setNpkData] = useState({N: 'NA', P: 'NA', K: 'NA'});
   useEffect(() => {
     setLoading(true);
     getSoilData();
+    getNPKData().then((data: any) => {
+      setLoading(false);
+      setNpkData(data);
+    });
   }, []);
   function getSoilData() {
     let getRef = ref(db, 'Mod1');
     onValue(getRef, (snapshot: any) => {
       console.log('firebase data', snapshot.val());
       setSoil(snapshot.val());
-      setLoading(false);
+      // setLoading(false);
     });
   }
   return (
@@ -57,19 +62,19 @@ const SoilHealth = ({navigation}: any) => {
               <Text style={styles.soilCompositionData}>
                 Nitrogen (N) :{' '}
                 <Text style={{color: config.constants.primaryColor}}>
-                  {soil?.nitrogen}
+                  {npkData?.N} %
                 </Text>
               </Text>
               <Text style={styles.soilCompositionData}>
                 Phosphorus (P) :{' '}
                 <Text style={{color: config.constants.primaryColor}}>
-                  {soil?.phosphorus}
+                  {npkData?.P} %
                 </Text>
               </Text>
               <Text style={styles.soilCompositionData}>
                 Potassium (K) :{' '}
                 <Text style={{color: config.constants.primaryColor}}>
-                  {soil?.potassium}
+                  {npkData?.K} %
                 </Text>
               </Text>
               <Text style={styles.soilCompositionData}>
@@ -79,15 +84,15 @@ const SoilHealth = ({navigation}: any) => {
                 </Text>
               </Text>
               <Text style={styles.soilCompositionData}>
-                Humidity :{' '}
+                Humidity :
                 <Text style={{color: config.constants.primaryColor}}>
-                  {soil?.ATH?.HUM}
+                  {soil?.ATH?.HUM} g/m³
                 </Text>
               </Text>
               <Text style={styles.soilCompositionData}>
-                Temperature :{' '}
+                Temperature :
                 <Text style={{color: config.constants.primaryColor}}>
-                  {soil?.ATH?.TEMP}
+                  {soil?.ATH?.TEMP} &deg;C
                 </Text>
               </Text>
             </View>

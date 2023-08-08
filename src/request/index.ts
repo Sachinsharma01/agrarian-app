@@ -143,7 +143,7 @@ export const addPost = async (token: string, payload: any) => {
           cropImage: payload.crop.cropImage,
           cropId: payload.crop.cropId,
         },
-        image: payload.image
+        image: payload.image,
       },
       {
         headers: {
@@ -298,23 +298,23 @@ export const updatePost = async (token: string, postId: string) => {
 
 export const getALLNotifications = async (token: string, userId: string) => {
   try {
-    const res = await axiosInstance.get(
-      `/notification/?userId=${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
+    const res = await axiosInstance.get(`/notification/?userId=${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
     const data = await res.data;
     // console.log('All Notifications', data);
-    return data.data
+    return data.data;
   } catch (err) {
     // console.log('ERROR ocurred in like post');
   }
 };
 
-export const readNotification = async (token: string, payload: {notificationId: string}) => {
+export const readNotification = async (
+  token: string,
+  payload: {notificationId: string},
+) => {
   try {
     const res = await axiosInstance.put(
       `/notification/read/?notificationId=${payload?.notificationId}`,
@@ -322,13 +322,20 @@ export const readNotification = async (token: string, payload: {notificationId: 
       {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       },
     );
     const data = await res.data;
     // console.log('All Notifications', data);
-    return data.data
+    return data.data;
   } catch (err) {
     // console.log('ERROR ocurred read notification');
   }
+};
+
+export const getNPKData = async () => {
+  try {
+    const res = await axiosInstance.get('/firebase/npk');
+    return res.data?.data ?? {};
+  } catch (err) {}
 };
