@@ -7,29 +7,12 @@ import ProductItem from '../../components/product/ProductItem';
 const AgriStore = () => {
   return (
     <SafeAreaView>
-      {/* <ScrollView style={{height: height - 100, backgroundColor: '#fff'}}> */}
-      {/* <View
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
-          width: width,
-          flexWrap: 'wrap',
-          backgroundColor: '#fff',
-        }}> */}
-      <FlatList
-        
+      <FlatList   
         numColumns={2}
         data={products}
         renderItem={product => <ProductItem data={product} />}
         keyExtractor={(product: any) => product.id}
       />
-      {/* {products.map((product: any, idx: number) => {
-            return <ProductItem key={idx} data={product} />;
-          })} */}
-      {/* </View> */}
-      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };

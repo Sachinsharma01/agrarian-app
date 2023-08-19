@@ -33,9 +33,9 @@ export const CropDataNursery = () => {
         {t(
           'Light soils are good for an early crop, while clay loam and silt loam soils are well suited for heavy yields .',
         )}{' '}
-        {'\n'}●{t('Ph range')} :- 6.5-7.5{'\n'} ●{' '}
+        {'\n'}●{' '}{t('Ph range')} :- 6.5-7.5{'\n'} ●{' '}
         {t('If the acidic soil is acidic , liming is required.')} {'\n'}●{' '}
-        {t('Sufficient water availability')} {'\n'}●
+        {t('Sufficient water availability')} {'\n'}●{' '}
         {t('Removing crop residues.')} {'\n'}●{' '}
         {t(
           'Removal of stubbles if any in field planned to cultivate chilli crop.',

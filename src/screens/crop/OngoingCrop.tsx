@@ -6,7 +6,7 @@ import {
   Alert,
   StyleSheet,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {ActivityIndicator} from 'react-native-paper';
@@ -14,13 +14,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import CropProgress from '../../components/crops/cropProgress';
 import config from '../../config';
 import {getCropDetails} from '../../request';
-import {
-  CropDataNursery,
-  CropDataTransNurseryDamage,
-  CropDataTransPlanting,
-} from '../../assets/data/crops';
 import {height} from '../../utils/getDimensions';
 import FertilizerCalculator from '../../components/fertilizer';
+import getOngoingCrop from '../../utils/crop';
 
 const OngoingCrop = ({route, navigation}: any) => {
   const [t, i18n] = useTranslation();
@@ -46,11 +42,6 @@ const OngoingCrop = ({route, navigation}: any) => {
     setURL(data?.english[data?.categories[0]]);
   };
 
-  const setUrlOnSelect = (category: string) => {
-    const data = currentCrop?.english;
-    const url: string = data[category];
-    setURL(url);
-  };
   const cropDiseasesClickHandler = () => {
     if (user?.isPaid) {
       setActiveTab(5);
@@ -61,6 +52,11 @@ const OngoingCrop = ({route, navigation}: any) => {
       );
     }
   };
+
+  const ongoingCropComponent = useMemo(
+    () => getOngoingCrop(currentCrop?.name as string, tab as number),
+    [tab, currentCrop],
+  );
   return (
     <>
       <View style={styles.top}>
@@ -99,7 +95,6 @@ const OngoingCrop = ({route, navigation}: any) => {
                       <TouchableOpacity
                         onPress={() => {
                           setActiveTab(idx);
-                          setUrlOnSelect(category);
                           setTab(idx + 1);
                         }}
                         key={idx}
@@ -159,16 +154,13 @@ const OngoingCrop = ({route, navigation}: any) => {
                 </TouchableOpacity>
               </ScrollView>
             </View>
-            {/* <PDF url={URL} /> */}
             <View
               style={{
                 marginHorizontal: '6%',
                 marginTop: 10,
                 backgroundColor: '#fff',
               }}>
-              {tab === 1 && <CropDataNursery />}
-              {tab === 2 && <CropDataTransPlanting />}
-              {tab === 3 && <CropDataTransNurseryDamage />}
+              {tab >= 1 && tab <= 3 && ongoingCropComponent}
               {tab === 4 && <FertilizerCalculator />}
             </View>
           </>

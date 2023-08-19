@@ -16,6 +16,8 @@ import SoilHealth from '../screens/soil';
 import Cart from '../screens/cart';
 import Notification from '../screens/notification';
 import Ticket from '../screens/help/Ticket';
+import CropDirectory from '../screens/cropDirectory';
+import ShowCrop from '../screens/cropDirectory/showCrop';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -62,6 +64,11 @@ const HomeStack = () => {
         name="Ticket"
         component={Ticket}
         options={{headerShown: true}}
+      />
+      <Stack.Screen
+        name="ShowCrop"
+        component={ShowCrop}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -123,11 +130,11 @@ const BottomTabNavigation = () => {
       <Tab.Screen
         options={{
           tabBarIcon: ({color, size}) => (
-            <Ionicons name="ios-settings-outline" color={color} size={30} />
+            <Ionicons name="book" color={color} size={30} />
           ),
         }}
-        name={t('Settings')}
-        component={Settings}
+        name={t('Crops')}
+        component={CropDirectory}
       />
     </Tab.Navigator>
   );
