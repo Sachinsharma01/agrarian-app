@@ -4,16 +4,21 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  ToastAndroid,
+  Linking,
 } from 'react-native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import config from '../../config';
 
 const ProductItem = ({data}: any) => {
-  const[t, i18n] = useTranslation();
+  const [t, i18n] = useTranslation();
   return (
-    <View style={{...styles.container, borderRightWidth : data?.index % 2 !== 0 ? 0 : 0.7}} key={data?.index}>
+    <View
+      style={{
+        ...styles.container,
+        borderRightWidth: data?.index % 2 !== 0 ? 0 : 0.7,
+      }}
+      key={data?.index}>
       <View style={styles.imageContainer}>
         <Image source={data?.item?.image?.image} style={styles.image} />
       </View>
@@ -25,10 +30,7 @@ const ProductItem = ({data}: any) => {
           <Text
             style={{color: '#fff', textAlign: 'center'}}
             onPress={() => {
-              ToastAndroid.show(
-                'We are sorry, We are building our logistics till then this feature is not available.',
-                1,
-              );
+              Linking.openURL(`tel:${config.helplineNumber}`);
             }}>
             {t('Buy Now')}
           </Text>
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
     borderRightColor: config.constants.primaryColor,
     borderTopColor: config.constants.primaryColor,
     height: 300,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff',
   },
   imageContainer: {
     flex: 1,

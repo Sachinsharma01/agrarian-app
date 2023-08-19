@@ -56,10 +56,18 @@ const Crop = ({navigation}: any) => {
           </Text>
         </View>
       </View>
+      <>
+        <Text style={styles.text}>{t('Choose the Crop')}</Text>
+      </>
       {!crop ? (
-        <>
-          <Text style={styles.text}>{t('Choose the Crop')}</Text>
-          <ScrollView>
+        <ScrollView>
+          <View
+            style={{
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              flexDirection: 'row',
+              width: '100%',
+            }}>
             {crops?.map((crop: any, idx: number) => {
               return (
                 <TouchableOpacity
@@ -83,8 +91,8 @@ const Crop = ({navigation}: any) => {
                 </TouchableOpacity>
               );
             })}
-          </ScrollView>
-        </>
+          </View>
+        </ScrollView>
       ) : (
         <AddCrop
           loading={loading}
