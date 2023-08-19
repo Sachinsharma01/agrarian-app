@@ -3,7 +3,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {height} from '../../utils/getDimensions';
 
-export const CropDataNursery = () => {
+export const RiceCropDataNursery = () => {
   const {t, i18n} = useTranslation();
   return (
     <ScrollView
@@ -176,7 +176,7 @@ export const CropDataNursery = () => {
 };
 
 
-export const CropDataTransPlanting = () => {
+export const RiceCropDataTransPlanting = () => {
     const [t, i18n] = useTranslation();
     return (
       <ScrollView
@@ -230,11 +230,11 @@ export const CropDataTransPlanting = () => {
           {t('For fluffy paddy soils: compact the soil by passing 400kg stone roller or oil-drum with stones inside, eight times at proper moisture level (moisture level at friable condition of soil which is approximately 13 to18%) once in three years, to prevent the sinking of draught animals and workers during puddling.')}
           {'\n'} ●{' '}
           {t('For sodic soils with pH values of more than 8.5, plough at optimum moisture regime, apply gypsum at 50% gypsum requirement uniformly, impound water, provide drainage for leaching out soluble salts and apply green leaf manure at 5 t/ha, 10 to 15 days before transplanting. Mix 37.5kg of Zinc sulphate per ha with sand to make a total quantity of 75kg and spread the mixture uniformly on the leveled field. Do not incorporate the mixture in the soil. Rice under sodic soil responds well to these practices.')}
-        </Text>
         {'\n'} ●{' '}
         {t('For saline soils with EC values of more than 4 dS/m, provide lateral and main drainage channels (60cm deep and 45cm wide), apply green leaf manure at 5 t/ha at 10 to 15 days before transplanting and 25% extra dose of nitrogen in addition to recommended P and K and ZnSo4 at 37.5 kg/ha at planting.')}
         {'\n'} ●{' '}
         {t('For acid soils apply lime based on the soil analysis for obtaining normal rice yields. Lime is applied 2.5t/ha before last ploughing. Apply lime at this rate to each crop up to the 5th crop.',)}
+        </Text>
         <Text
           style={{
             fontSize: 17,
@@ -635,7 +635,7 @@ export const CropDataTransPlanting = () => {
 
 
 
-  export const CropDataTransNurseryDamage = () => {
+  export const RiceCropDataTransNurseryDamage = () => {
     const [t, i18n] = useTranslation();
     return (
       <ScrollView

@@ -3,7 +3,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {height} from '../../utils/getDimensions';
 
-export const CropDataNursery = () => {
+export const MaizeCropDataNursery = () => {
   const {t, i18n} = useTranslation();
   return (
     <ScrollView
@@ -151,7 +151,7 @@ export const CropDataNursery = () => {
 };
 
 
-export const CropDataTransPlanting = () => {
+export const MaizeCropDataTransPlanting = () => {
     const [t, i18n] = useTranslation();
     return (
       <ScrollView
@@ -249,7 +249,7 @@ export const CropDataTransPlanting = () => {
 
 
 
-  export const CropDataTransNurseryDamage = () => {
+  export const MaizeCropDataTransNurseryDamage = () => {
     const [t, i18n] = useTranslation();
     return (
       <ScrollView

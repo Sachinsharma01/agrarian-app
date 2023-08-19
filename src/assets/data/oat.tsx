@@ -7,7 +7,7 @@ export const Oat = () => {
   const {t, i18n} = useTranslation();
   return (
     <ScrollView
-      style={{height: height - 270}}
+      style={{height: height - 270, marginLeft: '2%'}}
       showsVerticalScrollIndicator={false}>
       <Text style={{fontSize: 20, fontWeight: 'bold', color: '#000'}}>
         {t('Oat')}

@@ -1,13 +1,13 @@
 import {Text, ScrollView} from 'react-native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {height} from '../../utils/getDimensions';
+import {height, width} from '../../utils/getDimensions';
 
 export const Brinjal = () => {
   const {t, i18n} = useTranslation();
   return (
     <ScrollView
-      style={{height: height - 270}}
+      style={{height: height - 270, marginLeft: '2%'}}
       showsVerticalScrollIndicator={false}>
       <Text style={{fontSize: 20, fontWeight: 'bold', color: '#000'}}>
         {t('Brinjal')}
@@ -25,7 +25,7 @@ export const Brinjal = () => {
           'Kingdom:- Plantae',
         )}{' '}
         {'\n'}●{' '}{t('Family:- Solanaceae')}
-        {'\n'} ●{' '}
+        {'\n'}●{' '}
         {t('Chromosome number 2n= 24')}
          {'\n'}●{' '}
         {t('Soil type: loose friable, well drained silt loam or clay loam soils rich in organic matter')}
