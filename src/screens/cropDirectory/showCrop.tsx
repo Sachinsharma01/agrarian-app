@@ -22,7 +22,7 @@ const ShowCrop = ({route, navigation}: any) => {
   return (
     <>
       <View style={styles.top}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate("Crops")}>
           <Ionicons
             name="arrow-back-outline"
             size={30}
@@ -47,7 +47,7 @@ const ShowCrop = ({route, navigation}: any) => {
           marginTop: 2,
           backgroundColor: '#fff',
           width: width,
-          height: height
+          height: height,
         }}>
         {chosenCropComponent}
       </View>
